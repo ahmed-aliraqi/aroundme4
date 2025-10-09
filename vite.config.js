@@ -1,13 +1,52 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
-import tailwindcss from '@tailwindcss/vite';
+import vue from '@vitejs/plugin-vue';
+import i18n from 'laravel-vue-i18n/vite';
 
 export default defineConfig({
     plugins: [
         laravel({
-            input: ['resources/css/app.css', 'resources/js/app.js'],
+            input: [
+                'resources/sass/sneat.scss',
+                'resources/js/ui/layout-config.js',
+                'resources/js/sneat.js',
+                'resources/templates/sneat/assets/js/main.js',
+                'resources/templates/sneat/assets/vendor/libs/jquery/jquery.js',
+                'resources/templates/sneat/assets/vendor/libs/popper/popper.js',
+                'resources/templates/sneat/assets/vendor/js/bootstrap.js',
+                'resources/templates/sneat/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js',
+                'resources/templates/sneat/assets/vendor/libs/hammer/hammer.js',
+                'resources/js/ui/menu.js',
+            ],
+            ssr: 'resources/js/sneat-ssr.js',
             refresh: true,
         }),
-        tailwindcss(),
+        vue({
+            template: {
+                transformAssetUrls: {
+                    base: null,
+                    includeAbsolute: false,
+                },
+            },
+        }),
+        i18n()
     ],
+    esbuild: {
+        legalComments: "none"
+    },
+    resolve: {
+        alias: {
+            '@lang': '/lang',
+            '@': '/resources/js',
+        },
+    },
+    build: {
+        chunkSizeWarningLimit: 3000,
+        rollupOptions: {
+            onwarn(warning, warn) {
+                if (warning.message.includes('eval')) return;
+                warn(warning);
+            },
+        },
+    },
 });

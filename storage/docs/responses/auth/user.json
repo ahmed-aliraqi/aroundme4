@@ -1,0 +1,14 @@
+{
+    "data": {
+        "id": 2,
+        "name": "John Doe",
+        "phone": "+966596653514",
+        "email": "uset@demo.com",
+        "avatar": "https://www.gravatar.com/avatar/6481069442a7fa27131987364d82b1ea?d=mm",
+        "created_at": {
+            "date": "2024-10-09",
+            "for_humans": "1 month ago",
+            "formatted": "Wed, Oct 9, 2024 3:50 AM"
+        }
+    }
+}

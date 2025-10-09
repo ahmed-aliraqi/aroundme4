@@ -1,0 +1,15 @@
+{
+    "data": {
+        "id": 1,
+        "name": "User",
+        "phone": "+966502944098",
+        "email": "user@demo.com",
+        "avatar": "https://www.gravatar.com/avatar/6481069442a7fa27131987364d82b1ea?d=mm",
+        "created_at": {
+            "date": "2024-07-30",
+            "for_humans": "1 week ago",
+            "formatted": "Tue, Jul 30, 2024 1:33 PM"
+        }
+    },
+    "access_token": "1|Pui7hEBYl4BpJdyFaPWtMFtBIeEIBsVoJDh4zjzD9941dae0"
+}

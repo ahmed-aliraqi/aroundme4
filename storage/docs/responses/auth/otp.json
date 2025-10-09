@@ -1,0 +1,6 @@
+{
+    "data": {
+        "message": "We sent a verification code to your mobile",
+        "token": "<<ENCRYPTED_TOKEN>>"
+    }
+}

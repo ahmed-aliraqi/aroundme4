@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\UserType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -26,10 +27,33 @@ class UserFactory extends Factory
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
+            'phone' => '+96655'.rand(1000000, 9999999),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
+            'type' => UserType::USER,
+            'language' => app()->getLocale(),
             'remember_token' => Str::random(10),
         ];
+    }
+
+    /**
+     * Indicate that the model's type should be admin.
+     */
+    public function admin(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'type' => UserType::ADMIN->value,
+        ]);
+    }
+
+    /**
+     * Indicate that the model's type should be user.
+     */
+    public function user(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'type' => UserType::USER->value,
+        ]);
     }
 
     /**

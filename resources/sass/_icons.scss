@@ -1,0 +1,15 @@
+/*!rtl:begin:options:
+{
+  "autoRename": true,
+  "stringMap":[
+      {
+      "name"    : "prev-next-left-right",
+      "search"  : ["prev", "next", "left", "right"],
+      "replace" : ["next", "prev", "right", "left"]
+      }
+  ]
+}
+*/
+
+@import 'boxicons/css/boxicons.min.css';
+/*!rtl:end:options*/

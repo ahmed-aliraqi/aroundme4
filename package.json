@@ -3,15 +3,36 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "build": "vite build",
-        "dev": "vite"
+        "build": "vite build && vite build --ssr",
+        "dev": "vite",
+        "format:js": "prettier --write \"resources/**/*.{js,vue}\"",
+        "format:css": "prettier --write \"resources/**/*.{css,scss}\"",
+        "format": "npm run format:js && npm run format:css"
     },
     "devDependencies": {
-        "@tailwindcss/vite": "^4.0.0",
-        "axios": "^1.11.0",
-        "concurrently": "^9.0.1",
+        "boxicons": "^2.1.4",
+        "@babel/preset-typescript": "^7.27.1",
+        "@inertiajs/vue3": "^2.2.6",
+        "@vitejs/plugin-vue": "^6.0.1",
+        "@vue/server-renderer": "^3.5.22",
+        "axios": "^1.9.0",
+        "eslint": "^9.28.0",
+        "eslint-config-prettier": "^10.1.5",
+        "eslint-plugin-vue": "^10.2.0",
         "laravel-vite-plugin": "^2.0.0",
-        "tailwindcss": "^4.0.0",
-        "vite": "^7.0.7"
+        "laravel-vue-i18n": "^2.8.0",
+        "postcss": "^8.4.31",
+        "prettier": "^3.5.3",
+        "resolve-url-loader": "^5.0.0",
+        "sass": "^1.89.0",
+        "sass-loader": "^12.6.0",
+        "ts-loader": "^9.5.2",
+        "typeahead.js": "^0.11.1",
+        "typescript": "^5.8.3",
+        "validatorjs": "^3.22.1",
+        "vite": "^7.0.7",
+        "vue": "^3.5.14",
+        "vue-loader": "^16.8.3",
+        "vuex": "^4.1.0"
     }
 }

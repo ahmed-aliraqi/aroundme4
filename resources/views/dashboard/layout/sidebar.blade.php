@@ -1,0 +1,13 @@
+<x-dashboard.sidebar.item :active="request()->routeIs('dashboard.home')" :link="route('dashboard.home')">
+    <x-slot:svg>
+        <svg class="menu-icon me-2" width="20" height="20" viewBox="0 0 24 24" fill="none"
+             xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="18" r="3" stroke="currentColor" stroke-width="1.5" />
+            <path d="M12 15V10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+            <path d="M22 13C22 7.47715 17.5228 3 12 3C6.47715 3 2 7.47715 2 13" stroke="currentColor" stroke-width="1.5"
+                  stroke-linecap="round" />
+        </svg>
+    </x-slot>
+    {{ __('dashboard.home') }}
+</x-dashboard.sidebar.item>
+@include('dashboard.settings.partials.sidebar')

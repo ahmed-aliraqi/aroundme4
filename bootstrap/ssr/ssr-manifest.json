@@ -1,0 +1,22 @@
+{
+  "\u0000plugin-vue:export-helper": [],
+  "lang/php_ar.json": [],
+  "lang/php_en.json": [],
+  "resources/js/components/Inputs/Text.vue": [],
+  "resources/js/data/supported-locales.ts": [],
+  "resources/js/layouts/dashboard/App.vue": [],
+  "resources/js/pages/About.vue": [],
+  "resources/js/pages/About.vue?vue&type=script&setup=true&lang.ts": [],
+  "resources/js/pages/Auth/Login.vue": [],
+  "resources/js/pages/Test.vue": [],
+  "resources/js/pages/Test.vue?vue&type=script&setup=true&lang.ts": [],
+  "resources/js/plugins/auth.js": [],
+  "resources/js/plugins/axios.js": [],
+  "resources/js/plugins/locales-manager.ts": [],
+  "resources/js/plugins/locales.js": [],
+  "resources/js/plugins/vue-ssr.js": [],
+  "resources/js/sneat-ssr.js": [],
+  "resources/js/store/index.js": [],
+  "resources/js/store/modules/auth.js": [],
+  "resources/js/ui/validation/digits-only.js": []
+}
