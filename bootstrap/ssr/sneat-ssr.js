@@ -1,10 +1,11 @@
-import { defineComponent, unref, withCtx, createVNode, useSSRContext, mergeProps, useAttrs, ref, computed, watch, inject, toDisplayString, createBlock, createCommentVNode, openBlock, onMounted, createSSRApp, h } from "vue";
-import { ssrRenderComponent, ssrRenderAttrs, ssrRenderSlot, ssrRenderAttr, ssrInterpolate, ssrGetDynamicModelProps, ssrRenderStyle, ssrIncludeBooleanAttr, ssrRenderList, ssrRenderClass } from "vue/server-renderer";
+import { defineComponent, unref, withCtx, createVNode, useSSRContext, mergeProps, useAttrs, ref, computed, watch, onMounted, inject, toDisplayString, createBlock, createCommentVNode, openBlock, createSSRApp, h } from "vue";
+import { ssrRenderComponent, ssrRenderAttrs, ssrRenderSlot, ssrRenderAttr, ssrInterpolate, ssrGetDynamicModelProps, ssrRenderClass, ssrRenderStyle, ssrIncludeBooleanAttr, ssrRenderList } from "vue/server-renderer";
 import { Head, router, useForm as useForm$1, Link, usePage, createInertiaApp } from "@inertiajs/vue3";
 import { trans, loadLanguageAsync, i18nVue } from "laravel-vue-i18n";
 import { route } from "ziggy-js";
 import Validator from "validatorjs";
 import { toast } from "vue3-toastify";
+import { parsePhoneNumberFromString } from "libphonenumber-js";
 import { createStore } from "vuex";
 import axios from "axios";
 import createServer from "@inertiajs/vue3/server";
@@ -28,7 +29,7 @@ if (typeof document !== "undefined") {
     });
   });
 }
-const _sfc_main$8 = /* @__PURE__ */ defineComponent({
+const _sfc_main$e = /* @__PURE__ */ defineComponent({
   __name: "About",
   __ssrInlineRender: true,
   setup(__props) {
@@ -50,15 +51,15 @@ const _sfc_main$8 = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const _sfc_setup$8 = _sfc_main$8.setup;
-_sfc_main$8.setup = (props, ctx) => {
+const _sfc_setup$e = _sfc_main$e.setup;
+_sfc_main$e.setup = (props, ctx) => {
   const ssrContext = useSSRContext();
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/pages/About.vue");
-  return _sfc_setup$8 ? _sfc_setup$8(props, ctx) : void 0;
+  return _sfc_setup$e ? _sfc_setup$e(props, ctx) : void 0;
 };
-const __vite_glob_0_0 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_0$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  default: _sfc_main$8
+  default: _sfc_main$e
 }, Symbol.toStringTag, { value: "Module" }));
 const _export_sfc = (sfc, props) => {
   const target = sfc.__vccOpts || sfc;
@@ -67,20 +68,20 @@ const _export_sfc = (sfc, props) => {
   }
   return target;
 };
-const _sfc_main$7 = {};
+const _sfc_main$d = {};
 function _sfc_ssrRender(_ctx, _push, _parent, _attrs) {
   _push(`<div${ssrRenderAttrs(mergeProps({ class: "authentication-wrapper authentication-cover" }, _attrs))}>`);
   ssrRenderSlot(_ctx.$slots, "default", {}, null, _push, _parent);
   _push(`</div>`);
 }
-const _sfc_setup$7 = _sfc_main$7.setup;
-_sfc_main$7.setup = (props, ctx) => {
+const _sfc_setup$d = _sfc_main$d.setup;
+_sfc_main$d.setup = (props, ctx) => {
   const ssrContext = useSSRContext();
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/layouts/Guest.vue");
-  return _sfc_setup$7 ? _sfc_setup$7(props, ctx) : void 0;
+  return _sfc_setup$d ? _sfc_setup$d(props, ctx) : void 0;
 };
-const Guest = /* @__PURE__ */ _export_sfc(_sfc_main$7, [["ssrRender", _sfc_ssrRender]]);
-const _sfc_main$6 = /* @__PURE__ */ Object.assign({
+const Guest = /* @__PURE__ */ _export_sfc(_sfc_main$d, [["ssrRender", _sfc_ssrRender]]);
+const _sfc_main$c = /* @__PURE__ */ Object.assign({
   name: "BsInput",
   inheritAttrs: false
 }, {
@@ -129,6 +130,7 @@ const _sfc_main$6 = /* @__PURE__ */ Object.assign({
     const computedId = computed(() => {
       return props.id || props.name;
     });
+    const showPassword = ref(false);
     const computedLabel = computed(() => {
       if (props.label) return props.label;
       const key = `${props.resource}.attributes.${props.name}`;
@@ -168,13 +170,21 @@ const _sfc_main$6 = /* @__PURE__ */ Object.assign({
             _push(`<!---->`);
           }
         }, _push, _parent);
-        _push(`<div class="input-group input-group-merge"><input${ssrRenderAttrs((_temp0 = mergeProps({ type: __props.type }, unref(attrs), {
+        _push(`<div class="input-group input-group-merge"><input${ssrRenderAttrs((_temp0 = mergeProps({
+          type: showPassword.value ? "text" : "password"
+        }, unref(attrs), {
           name: __props.name,
           id: computedId.value,
           placeholder: computedPlaceholder.value,
           class: ["form-control", { "is-invalid": !!__props.error }],
           "aria-describedby": "password"
-        }), mergeProps(_temp0, ssrGetDynamicModelProps(_temp0, model.value))))}><span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span></div></div>`);
+        }), mergeProps(_temp0, ssrGetDynamicModelProps(_temp0, model.value))))}><span class="input-group-text cursor-pointer">`);
+        if (!showPassword.value) {
+          _push(`<i class="bx bx-hide"></i>`);
+        } else {
+          _push(`<i class="bx bx-show"></i>`);
+        }
+        _push(`</span></div></div>`);
       } else {
         _push(`<div${ssrRenderAttrs(mergeProps({ class: "mb-3" }, _attrs))}>`);
         ssrRenderSlot(_ctx.$slots, "label", { label: computedLabel.value }, () => {
@@ -205,13 +215,13 @@ const _sfc_main$6 = /* @__PURE__ */ Object.assign({
     };
   }
 });
-const _sfc_setup$6 = _sfc_main$6.setup;
-_sfc_main$6.setup = (props, ctx) => {
+const _sfc_setup$c = _sfc_main$c.setup;
+_sfc_main$c.setup = (props, ctx) => {
   const ssrContext = useSSRContext();
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/components/Form/BsInput.vue");
-  return _sfc_setup$6 ? _sfc_setup$6(props, ctx) : void 0;
+  return _sfc_setup$c ? _sfc_setup$c(props, ctx) : void 0;
 };
-const _sfc_main$5 = /* @__PURE__ */ Object.assign({
+const _sfc_main$b = /* @__PURE__ */ Object.assign({
   name: "BsCheckbox",
   inheritAttrs: false
 }, {
@@ -287,11 +297,11 @@ const _sfc_main$5 = /* @__PURE__ */ Object.assign({
     };
   }
 });
-const _sfc_setup$5 = _sfc_main$5.setup;
-_sfc_main$5.setup = (props, ctx) => {
+const _sfc_setup$b = _sfc_main$b.setup;
+_sfc_main$b.setup = (props, ctx) => {
   const ssrContext = useSSRContext();
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/components/Form/BsCheckbox.vue");
-  return _sfc_setup$5 ? _sfc_setup$5(props, ctx) : void 0;
+  return _sfc_setup$b ? _sfc_setup$b(props, ctx) : void 0;
 };
 const ar = {
   accepted: "يجب قبول حقل :attribute.",
@@ -632,7 +642,6 @@ class LocaleEntity {
   }
 }
 class Locales {
-  // Currently active locale
   /**
    * Initializes the Locales manager.
    * - Converts LocaleEntityData array into LocaleEntity instances.
@@ -643,11 +652,8 @@ class Locales {
     this.locales = supportedLocales2.map((locale) => new LocaleEntity(locale));
     const lang = typeof document !== "undefined" ? document.documentElement.lang : "";
     const found = this.locales.find((locale) => locale.getCode() === lang);
-    this.currentLocale = found ?? this.locales[0];
+    this.currentLocale = found || this.locales[0];
   }
-  locales;
-  // Array of LocaleEntity instances
-  currentLocale;
   // Returns all available locales
   get() {
     return this.locales;
@@ -667,6 +673,7 @@ class Locales {
       this.currentLocale = locale;
       router.get(route("locale.change", locale.getCode()));
       loadLanguageAsync(locale.getCode());
+      Validator.useLang(locale.getCode());
       if (typeof document !== "undefined") {
         document.documentElement.lang = locale.getCode();
         document.documentElement.dir = locale.getDir();
@@ -801,7 +808,301 @@ function useForm(initialData) {
   };
   return form;
 }
-const _sfc_main$4 = /* @__PURE__ */ Object.assign({
+const __vite_glob_0_0 = "/build/assets/core-dark-DDiK0JY9.css";
+const __vite_glob_0_1$1 = "/build/assets/core-BYUzetZq.css";
+const __vite_glob_0_2$1 = "/build/assets/theme-bordered-dark-Cy2BfozZ.css";
+const __vite_glob_0_3$1 = "/build/assets/theme-bordered-BQhxUDw1.css";
+const __vite_glob_0_4$1 = "/build/assets/theme-default-dark-BD91TPYn.css";
+const __vite_glob_0_5$1 = "/build/assets/theme-default-b4iX8O4u.css";
+const __vite_glob_0_6$1 = "/build/assets/theme-raspberry-dark-Obso24AM.css";
+const __vite_glob_0_7$1 = "/build/assets/theme-raspberry-Ik-vYRDR.css";
+const __vite_glob_0_8$1 = "/build/assets/theme-semi-dark-dark-DJGN76ff.css";
+const __vite_glob_0_9 = "/build/assets/theme-semi-dark-CU0FnSij.css";
+function useTheme() {
+  const theme = ref("light");
+  const pageLoaded = ref(false);
+  function resolveMode(mode) {
+    if (mode === "system") {
+      return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    return mode;
+  }
+  function applyTheme(mode) {
+    pageLoaded.value = false;
+    const resolved = resolveMode(mode);
+    const html = document.documentElement;
+    html.setAttribute("data-mode", resolved);
+    localStorage.setItem("theme", mode);
+    theme.value = mode;
+    document.querySelectorAll("link[data-theme-style]").forEach((link) => link.remove());
+    const themeStyles = /* @__PURE__ */ Object.assign({
+      "/resources/templates/sneat/assets/vendor/css/rtl/core-dark.css": __vite_glob_0_0,
+      "/resources/templates/sneat/assets/vendor/css/rtl/core.css": __vite_glob_0_1$1,
+      "/resources/templates/sneat/assets/vendor/css/rtl/theme-bordered-dark.css": __vite_glob_0_2$1,
+      "/resources/templates/sneat/assets/vendor/css/rtl/theme-bordered.css": __vite_glob_0_3$1,
+      "/resources/templates/sneat/assets/vendor/css/rtl/theme-default-dark.css": __vite_glob_0_4$1,
+      "/resources/templates/sneat/assets/vendor/css/rtl/theme-default.css": __vite_glob_0_5$1,
+      "/resources/templates/sneat/assets/vendor/css/rtl/theme-raspberry-dark.css": __vite_glob_0_6$1,
+      "/resources/templates/sneat/assets/vendor/css/rtl/theme-raspberry.css": __vite_glob_0_7$1,
+      "/resources/templates/sneat/assets/vendor/css/rtl/theme-semi-dark-dark.css": __vite_glob_0_8$1,
+      "/resources/templates/sneat/assets/vendor/css/rtl/theme-semi-dark.css": __vite_glob_0_9
+    });
+    const styles = resolved === "dark" ? [themeStyles["/resources/templates/sneat/assets/vendor/css/rtl/core-dark.css"], themeStyles["/resources/templates/sneat/assets/vendor/css/rtl/theme-default-dark.css"]] : [];
+    for (const href of styles) {
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = href;
+      link.dataset.themeStyle = resolved;
+      document.head.appendChild(link);
+    }
+    html.classList.remove("light-style");
+    html.classList.remove("dark-style");
+    html.classList.add(resolved + "-style");
+    pageLoaded.value = true;
+  }
+  onMounted(() => {
+    const saved = localStorage.getItem("theme") || "system";
+    theme.value = saved;
+    applyTheme(saved);
+  });
+  return { theme, applyTheme, resolveMode, pageLoaded };
+}
+const _sfc_main$a = {
+  __name: "StyleSwitcher",
+  __ssrInlineRender: true,
+  setup(__props) {
+    const { theme } = useTheme();
+    return (_ctx, _push, _parent, _attrs) => {
+      _push(`<!--[--><button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" data-v-57dc0ec7>`);
+      if (unref(theme) === "light") {
+        _push(`<i class="bx bx-sun bx-sm" data-v-57dc0ec7></i>`);
+      } else {
+        _push(`<!---->`);
+      }
+      if (unref(theme) === "dark") {
+        _push(`<i class="bx bx-moon bx-sm" data-v-57dc0ec7></i>`);
+      } else {
+        _push(`<!---->`);
+      }
+      if (unref(theme) === "system") {
+        _push(`<i class="bx bx-desktop bx-sm" data-v-57dc0ec7></i>`);
+      } else {
+        _push(`<!---->`);
+      }
+      _push(`</button><ul class="dropdown-menu" data-v-57dc0ec7><li data-v-57dc0ec7><a class="${ssrRenderClass([{ active: unref(theme) === "light" }, "dropdown-item"])}" href="javascript:void(0);" data-v-57dc0ec7><span class="align-middle" data-v-57dc0ec7><i class="bx bx-sun me-2" data-v-57dc0ec7></i>${ssrInterpolate(_ctx.$t("actions.mode.light"))}</span></a></li><li data-v-57dc0ec7><a class="${ssrRenderClass([{ active: unref(theme) === "dark" }, "dropdown-item"])}" href="javascript:void(0);" data-v-57dc0ec7><span class="align-middle" data-v-57dc0ec7><i class="bx bx-moon me-2" data-v-57dc0ec7></i>${ssrInterpolate(_ctx.$t("actions.mode.dark"))}</span></a></li><li data-v-57dc0ec7><a class="${ssrRenderClass([{ active: unref(theme) === "system" }, "dropdown-item"])}" href="javascript:void(0);" data-v-57dc0ec7><span class="align-middle" data-v-57dc0ec7><i class="bx bx-desktop me-2" data-v-57dc0ec7></i>${ssrInterpolate(_ctx.$t("actions.mode.system"))}</span></a></li></ul><!--]-->`);
+    };
+  }
+};
+const _sfc_setup$a = _sfc_main$a.setup;
+_sfc_main$a.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/components/Guest/StyleSwitcher.vue");
+  return _sfc_setup$a ? _sfc_setup$a(props, ctx) : void 0;
+};
+const StyleSwitcher = /* @__PURE__ */ _export_sfc(_sfc_main$a, [["__scopeId", "data-v-57dc0ec7"]]);
+const _sfc_main$9 = /* @__PURE__ */ Object.assign({
+  name: "ConfirmPassword",
+  layout: Guest
+}, {
+  __name: "ConfirmPassword",
+  __ssrInlineRender: true,
+  props: ["app", "config"],
+  setup(__props) {
+    const locales2 = inject("$locales");
+    const form = useForm({
+      password: ""
+    });
+    return (_ctx, _push, _parent, _attrs) => {
+      _push(`<!--[-->`);
+      _push(ssrRenderComponent(unref(Head), null, {
+        default: withCtx((_, _push2, _parent2, _scopeId) => {
+          if (_push2) {
+            _push2(`<title${_scopeId}>${ssrInterpolate(_ctx.$t("auth.confirm_password.page_title"))} | ${ssrInterpolate(__props.app.name)}</title>`);
+          } else {
+            return [
+              createVNode("title", null, toDisplayString(_ctx.$t("auth.confirm_password.page_title")) + " | " + toDisplayString(__props.app.name), 1)
+            ];
+          }
+        }),
+        _: 1
+      }, _parent));
+      _push(`<div class="authentication-inner row m-0"><div class="d-none d-lg-flex col-lg-7 col-xl-8 align-items-center p-5"><div class="w-100 d-flex justify-content-center"><img${ssrRenderAttr("src", __props.config.banner)} class="img-fluid" alt="Confirm Password image" width="700"></div></div><div class="d-flex col-12 col-lg-5 col-xl-4 align-items-center authentication-bg p-sm-5 p-4"><div class="w-px-400 mx-auto"><div class="app-brand mb-5">`);
+      _push(ssrRenderComponent(unref(Link), {
+        href: unref(route)("dashboard.home"),
+        class: "app-brand-link gap-2"
+      }, {
+        default: withCtx((_, _push2, _parent2, _scopeId) => {
+          if (_push2) {
+            if (__props.app.logo) {
+              _push2(`<span class="app-brand-logo demo"${_scopeId}><img${ssrRenderAttr("src", __props.app.logo)} class="mw-100" style="${ssrRenderStyle({ "height": "60px" })}"${ssrRenderAttr("alt", __props.app.name)}${_scopeId}></span>`);
+            } else {
+              _push2(`<!---->`);
+            }
+            _push2(`<span class="app-brand-text demo text-body fw-bold text-uppercase"${_scopeId}>${ssrInterpolate(__props.app.name)}</span>`);
+          } else {
+            return [
+              __props.app.logo ? (openBlock(), createBlock("span", {
+                key: 0,
+                class: "app-brand-logo demo"
+              }, [
+                createVNode("img", {
+                  src: __props.app.logo,
+                  class: "mw-100",
+                  style: { "height": "60px" },
+                  alt: __props.app.name
+                }, null, 8, ["src", "alt"])
+              ])) : createCommentVNode("", true),
+              createVNode("span", { class: "app-brand-text demo text-body fw-bold text-uppercase" }, toDisplayString(__props.app.name), 1)
+            ];
+          }
+        }),
+        _: 1
+      }, _parent));
+      _push(`</div><h4 class="mb-2">${ssrInterpolate(_ctx.$t("auth.confirm_password.title", { app: __props.app.name }))}</h4><p class="mb-4">${ssrInterpolate(_ctx.$t("auth.confirm_password.subtitle"))}</p><form id="formAuthentication" class="mb-3" action="" method="POST">`);
+      _push(ssrRenderComponent(_sfc_main$c, {
+        resource: "auth.confirm_password",
+        type: "password",
+        name: "password",
+        modelValue: unref(form).password,
+        "onUpdate:modelValue": ($event) => unref(form).password = $event,
+        error: unref(form).errors.password
+      }, null, _parent));
+      _push(`<button type="submit" class="btn btn-primary d-grid w-100"${ssrIncludeBooleanAttr(unref(form).processing) ? " disabled" : ""}>${ssrInterpolate(_ctx.$t("auth.confirm_password.actions.submit"))}</button></form><p class="text-center"><!--[-->`);
+      ssrRenderList(unref(locales2).get(), (locale) => {
+        _push(`<!--[-->`);
+        if (unref(locales2).current().getCode() === locale.getCode()) {
+          _push(`<span class="text-muted d-inline-block me-2"><span class="me-1">${locale.getSvgFlag(20, 20) ?? ""}</span> ${ssrInterpolate(locale.getName())}</span>`);
+        } else {
+          _push(`<a class="d-inline-block me-2"${ssrRenderAttr("href", unref(route)("locale.change", locale.getCode()))}><span class="me-1">${locale.getSvgFlag(20, 20) ?? ""}</span> ${ssrInterpolate(locale.getName())}</a>`);
+        }
+        _push(`<!--]-->`);
+      });
+      _push(`<!--]--></p><div class="text-center">`);
+      _push(ssrRenderComponent(StyleSwitcher, null, null, _parent));
+      _push(`</div></div></div></div><!--]-->`);
+    };
+  }
+});
+const _sfc_setup$9 = _sfc_main$9.setup;
+_sfc_main$9.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/pages/Auth/ConfirmPassword.vue");
+  return _sfc_setup$9 ? _sfc_setup$9(props, ctx) : void 0;
+};
+const __vite_glob_0_1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: _sfc_main$9
+}, Symbol.toStringTag, { value: "Module" }));
+const _sfc_main$8 = /* @__PURE__ */ Object.assign({
+  name: "ForgetPassword",
+  layout: Guest
+}, {
+  __name: "ForgetPassword",
+  __ssrInlineRender: true,
+  props: ["app", "config", "flash"],
+  setup(__props) {
+    const locales2 = inject("$locales");
+    const form = useForm({
+      email: ""
+    });
+    return (_ctx, _push, _parent, _attrs) => {
+      _push(`<!--[-->`);
+      _push(ssrRenderComponent(unref(Head), null, {
+        default: withCtx((_, _push2, _parent2, _scopeId) => {
+          if (_push2) {
+            _push2(`<title${_scopeId}>${ssrInterpolate(_ctx.$t("auth.forget_password.page_title"))} | ${ssrInterpolate(__props.app.name)}</title>`);
+          } else {
+            return [
+              createVNode("title", null, toDisplayString(_ctx.$t("auth.forget_password.page_title")) + " | " + toDisplayString(__props.app.name), 1)
+            ];
+          }
+        }),
+        _: 1
+      }, _parent));
+      _push(`<div class="authentication-inner row m-0"><div class="d-none d-lg-flex col-lg-7 col-xl-8 align-items-center p-5"><div class="w-100 d-flex justify-content-center"><img${ssrRenderAttr("src", __props.config.banner)} class="img-fluid" alt="Forget Password image" width="700"></div></div><div class="d-flex col-12 col-lg-5 col-xl-4 align-items-center authentication-bg p-sm-5 p-4"><div class="w-px-400 mx-auto"><div class="app-brand mb-5">`);
+      _push(ssrRenderComponent(unref(Link), {
+        href: unref(route)("dashboard.home"),
+        class: "app-brand-link gap-2"
+      }, {
+        default: withCtx((_, _push2, _parent2, _scopeId) => {
+          if (_push2) {
+            if (__props.app.logo) {
+              _push2(`<span class="app-brand-logo demo"${_scopeId}><img${ssrRenderAttr("src", __props.app.logo)} class="mw-100" style="${ssrRenderStyle({ "height": "60px" })}"${ssrRenderAttr("alt", __props.app.name)}${_scopeId}></span>`);
+            } else {
+              _push2(`<!---->`);
+            }
+            _push2(`<span class="app-brand-text demo text-body fw-bold text-uppercase"${_scopeId}>${ssrInterpolate(__props.app.name)}</span>`);
+          } else {
+            return [
+              __props.app.logo ? (openBlock(), createBlock("span", {
+                key: 0,
+                class: "app-brand-logo demo"
+              }, [
+                createVNode("img", {
+                  src: __props.app.logo,
+                  class: "mw-100",
+                  style: { "height": "60px" },
+                  alt: __props.app.name
+                }, null, 8, ["src", "alt"])
+              ])) : createCommentVNode("", true),
+              createVNode("span", { class: "app-brand-text demo text-body fw-bold text-uppercase" }, toDisplayString(__props.app.name), 1)
+            ];
+          }
+        }),
+        _: 1
+      }, _parent));
+      _push(`</div><h4 class="mb-2">${ssrInterpolate(_ctx.$t("auth.forget_password.title", { app: __props.app.name }))}</h4><p class="mb-4">${ssrInterpolate(_ctx.$t("auth.forget_password.subtitle"))}</p><form id="formAuthentication" class="mb-3" action="" method="POST">`);
+      _push(ssrRenderComponent(_sfc_main$c, {
+        resource: "auth.forget_password",
+        type: "text",
+        name: "email",
+        modelValue: unref(form).email,
+        "onUpdate:modelValue": ($event) => unref(form).email = $event,
+        autofocus: "",
+        error: unref(form).errors.email
+      }, null, _parent));
+      _push(`<button type="submit" class="btn btn-primary d-grid w-100"${ssrIncludeBooleanAttr(unref(form).processing) ? " disabled" : ""}>${ssrInterpolate(_ctx.$t("auth.forget_password.actions.submit"))}</button></form><p class="text-center">`);
+      _push(ssrRenderComponent(unref(Link), {
+        href: unref(route)("login")
+      }, {
+        default: withCtx((_, _push2, _parent2, _scopeId) => {
+          if (_push2) {
+            _push2(`<span${_scopeId}>${ssrInterpolate(_ctx.$t("auth.forget_password.actions.login"))}</span>`);
+          } else {
+            return [
+              createVNode("span", null, toDisplayString(_ctx.$t("auth.forget_password.actions.login")), 1)
+            ];
+          }
+        }),
+        _: 1
+      }, _parent));
+      _push(`</p><p class="text-center"><!--[-->`);
+      ssrRenderList(unref(locales2).get(), (locale) => {
+        _push(`<!--[-->`);
+        if (unref(locales2).current().getCode() === locale.getCode()) {
+          _push(`<span class="text-muted d-inline-block me-2"><span class="me-1">${locale.getSvgFlag(20, 20) ?? ""}</span> ${ssrInterpolate(locale.getName())}</span>`);
+        } else {
+          _push(`<a class="d-inline-block me-2"${ssrRenderAttr("href", unref(route)("locale.change", locale.getCode()))}><span class="me-1">${locale.getSvgFlag(20, 20) ?? ""}</span> ${ssrInterpolate(locale.getName())}</a>`);
+        }
+        _push(`<!--]-->`);
+      });
+      _push(`<!--]--></p><div class="text-center">`);
+      _push(ssrRenderComponent(StyleSwitcher, null, null, _parent));
+      _push(`</div></div></div></div><!--]-->`);
+    };
+  }
+});
+const _sfc_setup$8 = _sfc_main$8.setup;
+_sfc_main$8.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/pages/Auth/ForgetPassword.vue");
+  return _sfc_setup$8 ? _sfc_setup$8(props, ctx) : void 0;
+};
+const __vite_glob_0_2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: _sfc_main$8
+}, Symbol.toStringTag, { value: "Module" }));
+const _sfc_main$7 = /* @__PURE__ */ Object.assign({
   name: "Login",
   layout: Guest
 }, {
@@ -862,7 +1163,7 @@ const _sfc_main$4 = /* @__PURE__ */ Object.assign({
         _: 1
       }, _parent));
       _push(`</div><h4 class="mb-2">${ssrInterpolate(_ctx.$t("auth.login.title", { app: __props.app.name }))}</h4><p class="mb-4">${ssrInterpolate(_ctx.$t("auth.login.subtitle"))}</p><form id="formAuthentication" class="mb-3" action="" method="POST">`);
-      _push(ssrRenderComponent(_sfc_main$6, {
+      _push(ssrRenderComponent(_sfc_main$c, {
         resource: "auth.login",
         type: "text",
         name: "email",
@@ -871,7 +1172,7 @@ const _sfc_main$4 = /* @__PURE__ */ Object.assign({
         autofocus: "",
         error: unref(form).errors.email
       }, null, _parent));
-      _push(ssrRenderComponent(_sfc_main$6, {
+      _push(ssrRenderComponent(_sfc_main$c, {
         resource: "auth.login",
         type: "password",
         name: "password",
@@ -918,7 +1219,7 @@ const _sfc_main$4 = /* @__PURE__ */ Object.assign({
         }),
         _: 1
       }, _parent));
-      _push(ssrRenderComponent(_sfc_main$5, {
+      _push(ssrRenderComponent(_sfc_main$b, {
         resource: "auth.login",
         name: "remember",
         modelValue: unref(form).remember,
@@ -956,21 +1257,2739 @@ const _sfc_main$4 = /* @__PURE__ */ Object.assign({
         }
         _push(`<!--]-->`);
       });
-      _push(`<!--]--></p></div></div></div><!--]-->`);
+      _push(`<!--]--></p><div class="text-center">`);
+      _push(ssrRenderComponent(StyleSwitcher, null, null, _parent));
+      _push(`</div></div></div></div><!--]-->`);
     };
   }
 });
-const _sfc_setup$4 = _sfc_main$4.setup;
-_sfc_main$4.setup = (props, ctx) => {
+const _sfc_setup$7 = _sfc_main$7.setup;
+_sfc_main$7.setup = (props, ctx) => {
   const ssrContext = useSSRContext();
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/pages/Auth/Login.vue");
-  return _sfc_setup$4 ? _sfc_setup$4(props, ctx) : void 0;
+  return _sfc_setup$7 ? _sfc_setup$7(props, ctx) : void 0;
 };
-const __vite_glob_0_1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  default: _sfc_main$4
+  default: _sfc_main$7
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3 = /* @__PURE__ */ Object.assign({
+const countriesData = [
+  {
+    "name_en": "Aruba",
+    "name_ar": "أروبا",
+    "code": "AW",
+    "flag": "🇦🇼",
+    "dial_code": "+297",
+    "phone_placeholder": "5XX XXXX",
+    "max_digits": 7,
+    "prefix": "5"
+  },
+  {
+    "name_en": "Afghanistan",
+    "name_ar": "أفغانستان",
+    "code": "AF",
+    "flag": "🇦🇫",
+    "dial_code": "+93",
+    "phone_placeholder": "7X XXX XXXX",
+    "max_digits": 9,
+    "prefix": "7"
+  },
+  {
+    "name_en": "Angola",
+    "name_ar": "أنغولا",
+    "code": "AO",
+    "flag": "🇦🇴",
+    "dial_code": "+244",
+    "phone_placeholder": "9XX XXX XXX",
+    "max_digits": 9,
+    "prefix": "9"
+  },
+  {
+    "name_en": "Anguilla",
+    "name_ar": "أنغويلا",
+    "code": "AI",
+    "flag": "🇦🇮",
+    "dial_code": "+1",
+    "phone_placeholder": "264 XXX XXXX",
+    "max_digits": 10,
+    "prefix": "264"
+  },
+  {
+    "name_en": "Åland Islands",
+    "name_ar": "جزر أولاند",
+    "code": "AX",
+    "flag": "🇦🇽",
+    "dial_code": "+358",
+    "phone_placeholder": "18 XXX XXX",
+    "max_digits": 8,
+    "prefix": "18"
+  },
+  {
+    "name_en": "Albania",
+    "name_ar": "ألبانيا",
+    "code": "AL",
+    "flag": "🇦🇱",
+    "dial_code": "+355",
+    "phone_placeholder": "6X XXX XXXX",
+    "max_digits": 9,
+    "prefix": "6"
+  },
+  {
+    "name_en": "Andorra",
+    "name_ar": "أندورا",
+    "code": "AD",
+    "flag": "🇦🇩",
+    "dial_code": "+376",
+    "phone_placeholder": "XXX XXX",
+    "max_digits": 6,
+    "prefix": ""
+  },
+  {
+    "name_en": "United Arab Emirates",
+    "name_ar": "الإمارات العربية المتحدة",
+    "code": "AE",
+    "flag": "🇦🇪",
+    "dial_code": "+971",
+    "phone_placeholder": "5X XXX XXXX",
+    "max_digits": 9,
+    "prefix": "5"
+  },
+  {
+    "name_en": "Argentina",
+    "name_ar": "الأرجنتين",
+    "code": "AR",
+    "flag": "🇦🇷",
+    "dial_code": "+54",
+    "phone_placeholder": "9 11 XXXX XXXX",
+    "max_digits": 11,
+    "prefix": "9"
+  },
+  {
+    "name_en": "Armenia",
+    "name_ar": "أرمينيا",
+    "code": "AM",
+    "flag": "🇦🇲",
+    "dial_code": "+374",
+    "phone_placeholder": "9X XXX XXX",
+    "max_digits": 8,
+    "prefix": "9"
+  },
+  {
+    "name_en": "American Samoa",
+    "name_ar": "ساموا الأمريكية",
+    "code": "AS",
+    "flag": "🇦🇸",
+    "dial_code": "+1",
+    "phone_placeholder": "684 XXX XXXX",
+    "max_digits": 10,
+    "prefix": "684"
+  },
+  {
+    "name_en": "Antarctica",
+    "name_ar": "أنتاركتيكا",
+    "code": "AQ",
+    "flag": "🇦🇶",
+    "dial_code": "+0",
+    "phone_placeholder": "XXXXXXXX",
+    "max_digits": 8,
+    "prefix": ""
+  },
+  {
+    "name_en": "French Southern Territories",
+    "name_ar": "المقاطعات الجنوبية الفرنسية",
+    "code": "TF",
+    "flag": "🇹🇫",
+    "dial_code": "+0",
+    "phone_placeholder": "XXX XXXX",
+    "max_digits": 7,
+    "prefix": ""
+  },
+  {
+    "name_en": "Antigua and Barbuda",
+    "name_ar": "أنتيغوا وباربودا",
+    "code": "AG",
+    "flag": "🇦🇬",
+    "dial_code": "+1",
+    "phone_placeholder": "268 XXX XXXX",
+    "max_digits": 10,
+    "prefix": "268"
+  },
+  {
+    "name_en": "Australia",
+    "name_ar": "أستراليا",
+    "code": "AU",
+    "flag": "🇦🇺",
+    "dial_code": "+61",
+    "phone_placeholder": "4XX XXX XXX",
+    "max_digits": 9,
+    "prefix": "4"
+  },
+  {
+    "name_en": "Austria",
+    "name_ar": "النمسا",
+    "code": "AT",
+    "flag": "🇦🇹",
+    "dial_code": "+43",
+    "phone_placeholder": "6XX XXX XXXX",
+    "max_digits": 10,
+    "prefix": "6"
+  },
+  {
+    "name_en": "Azerbaijan",
+    "name_ar": "أذربيجان",
+    "code": "AZ",
+    "flag": "🇦🇿",
+    "dial_code": "+994",
+    "phone_placeholder": "5X XXX XXXX",
+    "max_digits": 9,
+    "prefix": "5"
+  },
+  {
+    "name_en": "Burundi",
+    "name_ar": "بوروندي",
+    "code": "BI",
+    "flag": "🇧🇮",
+    "dial_code": "+257",
+    "phone_placeholder": "7X XX XXXX",
+    "max_digits": 8,
+    "prefix": "7"
+  },
+  {
+    "name_en": "Belgium",
+    "name_ar": "بلجيكا",
+    "code": "BE",
+    "flag": "🇧🇪",
+    "dial_code": "+32",
+    "phone_placeholder": "4XX XX XX XX",
+    "max_digits": 9,
+    "prefix": "4"
+  },
+  {
+    "name_en": "Benin",
+    "name_ar": "بنين",
+    "code": "BJ",
+    "flag": "🇧🇯",
+    "dial_code": "+229",
+    "phone_placeholder": "9X XX XX XX",
+    "max_digits": 8,
+    "prefix": "9"
+  },
+  {
+    "name_en": "Bonaire, Sint Eustatius and Saba",
+    "name_ar": "بونير وسانت يوستاتيوس وسابا",
+    "code": "BQ",
+    "flag": "🇧🇶",
+    "dial_code": "+599",
+    "phone_placeholder": "7XX XXXX",
+    "max_digits": 7,
+    "prefix": "7"
+  },
+  {
+    "name_en": "Burkina Faso",
+    "name_ar": "بوركينا فاسو",
+    "code": "BF",
+    "flag": "🇧🇫",
+    "dial_code": "+226",
+    "phone_placeholder": "6X XX XX XX",
+    "max_digits": 8,
+    "prefix": "6"
+  },
+  {
+    "name_en": "Bangladesh",
+    "name_ar": "بنغلاديش",
+    "code": "BD",
+    "flag": "🇧🇩",
+    "dial_code": "+880",
+    "phone_placeholder": "01XXX XXXXXX",
+    "max_digits": 11,
+    "prefix": "01"
+  },
+  {
+    "name_en": "Bulgaria",
+    "name_ar": "بلغاريا",
+    "code": "BG",
+    "flag": "🇧🇬",
+    "dial_code": "+359",
+    "phone_placeholder": "08X XXX XXX",
+    "max_digits": 9,
+    "prefix": "08"
+  },
+  {
+    "name_en": "Bahrain",
+    "name_ar": "البحرين",
+    "code": "BH",
+    "flag": "🇧🇭",
+    "dial_code": "+973",
+    "phone_placeholder": "3XXXXXXX",
+    "max_digits": 8,
+    "prefix": "3"
+  },
+  {
+    "name_en": "Bahamas",
+    "name_ar": "جزر البهاما",
+    "code": "BS",
+    "flag": "🇧🇸",
+    "dial_code": "+1",
+    "phone_placeholder": "242 XXX XXXX",
+    "max_digits": 10,
+    "prefix": "242"
+  },
+  {
+    "name_en": "Bosnia and Herzegovina",
+    "name_ar": "البوسنة والهرسك",
+    "code": "BA",
+    "flag": "🇧🇦",
+    "dial_code": "+387",
+    "phone_placeholder": "06X XXX XXX",
+    "max_digits": 9,
+    "prefix": "06"
+  },
+  {
+    "name_en": "Saint Barthélemy",
+    "name_ar": "سان بارتيليمي",
+    "code": "BL",
+    "flag": "🇧🇱",
+    "dial_code": "+590",
+    "phone_placeholder": "690 XX XX XX",
+    "max_digits": 9,
+    "prefix": "690"
+  },
+  {
+    "name_en": "Belarus",
+    "name_ar": "بيلاروس",
+    "code": "BY",
+    "flag": "🇧🇾",
+    "dial_code": "+375",
+    "phone_placeholder": "2X XXX XXXX",
+    "max_digits": 9,
+    "prefix": "2"
+  },
+  {
+    "name_en": "Belize",
+    "name_ar": "بليز",
+    "code": "BZ",
+    "flag": "🇧🇿",
+    "dial_code": "+501",
+    "phone_placeholder": "6XX XXXX",
+    "max_digits": 7,
+    "prefix": "6"
+  },
+  {
+    "name_en": "Bermuda",
+    "name_ar": "برمودا",
+    "code": "BM",
+    "flag": "🇧🇲",
+    "dial_code": "+1",
+    "phone_placeholder": "441 XXX XXXX",
+    "max_digits": 10,
+    "prefix": "441"
+  },
+  {
+    "name_en": "Bolivia, Plurinational State of",
+    "name_ar": "بوليفيا",
+    "code": "BO",
+    "flag": "🇧🇴",
+    "dial_code": "+591",
+    "phone_placeholder": "7XX XXXX",
+    "max_digits": 7,
+    "prefix": "7"
+  },
+  {
+    "name_en": "Brazil",
+    "name_ar": "البرازيل",
+    "code": "BR",
+    "flag": "🇧🇷",
+    "dial_code": "+55",
+    "phone_placeholder": "9XXXX XXXX",
+    "max_digits": 9,
+    "prefix": "9"
+  },
+  {
+    "name_en": "Barbados",
+    "name_ar": "بربادوس",
+    "code": "BB",
+    "flag": "🇧🇧",
+    "dial_code": "+1",
+    "phone_placeholder": "246 XXX XXXX",
+    "max_digits": 10,
+    "prefix": "246"
+  },
+  {
+    "name_en": "Brunei Darussalam",
+    "name_ar": "بروناي",
+    "code": "BN",
+    "flag": "🇧🇳",
+    "dial_code": "+673",
+    "phone_placeholder": "7XXX XXXX",
+    "max_digits": 8,
+    "prefix": "7"
+  },
+  {
+    "name_en": "Bhutan",
+    "name_ar": "بوتان",
+    "code": "BT",
+    "flag": "🇧🇹",
+    "dial_code": "+975",
+    "phone_placeholder": "17X XXX XX",
+    "max_digits": 8,
+    "prefix": "17"
+  },
+  {
+    "name_en": "Bouvet Island",
+    "name_ar": "جزيرة بوفيت",
+    "code": "BV",
+    "flag": "🇧🇻",
+    "dial_code": "+0",
+    "phone_placeholder": "XXX XXXX",
+    "max_digits": 7,
+    "prefix": ""
+  },
+  {
+    "name_en": "Botswana",
+    "name_ar": "بوتسوانا",
+    "code": "BW",
+    "flag": "🇧🇼",
+    "dial_code": "+267",
+    "phone_placeholder": "7X XXX XXX",
+    "max_digits": 8,
+    "prefix": "7"
+  },
+  {
+    "name_en": "Central African Republic",
+    "name_ar": "جمهورية إفريقيا الوسطى",
+    "code": "CF",
+    "flag": "🇨🇫",
+    "dial_code": "+236",
+    "phone_placeholder": "70 XX XX XX",
+    "max_digits": 8,
+    "prefix": "70"
+  },
+  {
+    "name_en": "Canada",
+    "name_ar": "كندا",
+    "code": "CA",
+    "flag": "🇨🇦",
+    "dial_code": "+1",
+    "phone_placeholder": "XXX XXX XXXX",
+    "max_digits": 10,
+    "prefix": ""
+  },
+  {
+    "name_en": "Cocos (Keeling) Islands",
+    "name_ar": "جزر كوكوس (كيلينغ)",
+    "code": "CC",
+    "flag": "🇨🇨",
+    "dial_code": "+61",
+    "phone_placeholder": "8 XXXX XXXX",
+    "max_digits": 9,
+    "prefix": "8"
+  },
+  {
+    "name_en": "Switzerland",
+    "name_ar": "سويسرا",
+    "code": "CH",
+    "flag": "🇨🇭",
+    "dial_code": "+41",
+    "phone_placeholder": "07X XXX XX XX",
+    "max_digits": 10,
+    "prefix": "07"
+  },
+  {
+    "name_en": "Chile",
+    "name_ar": "تشيلي",
+    "code": "CL",
+    "flag": "🇨🇱",
+    "dial_code": "+56",
+    "phone_placeholder": "9 XXXX XXXX",
+    "max_digits": 9,
+    "prefix": "9"
+  },
+  {
+    "name_en": "China",
+    "name_ar": "الصين",
+    "code": "CN",
+    "flag": "🇨🇳",
+    "dial_code": "+86",
+    "phone_placeholder": "1XX XXXX XXXX",
+    "max_digits": 11,
+    "prefix": "1"
+  },
+  {
+    "name_en": "Côte d'Ivoire",
+    "name_ar": "كوت ديفوار",
+    "code": "CI",
+    "flag": "🇨🇮",
+    "dial_code": "+225",
+    "phone_placeholder": "01 XX XX XXX",
+    "max_digits": 9,
+    "prefix": "01"
+  },
+  {
+    "name_en": "Cameroon",
+    "name_ar": "الكاميرون",
+    "code": "CM",
+    "flag": "🇨🇲",
+    "dial_code": "+237",
+    "phone_placeholder": "6XX XX XX XX",
+    "max_digits": 9,
+    "prefix": "6"
+  },
+  {
+    "name_en": "Congo, The Democratic Republic of the",
+    "name_ar": "جمهورية الكونغو الديمقراطية",
+    "code": "CD",
+    "flag": "🇨🇩",
+    "dial_code": "+243",
+    "phone_placeholder": "09X XXX XXXX",
+    "max_digits": 10,
+    "prefix": "09"
+  },
+  {
+    "name_en": "Congo",
+    "name_ar": "الكونغو",
+    "code": "CG",
+    "flag": "🇨🇬",
+    "dial_code": "+242",
+    "phone_placeholder": "06X XXX XXX",
+    "max_digits": 9,
+    "prefix": "06"
+  },
+  {
+    "name_en": "Cook Islands",
+    "name_ar": "جزر كوك",
+    "code": "CK",
+    "flag": "🇨🇰",
+    "dial_code": "+682",
+    "phone_placeholder": "7XXX",
+    "max_digits": 4,
+    "prefix": "7"
+  },
+  {
+    "name_en": "Colombia",
+    "name_ar": "كولومبيا",
+    "code": "CO",
+    "flag": "🇨🇴",
+    "dial_code": "+57",
+    "phone_placeholder": "3XX XXX XXXX",
+    "max_digits": 10,
+    "prefix": "3"
+  },
+  {
+    "name_en": "Comoros",
+    "name_ar": "جزر القمر",
+    "code": "KM",
+    "flag": "🇰🇲",
+    "dial_code": "+269",
+    "phone_placeholder": "32 XX XXX",
+    "max_digits": 7,
+    "prefix": "32"
+  },
+  {
+    "name_en": "Cabo Verde",
+    "name_ar": "الرأس الأخضر",
+    "code": "CV",
+    "flag": "🇨🇻",
+    "dial_code": "+238",
+    "phone_placeholder": "9XX XX XX",
+    "max_digits": 7,
+    "prefix": "9"
+  },
+  {
+    "name_en": "Costa Rica",
+    "name_ar": "كوستاريكا",
+    "code": "CR",
+    "flag": "🇨🇷",
+    "dial_code": "+506",
+    "phone_placeholder": "6XXXXXXX",
+    "max_digits": 8,
+    "prefix": "6"
+  },
+  {
+    "name_en": "Cuba",
+    "name_ar": "كوبا",
+    "code": "CU",
+    "flag": "🇨🇺",
+    "dial_code": "+53",
+    "phone_placeholder": "5XX XXXX",
+    "max_digits": 7,
+    "prefix": "5"
+  },
+  {
+    "name_en": "Curaçao",
+    "name_ar": "كوراساو",
+    "code": "CW",
+    "flag": "🇨🇼",
+    "dial_code": "+599",
+    "phone_placeholder": "9XX XXXX",
+    "max_digits": 7,
+    "prefix": "9"
+  },
+  {
+    "name_en": "Christmas Island",
+    "name_ar": "جزيرة عيد الميلاد",
+    "code": "CX",
+    "flag": "🇨🇽",
+    "dial_code": "+61",
+    "phone_placeholder": "8 XXXX XXXX",
+    "max_digits": 9,
+    "prefix": "8"
+  },
+  {
+    "name_en": "Cayman Islands",
+    "name_ar": "جزر كايمان",
+    "code": "KY",
+    "flag": "🇰🇾",
+    "dial_code": "+1",
+    "phone_placeholder": "345 XXX XXXX",
+    "max_digits": 10,
+    "prefix": "345"
+  },
+  {
+    "name_en": "Cyprus",
+    "name_ar": "قبرص",
+    "code": "CY",
+    "flag": "🇨🇾",
+    "dial_code": "+357",
+    "phone_placeholder": "9X XXX XXX",
+    "max_digits": 8,
+    "prefix": "9"
+  },
+  {
+    "name_en": "Czechia",
+    "name_ar": "التشيك",
+    "code": "CZ",
+    "flag": "🇨🇿",
+    "dial_code": "+420",
+    "phone_placeholder": "6XX XXX XXX",
+    "max_digits": 9,
+    "prefix": "6"
+  },
+  {
+    "name_en": "Germany",
+    "name_ar": "ألمانيا",
+    "code": "DE",
+    "flag": "🇩🇪",
+    "dial_code": "+49",
+    "phone_placeholder": "15X XXXX XXXX",
+    "max_digits": 11,
+    "prefix": "15"
+  },
+  {
+    "name_en": "Djibouti",
+    "name_ar": "جيبوتي",
+    "code": "DJ",
+    "flag": "🇩🇯",
+    "dial_code": "+253",
+    "phone_placeholder": "77 XX XX XX",
+    "max_digits": 8,
+    "prefix": "77"
+  },
+  {
+    "name_en": "Dominica",
+    "name_ar": "دومينيكا",
+    "code": "DM",
+    "flag": "🇩🇲",
+    "dial_code": "+1",
+    "phone_placeholder": "767 XXX XXXX",
+    "max_digits": 10,
+    "prefix": "767"
+  },
+  {
+    "name_en": "Denmark",
+    "name_ar": "الدنمارك",
+    "code": "DK",
+    "flag": "🇩🇰",
+    "dial_code": "+45",
+    "phone_placeholder": "2X XX XX XX",
+    "max_digits": 8,
+    "prefix": "2"
+  },
+  {
+    "name_en": "Dominican Republic",
+    "name_ar": "جمهورية الدومينيكان",
+    "code": "DO",
+    "flag": "🇩🇴",
+    "dial_code": "+1",
+    "phone_placeholder": "809 XXX XXXX",
+    "max_digits": 10,
+    "prefix": "809"
+  },
+  {
+    "name_en": "Algeria",
+    "name_ar": "الجزائر",
+    "code": "DZ",
+    "flag": "🇩🇿",
+    "dial_code": "+213",
+    "phone_placeholder": "05XX XX XX XX",
+    "max_digits": 10,
+    "prefix": "05"
+  },
+  {
+    "name_en": "Ecuador",
+    "name_ar": "الإكوادور",
+    "code": "EC",
+    "flag": "🇪🇨",
+    "dial_code": "+593",
+    "phone_placeholder": "09X XXX XXXX",
+    "max_digits": 10,
+    "prefix": "09"
+  },
+  {
+    "name_en": "Egypt",
+    "name_ar": "مصر",
+    "code": "EG",
+    "flag": "🇪🇬",
+    "dial_code": "+20",
+    "phone_placeholder": "01X XXXX XXXX",
+    "max_digits": 11,
+    "prefix": "01"
+  },
+  {
+    "name_en": "Eritrea",
+    "name_ar": "إريتريا",
+    "code": "ER",
+    "flag": "🇪🇷",
+    "dial_code": "+291",
+    "phone_placeholder": "07X XXX XXX",
+    "max_digits": 9,
+    "prefix": "07"
+  },
+  {
+    "name_en": "Western Sahara",
+    "name_ar": "الصحراء الغربية",
+    "code": "EH",
+    "flag": "🇪🇭",
+    "dial_code": "+212",
+    "phone_placeholder": "06X XXX XXX",
+    "max_digits": 9,
+    "prefix": "06"
+  },
+  {
+    "name_en": "Spain",
+    "name_ar": "إسبانيا",
+    "code": "ES",
+    "flag": "🇪🇸",
+    "dial_code": "+34",
+    "phone_placeholder": "6XX XXX XXX",
+    "max_digits": 9,
+    "prefix": "6"
+  },
+  {
+    "name_en": "Estonia",
+    "name_ar": "إستونيا",
+    "code": "EE",
+    "flag": "🇪🇪",
+    "dial_code": "+372",
+    "phone_placeholder": "5XXXXXXX",
+    "max_digits": 8,
+    "prefix": "5"
+  },
+  {
+    "name_en": "Ethiopia",
+    "name_ar": "إثيوبيا",
+    "code": "ET",
+    "flag": "🇪🇹",
+    "dial_code": "+251",
+    "phone_placeholder": "09X XXX XXXX",
+    "max_digits": 10,
+    "prefix": "09"
+  },
+  {
+    "name_en": "Finland",
+    "name_ar": "فنلندا",
+    "code": "FI",
+    "flag": "🇫🇮",
+    "dial_code": "+358",
+    "phone_placeholder": "4X XXX XXXX",
+    "max_digits": 9,
+    "prefix": "4"
+  },
+  {
+    "name_en": "Fiji",
+    "name_ar": "فيجي",
+    "code": "FJ",
+    "flag": "🇫🇯",
+    "dial_code": "+679",
+    "phone_placeholder": "7XXX XXX",
+    "max_digits": 7,
+    "prefix": "7"
+  },
+  {
+    "name_en": "Falkland Islands (Malvinas)",
+    "name_ar": "جزر فوكلاند (مالفيناس)",
+    "code": "FK",
+    "flag": "🇫🇰",
+    "dial_code": "+500",
+    "phone_placeholder": "5XXXXX",
+    "max_digits": 6,
+    "prefix": "5"
+  },
+  {
+    "name_en": "France",
+    "name_ar": "فرنسا",
+    "code": "FR",
+    "flag": "🇫🇷",
+    "dial_code": "+33",
+    "phone_placeholder": "06 XX XX XX XX",
+    "max_digits": 10,
+    "prefix": "06"
+  },
+  {
+    "name_en": "Faroe Islands",
+    "name_ar": "جزر فارو",
+    "code": "FO",
+    "flag": "🇫🇴",
+    "dial_code": "+298",
+    "phone_placeholder": "2XXXXXX",
+    "max_digits": 7,
+    "prefix": "2"
+  },
+  {
+    "name_en": "Micronesia, Federated States of",
+    "name_ar": "ميكرونيزيا، الولايات المتحدة",
+    "code": "FM",
+    "flag": "🇫🇲",
+    "dial_code": "+691",
+    "phone_placeholder": "3XX XXXX",
+    "max_digits": 7,
+    "prefix": "3"
+  },
+  {
+    "name_en": "Gabon",
+    "name_ar": "الغابون",
+    "code": "GA",
+    "flag": "🇬🇦",
+    "dial_code": "+241",
+    "phone_placeholder": "06 XX XX XX",
+    "max_digits": 8,
+    "prefix": "06"
+  },
+  {
+    "name_en": "United Kingdom",
+    "name_ar": "المملكة المتحدة",
+    "code": "GB",
+    "flag": "🇬🇧",
+    "dial_code": "+44",
+    "phone_placeholder": "07XXX XXXXXX",
+    "max_digits": 11,
+    "prefix": "07"
+  },
+  {
+    "name_en": "Georgia",
+    "name_ar": "جورجيا",
+    "code": "GE",
+    "flag": "🇬🇪",
+    "dial_code": "+995",
+    "phone_placeholder": "5XX XX XX XX",
+    "max_digits": 9,
+    "prefix": "5"
+  },
+  {
+    "name_en": "Guernsey",
+    "name_ar": "غيرنزي",
+    "code": "GG",
+    "flag": "🇬🇬",
+    "dial_code": "+44",
+    "phone_placeholder": "07XXX XXXXXX",
+    "max_digits": 11,
+    "prefix": "07"
+  },
+  {
+    "name_en": "Ghana",
+    "name_ar": "غانا",
+    "code": "GH",
+    "flag": "🇬🇭",
+    "dial_code": "+233",
+    "phone_placeholder": "05X XXX XXXX",
+    "max_digits": 10,
+    "prefix": "05"
+  },
+  {
+    "name_en": "Gibraltar",
+    "name_ar": "جبل طارق",
+    "code": "GI",
+    "flag": "🇬🇮",
+    "dial_code": "+350",
+    "phone_placeholder": "5XXXXXXX",
+    "max_digits": 8,
+    "prefix": "5"
+  },
+  {
+    "name_en": "Guinea",
+    "name_ar": "غينيا",
+    "code": "GN",
+    "flag": "🇬🇳",
+    "dial_code": "+224",
+    "phone_placeholder": "6X XXX XXX",
+    "max_digits": 8,
+    "prefix": "6"
+  },
+  {
+    "name_en": "Guadeloupe",
+    "name_ar": "غوادلوب",
+    "code": "GP",
+    "flag": "🇬🇵",
+    "dial_code": "+590",
+    "phone_placeholder": "690 XX XX XX",
+    "max_digits": 9,
+    "prefix": "690"
+  },
+  {
+    "name_en": "Gambia",
+    "name_ar": "غامبيا",
+    "code": "GM",
+    "flag": "🇬🇲",
+    "dial_code": "+220",
+    "phone_placeholder": "7XX XXXX",
+    "max_digits": 7,
+    "prefix": "7"
+  },
+  {
+    "name_en": "Guinea-Bissau",
+    "name_ar": "غينيا بيساو",
+    "code": "GW",
+    "flag": "🇬🇼",
+    "dial_code": "+245",
+    "phone_placeholder": "9X XXX XXX",
+    "max_digits": 8,
+    "prefix": "9"
+  },
+  {
+    "name_en": "Equatorial Guinea",
+    "name_ar": "غينيا الاستوائية",
+    "code": "GQ",
+    "flag": "🇬🇶",
+    "dial_code": "+240",
+    "phone_placeholder": "222 XXX XXX",
+    "max_digits": 9,
+    "prefix": "222"
+  },
+  {
+    "name_en": "Greece",
+    "name_ar": "اليونان",
+    "code": "GR",
+    "flag": "🇬🇷",
+    "dial_code": "+30",
+    "phone_placeholder": "69X XXX XXXX",
+    "max_digits": 10,
+    "prefix": "69"
+  },
+  {
+    "name_en": "Grenada",
+    "name_ar": "غرينادا",
+    "code": "GD",
+    "flag": "🇬🇩",
+    "dial_code": "+1",
+    "phone_placeholder": "473 XXX XXXX",
+    "max_digits": 10,
+    "prefix": "473"
+  },
+  {
+    "name_en": "Greenland",
+    "name_ar": "غرينلاند",
+    "code": "GL",
+    "flag": "🇬🇱",
+    "dial_code": "+299",
+    "phone_placeholder": "2XXXXXX",
+    "max_digits": 7,
+    "prefix": "2"
+  },
+  {
+    "name_en": "Guatemala",
+    "name_ar": "غواتيمالا",
+    "code": "GT",
+    "flag": "🇬🇹",
+    "dial_code": "+502",
+    "phone_placeholder": "5XXX XXXX",
+    "max_digits": 8,
+    "prefix": "5"
+  },
+  {
+    "name_en": "French Guiana",
+    "name_ar": "غويانا الفرنسية",
+    "code": "GF",
+    "flag": "🇬🇫",
+    "dial_code": "+594",
+    "phone_placeholder": "694 XX XX XX",
+    "max_digits": 9,
+    "prefix": "694"
+  },
+  {
+    "name_en": "Guam",
+    "name_ar": "غوام",
+    "code": "GU",
+    "flag": "🇬🇺",
+    "dial_code": "+1",
+    "phone_placeholder": "671 XXX XXXX",
+    "max_digits": 10,
+    "prefix": "671"
+  },
+  {
+    "name_en": "Guyana",
+    "name_ar": "غيانا",
+    "code": "GY",
+    "flag": "🇬🇾",
+    "dial_code": "+592",
+    "phone_placeholder": "6XX XXXX",
+    "max_digits": 7,
+    "prefix": "6"
+  },
+  {
+    "name_en": "Hong Kong",
+    "name_ar": "هونغ كونغ",
+    "code": "HK",
+    "flag": "🇭🇰",
+    "dial_code": "+852",
+    "phone_placeholder": "9XXXXXXX",
+    "max_digits": 8,
+    "prefix": "9"
+  },
+  {
+    "name_en": "Heard Island and McDonald Islands",
+    "name_ar": "جزيرة هيرد وجزر ماكدونالد",
+    "code": "HM",
+    "flag": "🇭🇲",
+    "dial_code": "+0",
+    "phone_placeholder": "X XXXX XXXX",
+    "max_digits": 9,
+    "prefix": ""
+  },
+  {
+    "name_en": "Honduras",
+    "name_ar": "هندوراس",
+    "code": "HN",
+    "flag": "🇭🇳",
+    "dial_code": "+504",
+    "phone_placeholder": "9XXX XXXX",
+    "max_digits": 8,
+    "prefix": "9"
+  },
+  {
+    "name_en": "Croatia",
+    "name_ar": "كرواتيا",
+    "code": "HR",
+    "flag": "🇭🇷",
+    "dial_code": "+385",
+    "phone_placeholder": "09X XXX XXXX",
+    "max_digits": 10,
+    "prefix": "09"
+  },
+  {
+    "name_en": "Haiti",
+    "name_ar": "هايتي",
+    "code": "HT",
+    "flag": "🇭🇹",
+    "dial_code": "+509",
+    "phone_placeholder": "3X XX XXXX",
+    "max_digits": 8,
+    "prefix": "3"
+  },
+  {
+    "name_en": "Hungary",
+    "name_ar": "المجر",
+    "code": "HU",
+    "flag": "🇭🇺",
+    "dial_code": "+36",
+    "phone_placeholder": "06X XXX XXXX",
+    "max_digits": 10,
+    "prefix": "06"
+  },
+  {
+    "name_en": "Indonesia",
+    "name_ar": "إندونيسيا",
+    "code": "ID",
+    "flag": "🇮🇩",
+    "dial_code": "+62",
+    "phone_placeholder": "08XX XXX XXXX",
+    "max_digits": 11,
+    "prefix": "08"
+  },
+  {
+    "name_en": "Isle of Man",
+    "name_ar": "جزيرة مان",
+    "code": "IM",
+    "flag": "🇮🇲",
+    "dial_code": "+44",
+    "phone_placeholder": "07XXX XXXXXX",
+    "max_digits": 11,
+    "prefix": "07"
+  },
+  {
+    "name_en": "India",
+    "name_ar": "الهند",
+    "code": "IN",
+    "flag": "🇮🇳",
+    "dial_code": "+91",
+    "phone_placeholder": "9XXXX XXXXX",
+    "max_digits": 10,
+    "prefix": "9"
+  },
+  {
+    "name_en": "British Indian Ocean Territory",
+    "name_ar": "إقليم المحيط الهندي البريطاني",
+    "code": "IO",
+    "flag": "🇮🇴",
+    "dial_code": "+246",
+    "phone_placeholder": "38XXX XXXXX",
+    "max_digits": 10,
+    "prefix": "38"
+  },
+  {
+    "name_en": "Ireland",
+    "name_ar": "أيرلندا",
+    "code": "IE",
+    "flag": "🇮🇪",
+    "dial_code": "+353",
+    "phone_placeholder": "08X XXX XXXX",
+    "max_digits": 10,
+    "prefix": "08"
+  },
+  {
+    "name_en": "Iran, Islamic Republic of",
+    "name_ar": "إيران",
+    "code": "IR",
+    "flag": "🇮🇷",
+    "dial_code": "+98",
+    "phone_placeholder": "09XX XXX XXXX",
+    "max_digits": 11,
+    "prefix": "09"
+  },
+  {
+    "name_en": "Iraq",
+    "name_ar": "العراق",
+    "code": "IQ",
+    "flag": "🇮🇶",
+    "dial_code": "+964",
+    "phone_placeholder": "07X XXX XXXX",
+    "max_digits": 10,
+    "prefix": "07"
+  },
+  {
+    "name_en": "Iceland",
+    "name_ar": "أيسلندا",
+    "code": "IS",
+    "flag": "🇮🇸",
+    "dial_code": "+354",
+    "phone_placeholder": "6XX XXXX",
+    "max_digits": 7,
+    "prefix": "6"
+  },
+  {
+    "name_en": "Israel",
+    "name_ar": "إسرائيل",
+    "code": "IL",
+    "flag": "🇮🇱",
+    "dial_code": "+972",
+    "phone_placeholder": "05X XXX XXXX",
+    "max_digits": 10,
+    "prefix": "05"
+  },
+  {
+    "name_en": "Italy",
+    "name_ar": "إيطاليا",
+    "code": "IT",
+    "flag": "🇮🇹",
+    "dial_code": "+39",
+    "phone_placeholder": "3XX XXX XXXX",
+    "max_digits": 10,
+    "prefix": "3"
+  },
+  {
+    "name_en": "Jamaica",
+    "name_ar": "جامايكا",
+    "code": "JM",
+    "flag": "🇯🇲",
+    "dial_code": "+1",
+    "phone_placeholder": "876 XXX XXXX",
+    "max_digits": 10,
+    "prefix": "876"
+  },
+  {
+    "name_en": "Jersey",
+    "name_ar": "جيرسي",
+    "code": "JE",
+    "flag": "🇯🇪",
+    "dial_code": "+44",
+    "phone_placeholder": "07XXX XXXXXX",
+    "max_digits": 11,
+    "prefix": "07"
+  },
+  {
+    "name_en": "Jordan",
+    "name_ar": "الأردن",
+    "code": "JO",
+    "flag": "🇯🇴",
+    "dial_code": "+962",
+    "phone_placeholder": "07X XXXX XXX",
+    "max_digits": 10,
+    "prefix": "07"
+  },
+  {
+    "name_en": "Japan",
+    "name_ar": "اليابان",
+    "code": "JP",
+    "flag": "🇯🇵",
+    "dial_code": "+81",
+    "phone_placeholder": "090 XXXX XXXX",
+    "max_digits": 11,
+    "prefix": "090"
+  },
+  {
+    "name_en": "Kazakhstan",
+    "name_ar": "كازاخستان",
+    "code": "KZ",
+    "flag": "🇰🇿",
+    "dial_code": "+7",
+    "phone_placeholder": "7XX XXX XXXX",
+    "max_digits": 10,
+    "prefix": "7"
+  },
+  {
+    "name_en": "Kenya",
+    "name_ar": "كينيا",
+    "code": "KE",
+    "flag": "🇰🇪",
+    "dial_code": "+254",
+    "phone_placeholder": "07XX XXX XXX",
+    "max_digits": 10,
+    "prefix": "07"
+  },
+  {
+    "name_en": "Kyrgyzstan",
+    "name_ar": "قرغيزستان",
+    "code": "KG",
+    "flag": "🇰🇬",
+    "dial_code": "+996",
+    "phone_placeholder": "7XX XXX XXX",
+    "max_digits": 9,
+    "prefix": "7"
+  },
+  {
+    "name_en": "Cambodia",
+    "name_ar": "كمبوديا",
+    "code": "KH",
+    "flag": "🇰🇭",
+    "dial_code": "+855",
+    "phone_placeholder": "0XX XXX XXX",
+    "max_digits": 9,
+    "prefix": "0"
+  },
+  {
+    "name_en": "Kiribati",
+    "name_ar": "كيريباتي",
+    "code": "KI",
+    "flag": "🇰🇮",
+    "dial_code": "+686",
+    "phone_placeholder": "7XXXX",
+    "max_digits": 5,
+    "prefix": "7"
+  },
+  {
+    "name_en": "Saint Kitts and Nevis",
+    "name_ar": "سانت كيتس ونيفيس",
+    "code": "KN",
+    "flag": "🇰🇳",
+    "dial_code": "+1",
+    "phone_placeholder": "869 XXX XXXX",
+    "max_digits": 10,
+    "prefix": "869"
+  },
+  {
+    "name_en": "Korea, Republic of",
+    "name_ar": "كوريا، جمهورية",
+    "code": "KR",
+    "flag": "🇰🇷",
+    "dial_code": "+82",
+    "phone_placeholder": "010 XXXX XXXX",
+    "max_digits": 11,
+    "prefix": "010"
+  },
+  {
+    "name_en": "Kuwait",
+    "name_ar": "الكويت",
+    "code": "KW",
+    "flag": "🇰🇼",
+    "dial_code": "+965",
+    "phone_placeholder": "5XXX XXXX",
+    "max_digits": 8,
+    "prefix": "5"
+  },
+  {
+    "name_en": "Lao People's Democratic Republic",
+    "name_ar": "جمهورية لاو الديمقراطية الشعبية",
+    "code": "LA",
+    "flag": "🇱🇦",
+    "dial_code": "+856",
+    "phone_placeholder": "020 XXXX XXX",
+    "max_digits": 10,
+    "prefix": "020"
+  },
+  {
+    "name_en": "Lebanon",
+    "name_ar": "لبنان",
+    "code": "LB",
+    "flag": "🇱🇧",
+    "dial_code": "+961",
+    "phone_placeholder": "03 XXX XXX",
+    "max_digits": 8,
+    "prefix": "03"
+  },
+  {
+    "name_en": "Liberia",
+    "name_ar": "ليبيريا",
+    "code": "LR",
+    "flag": "🇱🇷",
+    "dial_code": "+231",
+    "phone_placeholder": "07X XXX XXX",
+    "max_digits": 9,
+    "prefix": "07"
+  },
+  {
+    "name_en": "Libya",
+    "name_ar": "ليبيا",
+    "code": "LY",
+    "flag": "🇱🇾",
+    "dial_code": "+218",
+    "phone_placeholder": "09X XXX XXXX",
+    "max_digits": 10,
+    "prefix": "09"
+  },
+  {
+    "name_en": "Saint Lucia",
+    "name_ar": "سانت لوسيا",
+    "code": "LC",
+    "flag": "🇱🇨",
+    "dial_code": "+1",
+    "phone_placeholder": "758 XXX XXXX",
+    "max_digits": 10,
+    "prefix": "758"
+  },
+  {
+    "name_en": "Liechtenstein",
+    "name_ar": "ليختنشتاين",
+    "code": "LI",
+    "flag": "🇱🇮",
+    "dial_code": "+423",
+    "phone_placeholder": "6XX XX XX",
+    "max_digits": 7,
+    "prefix": "6"
+  },
+  {
+    "name_en": "Sri Lanka",
+    "name_ar": "سريلانكا",
+    "code": "LK",
+    "flag": "🇱🇰",
+    "dial_code": "+94",
+    "phone_placeholder": "07X XXX XXXX",
+    "max_digits": 10,
+    "prefix": "07"
+  },
+  {
+    "name_en": "Lesotho",
+    "name_ar": "ليسوتو",
+    "code": "LS",
+    "flag": "🇱🇸",
+    "dial_code": "+266",
+    "phone_placeholder": "5XXXXXXX",
+    "max_digits": 8,
+    "prefix": "5"
+  },
+  {
+    "name_en": "Lithuania",
+    "name_ar": "ليتوانيا",
+    "code": "LT",
+    "flag": "🇱🇹",
+    "dial_code": "+370",
+    "phone_placeholder": "6XX XXXXX",
+    "max_digits": 8,
+    "prefix": "6"
+  },
+  {
+    "name_en": "Luxembourg",
+    "name_ar": "لوكسمبورغ",
+    "code": "LU",
+    "flag": "🇱🇺",
+    "dial_code": "+352",
+    "phone_placeholder": "6X XX XX XX",
+    "max_digits": 8,
+    "prefix": "6"
+  },
+  {
+    "name_en": "Latvia",
+    "name_ar": "لاتفيا",
+    "code": "LV",
+    "flag": "🇱🇻",
+    "dial_code": "+371",
+    "phone_placeholder": "2XXXXXXX",
+    "max_digits": 8,
+    "prefix": "2"
+  },
+  {
+    "name_en": "Macao",
+    "name_ar": "ماكاو",
+    "code": "MO",
+    "flag": "🇲🇴",
+    "dial_code": "+853",
+    "phone_placeholder": "6XX XXXX",
+    "max_digits": 7,
+    "prefix": "6"
+  },
+  {
+    "name_en": "Saint Martin (French part)",
+    "name_ar": "سانت مارتن (الجزء الفرنسي)",
+    "code": "MF",
+    "flag": "🇲🇫",
+    "dial_code": "+590",
+    "phone_placeholder": "690 XX XX XX",
+    "max_digits": 9,
+    "prefix": "690"
+  },
+  {
+    "name_en": "Morocco",
+    "name_ar": "المغرب",
+    "code": "MA",
+    "flag": "🇲🇦",
+    "dial_code": "+212",
+    "phone_placeholder": "06X XXX XXXX",
+    "max_digits": 10,
+    "prefix": "06"
+  },
+  {
+    "name_en": "Monaco",
+    "name_ar": "موناكو",
+    "code": "MC",
+    "flag": "🇲🇨",
+    "dial_code": "+377",
+    "phone_placeholder": "6XX XX XX XX",
+    "max_digits": 9,
+    "prefix": "6"
+  },
+  {
+    "name_en": "Moldova, Republic of",
+    "name_ar": "مولدوفا",
+    "code": "MD",
+    "flag": "🇲🇩",
+    "dial_code": "+373",
+    "phone_placeholder": "06X XXXXXX",
+    "max_digits": 9,
+    "prefix": "06"
+  },
+  {
+    "name_en": "Madagascar",
+    "name_ar": "مدغشقر",
+    "code": "MG",
+    "flag": "🇲🇬",
+    "dial_code": "+261",
+    "phone_placeholder": "032 XX XXX XX",
+    "max_digits": 10,
+    "prefix": "032"
+  },
+  {
+    "name_en": "Maldives",
+    "name_ar": "المالديف",
+    "code": "MV",
+    "flag": "🇲🇻",
+    "dial_code": "+960",
+    "phone_placeholder": "7XXXXXX",
+    "max_digits": 7,
+    "prefix": "7"
+  },
+  {
+    "name_en": "Mexico",
+    "name_ar": "المكسيك",
+    "code": "MX",
+    "flag": "🇲🇽",
+    "dial_code": "+52",
+    "phone_placeholder": "55 XXXX XXXX",
+    "max_digits": 10,
+    "prefix": "55"
+  },
+  {
+    "name_en": "Marshall Islands",
+    "name_ar": "جزر مارشال",
+    "code": "MH",
+    "flag": "🇲🇭",
+    "dial_code": "+692",
+    "phone_placeholder": "235 XXXX",
+    "max_digits": 7,
+    "prefix": "235"
+  },
+  {
+    "name_en": "North Macedonia",
+    "name_ar": "مقدونيا الشمالية",
+    "code": "MK",
+    "flag": "🇲🇰",
+    "dial_code": "+389",
+    "phone_placeholder": "07X XXX XXX",
+    "max_digits": 9,
+    "prefix": "07"
+  },
+  {
+    "name_en": "Mali",
+    "name_ar": "مالي",
+    "code": "ML",
+    "flag": "🇲🇱",
+    "dial_code": "+223",
+    "phone_placeholder": "7X XX XX XX",
+    "max_digits": 8,
+    "prefix": "7"
+  },
+  {
+    "name_en": "Malta",
+    "name_ar": "مالطا",
+    "code": "MT",
+    "flag": "🇲🇹",
+    "dial_code": "+356",
+    "phone_placeholder": "99 XX XX XX",
+    "max_digits": 8,
+    "prefix": "99"
+  },
+  {
+    "name_en": "Myanmar",
+    "name_ar": "ميانمار",
+    "code": "MM",
+    "flag": "🇲🇲",
+    "dial_code": "+95",
+    "phone_placeholder": "09 XXX XXX XXX",
+    "max_digits": 11,
+    "prefix": "09"
+  },
+  {
+    "name_en": "Montenegro",
+    "name_ar": "الجبل الأسود",
+    "code": "ME",
+    "flag": "🇲🇪",
+    "dial_code": "+382",
+    "phone_placeholder": "06X XXX XXX",
+    "max_digits": 9,
+    "prefix": "06"
+  },
+  {
+    "name_en": "Mongolia",
+    "name_ar": "منغوليا",
+    "code": "MN",
+    "flag": "🇲🇳",
+    "dial_code": "+976",
+    "phone_placeholder": "8XX XXXX",
+    "max_digits": 7,
+    "prefix": "8"
+  },
+  {
+    "name_en": "Northern Mariana Islands",
+    "name_ar": "جزر ماريانا الشمالية",
+    "code": "MP",
+    "flag": "🇲🇵",
+    "dial_code": "+1",
+    "phone_placeholder": "670 XXX XXXX",
+    "max_digits": 10,
+    "prefix": "670"
+  },
+  {
+    "name_en": "Mozambique",
+    "name_ar": "موزمبيق",
+    "code": "MZ",
+    "flag": "🇲🇿",
+    "dial_code": "+258",
+    "phone_placeholder": "8X XXX XXX",
+    "max_digits": 8,
+    "prefix": "8"
+  },
+  {
+    "name_en": "Mauritania",
+    "name_ar": "موريتانيا",
+    "code": "MR",
+    "flag": "🇲🇷",
+    "dial_code": "+222",
+    "phone_placeholder": "2X XX XX XX",
+    "max_digits": 8,
+    "prefix": "2"
+  },
+  {
+    "name_en": "Montserrat",
+    "name_ar": "مونتسيرات",
+    "code": "MS",
+    "flag": "🇲🇸",
+    "dial_code": "+1",
+    "phone_placeholder": "664 XXX XXXX",
+    "max_digits": 10,
+    "prefix": "664"
+  },
+  {
+    "name_en": "Martinique",
+    "name_ar": "مارتينيك",
+    "code": "MQ",
+    "flag": "🇲🇶",
+    "dial_code": "+596",
+    "phone_placeholder": "696 XX XX XX",
+    "max_digits": 9,
+    "prefix": "696"
+  },
+  {
+    "name_en": "Mauritius",
+    "name_ar": "موريشيوس",
+    "code": "MU",
+    "flag": "🇲🇺",
+    "dial_code": "+230",
+    "phone_placeholder": "5XXX XXXX",
+    "max_digits": 8,
+    "prefix": "5"
+  },
+  {
+    "name_en": "Malawi",
+    "name_ar": "مالاوي",
+    "code": "MW",
+    "flag": "🇲🇼",
+    "dial_code": "+265",
+    "phone_placeholder": "099X XXX XXX",
+    "max_digits": 10,
+    "prefix": "099"
+  },
+  {
+    "name_en": "Malaysia",
+    "name_ar": "ماليزيا",
+    "code": "MY",
+    "flag": "🇲🇾",
+    "dial_code": "+60",
+    "phone_placeholder": "01X XXX XXXX",
+    "max_digits": 10,
+    "prefix": "01"
+  },
+  {
+    "name_en": "Mayotte",
+    "name_ar": "مايوت",
+    "code": "YT",
+    "flag": "🇾🇹",
+    "dial_code": "+262",
+    "phone_placeholder": "639 XX XX XX",
+    "max_digits": 9,
+    "prefix": "639"
+  },
+  {
+    "name_en": "Namibia",
+    "name_ar": "ناميبيا",
+    "code": "NA",
+    "flag": "🇳🇦",
+    "dial_code": "+264",
+    "phone_placeholder": "081 XXX XXXX",
+    "max_digits": 10,
+    "prefix": "081"
+  },
+  {
+    "name_en": "New Caledonia",
+    "name_ar": "كاليدونيا الجديدة",
+    "code": "NC",
+    "flag": "🇳🇨",
+    "dial_code": "+687",
+    "phone_placeholder": "75 XX XX",
+    "max_digits": 6,
+    "prefix": "75"
+  },
+  {
+    "name_en": "Niger",
+    "name_ar": "النيجر",
+    "code": "NE",
+    "flag": "🇳🇪",
+    "dial_code": "+227",
+    "phone_placeholder": "9X XX XX XX",
+    "max_digits": 8,
+    "prefix": "9"
+  },
+  {
+    "name_en": "Norfolk Island",
+    "name_ar": "جزيرة نورفولك",
+    "code": "NF",
+    "flag": "🇳🇫",
+    "dial_code": "+672",
+    "phone_placeholder": "3XXXX",
+    "max_digits": 5,
+    "prefix": "3"
+  },
+  {
+    "name_en": "Nigeria",
+    "name_ar": "نيجيريا",
+    "code": "NG",
+    "flag": "🇳🇬",
+    "dial_code": "+234",
+    "phone_placeholder": "080X XXX XXXX",
+    "max_digits": 11,
+    "prefix": "080"
+  },
+  {
+    "name_en": "Nicaragua",
+    "name_ar": "نيكاراغوا",
+    "code": "NI",
+    "flag": "🇳🇮",
+    "dial_code": "+505",
+    "phone_placeholder": "8XXXXXXX",
+    "max_digits": 8,
+    "prefix": "8"
+  },
+  {
+    "name_en": "Niue",
+    "name_ar": "نيوي",
+    "code": "NU",
+    "flag": "🇳🇺",
+    "dial_code": "+683",
+    "phone_placeholder": "4XXX",
+    "max_digits": 4,
+    "prefix": "4"
+  },
+  {
+    "name_en": "Netherlands",
+    "name_ar": "هولندا",
+    "code": "NL",
+    "flag": "🇳🇱",
+    "dial_code": "+31",
+    "phone_placeholder": "6X XXX XXXX",
+    "max_digits": 9,
+    "prefix": "6"
+  },
+  {
+    "name_en": "Norway",
+    "name_ar": "النرويج",
+    "code": "NO",
+    "flag": "🇳🇴",
+    "dial_code": "+47",
+    "phone_placeholder": "4XX XX XXX",
+    "max_digits": 8,
+    "prefix": "4"
+  },
+  {
+    "name_en": "Nepal",
+    "name_ar": "نيبال",
+    "code": "NP",
+    "flag": "🇳🇵",
+    "dial_code": "+977",
+    "phone_placeholder": "98X XXX XXXX",
+    "max_digits": 10,
+    "prefix": "98"
+  },
+  {
+    "name_en": "Nauru",
+    "name_ar": "ناورو",
+    "code": "NR",
+    "flag": "🇳🇷",
+    "dial_code": "+674",
+    "phone_placeholder": "555 XXXX",
+    "max_digits": 7,
+    "prefix": "555"
+  },
+  {
+    "name_en": "New Zealand",
+    "name_ar": "نيوزيلندا",
+    "code": "NZ",
+    "flag": "🇳🇿",
+    "dial_code": "+64",
+    "phone_placeholder": "02X XXX XXXX",
+    "max_digits": 10,
+    "prefix": "02"
+  },
+  {
+    "name_en": "Oman",
+    "name_ar": "عمان",
+    "code": "OM",
+    "flag": "🇴🇲",
+    "dial_code": "+968",
+    "phone_placeholder": "9XXXXXXX",
+    "max_digits": 8,
+    "prefix": "9"
+  },
+  {
+    "name_en": "Pakistan",
+    "name_ar": "باكستان",
+    "code": "PK",
+    "flag": "🇵🇰",
+    "dial_code": "+92",
+    "phone_placeholder": "03XX XXXXXXX",
+    "max_digits": 11,
+    "prefix": "03"
+  },
+  {
+    "name_en": "Panama",
+    "name_ar": "بنما",
+    "code": "PA",
+    "flag": "🇵🇦",
+    "dial_code": "+507",
+    "phone_placeholder": "6XXX XXXX",
+    "max_digits": 8,
+    "prefix": "6"
+  },
+  {
+    "name_en": "Pitcairn",
+    "name_ar": "بيتكيرن",
+    "code": "PN",
+    "flag": "🇵🇳",
+    "dial_code": "+0",
+    "phone_placeholder": "XXX XXXX",
+    "max_digits": 7,
+    "prefix": ""
+  },
+  {
+    "name_en": "Peru",
+    "name_ar": "بيرو",
+    "code": "PE",
+    "flag": "🇵🇪",
+    "dial_code": "+51",
+    "phone_placeholder": "9XX XXX XXX",
+    "max_digits": 9,
+    "prefix": "9"
+  },
+  {
+    "name_en": "Philippines",
+    "name_ar": "الفلبين",
+    "code": "PH",
+    "flag": "🇵🇭",
+    "dial_code": "+63",
+    "phone_placeholder": "09XX XXX XXXX",
+    "max_digits": 11,
+    "prefix": "09"
+  },
+  {
+    "name_en": "Palau",
+    "name_ar": "بالاو",
+    "code": "PW",
+    "flag": "🇵🇼",
+    "dial_code": "+680",
+    "phone_placeholder": "779 XXXX",
+    "max_digits": 7,
+    "prefix": "779"
+  },
+  {
+    "name_en": "Papua New Guinea",
+    "name_ar": "بابوا غينيا الجديدة",
+    "code": "PG",
+    "flag": "🇵🇬",
+    "dial_code": "+675",
+    "phone_placeholder": "7XXX XXXX",
+    "max_digits": 8,
+    "prefix": "7"
+  },
+  {
+    "name_en": "Poland",
+    "name_ar": "بولندا",
+    "code": "PL",
+    "flag": "🇵🇱",
+    "dial_code": "+48",
+    "phone_placeholder": "5XX XXX XXX",
+    "max_digits": 9,
+    "prefix": "5"
+  },
+  {
+    "name_en": "Puerto Rico",
+    "name_ar": "بورتو ريكو",
+    "code": "PR",
+    "flag": "🇵🇷",
+    "dial_code": "+1",
+    "phone_placeholder": "787 XXX XXXX",
+    "max_digits": 10,
+    "prefix": "787"
+  },
+  {
+    "name_en": "Korea, Democratic People's Republic of",
+    "name_ar": "كوريا، جمهورية الشعب الديمقراطية",
+    "code": "KP",
+    "flag": "🇰🇵",
+    "dial_code": "+850",
+    "phone_placeholder": "0192 XXX XXX",
+    "max_digits": 10,
+    "prefix": "0192"
+  },
+  {
+    "name_en": "Portugal",
+    "name_ar": "البرتغال",
+    "code": "PT",
+    "flag": "🇵🇹",
+    "dial_code": "+351",
+    "phone_placeholder": "9XX XXX XXX",
+    "max_digits": 9,
+    "prefix": "9"
+  },
+  {
+    "name_en": "Paraguay",
+    "name_ar": "باراغواي",
+    "code": "PY",
+    "flag": "🇵🇾",
+    "dial_code": "+595",
+    "phone_placeholder": "09X XXX XXX",
+    "max_digits": 9,
+    "prefix": "09"
+  },
+  {
+    "name_en": "Palestine, State of",
+    "name_ar": "فلسطين",
+    "code": "PS",
+    "flag": "🇵🇸",
+    "dial_code": "+970",
+    "phone_placeholder": "059X XXX XXX",
+    "max_digits": 10,
+    "prefix": "059"
+  },
+  {
+    "name_en": "French Polynesia",
+    "name_ar": "بولينيزيا الفرنسية",
+    "code": "PF",
+    "flag": "🇵🇫",
+    "dial_code": "+689",
+    "phone_placeholder": "87 XX XX XX",
+    "max_digits": 8,
+    "prefix": "87"
+  },
+  {
+    "name_en": "Qatar",
+    "name_ar": "قطر",
+    "code": "QA",
+    "flag": "🇶🇦",
+    "dial_code": "+974",
+    "phone_placeholder": "3X XXX XXXX",
+    "max_digits": 9,
+    "prefix": "3"
+  },
+  {
+    "name_en": "Réunion",
+    "name_ar": "لا ريونيون",
+    "code": "RE",
+    "flag": "🇷🇪",
+    "dial_code": "+262",
+    "phone_placeholder": "639 XX XX XX",
+    "max_digits": 9,
+    "prefix": "639"
+  },
+  {
+    "name_en": "Romania",
+    "name_ar": "رومانيا",
+    "code": "RO",
+    "flag": "🇷🇴",
+    "dial_code": "+40",
+    "phone_placeholder": "07X XXX XXXX",
+    "max_digits": 10,
+    "prefix": "07"
+  },
+  {
+    "name_en": "Russian Federation",
+    "name_ar": "روسيا",
+    "code": "RU",
+    "flag": "🇷🇺",
+    "dial_code": "+7",
+    "phone_placeholder": "9XX XXX XXXX",
+    "max_digits": 10,
+    "prefix": "9"
+  },
+  {
+    "name_en": "Rwanda",
+    "name_ar": "رواندا",
+    "code": "RW",
+    "flag": "🇷🇼",
+    "dial_code": "+250",
+    "phone_placeholder": "07X XXX XXX",
+    "max_digits": 9,
+    "prefix": "07"
+  },
+  {
+    "name_en": "Saudi Arabia",
+    "name_ar": "المملكة العربية السعودية",
+    "code": "SA",
+    "flag": "🇸🇦",
+    "dial_code": "+966",
+    "phone_placeholder": "05X XXX XXXX",
+    "max_digits": 10,
+    "prefix": "05"
+  },
+  {
+    "name_en": "Sudan",
+    "name_ar": "السودان",
+    "code": "SD",
+    "flag": "🇸🇩",
+    "dial_code": "+249",
+    "phone_placeholder": "09X XXX XXXX",
+    "max_digits": 10,
+    "prefix": "09"
+  },
+  {
+    "name_en": "Senegal",
+    "name_ar": "السنغال",
+    "code": "SN",
+    "flag": "🇸🇳",
+    "dial_code": "+221",
+    "phone_placeholder": "7X XXX XXXX",
+    "max_digits": 9,
+    "prefix": "7"
+  },
+  {
+    "name_en": "Singapore",
+    "name_ar": "سنغافورة",
+    "code": "SG",
+    "flag": "🇸🇬",
+    "dial_code": "+65",
+    "phone_placeholder": "8XXX XXXX",
+    "max_digits": 8,
+    "prefix": "8"
+  },
+  {
+    "name_en": "South Georgia and the South Sandwich Islands",
+    "name_ar": "جورجيا الجنوبية وجزر ساندويتش الجنوبية",
+    "code": "GS",
+    "flag": "🇬🇸",
+    "dial_code": "+0",
+    "phone_placeholder": "XXX XXX",
+    "max_digits": 6,
+    "prefix": ""
+  },
+  {
+    "name_en": "Saint Helena, Ascension and Tristan da Cunha",
+    "name_ar": "سانت هيلينا، أسينشن وترستان دا كونها",
+    "code": "SH",
+    "flag": "🇸🇭",
+    "dial_code": "+290",
+    "phone_placeholder": "6XXX",
+    "max_digits": 4,
+    "prefix": "6"
+  },
+  {
+    "name_en": "Svalbard and Jan Mayen",
+    "name_ar": "سفالبارد وجان ماين",
+    "code": "SJ",
+    "flag": "🇸🇯",
+    "dial_code": "+47",
+    "phone_placeholder": "4XX XX XXX",
+    "max_digits": 8,
+    "prefix": "4"
+  },
+  {
+    "name_en": "Solomon Islands",
+    "name_ar": "جزر سليمان",
+    "code": "SB",
+    "flag": "🇸🇧",
+    "dial_code": "+677",
+    "phone_placeholder": "7XXXX",
+    "max_digits": 5,
+    "prefix": "7"
+  },
+  {
+    "name_en": "Sierra Leone",
+    "name_ar": "سيراليون",
+    "code": "SL",
+    "flag": "🇸🇱",
+    "dial_code": "+232",
+    "phone_placeholder": "07X XXX XXX",
+    "max_digits": 9,
+    "prefix": "07"
+  },
+  {
+    "name_en": "El Salvador",
+    "name_ar": "السلفادور",
+    "code": "SV",
+    "flag": "🇸🇻",
+    "dial_code": "+503",
+    "phone_placeholder": "7XXX XXXX",
+    "max_digits": 8,
+    "prefix": "7"
+  },
+  {
+    "name_en": "San Marino",
+    "name_ar": "سان مارينو",
+    "code": "SM",
+    "flag": "🇸🇲",
+    "dial_code": "+378",
+    "phone_placeholder": "3XX XXX XXX",
+    "max_digits": 9,
+    "prefix": "3"
+  },
+  {
+    "name_en": "Somalia",
+    "name_ar": "الصومال",
+    "code": "SO",
+    "flag": "🇸🇴",
+    "dial_code": "+252",
+    "phone_placeholder": "61X XXX XXX",
+    "max_digits": 9,
+    "prefix": "61"
+  },
+  {
+    "name_en": "Saint Pierre and Miquelon",
+    "name_ar": "سانت بيير وميكولون",
+    "code": "PM",
+    "flag": "🇵🇲",
+    "dial_code": "+508",
+    "phone_placeholder": "690 XX XX XX",
+    "max_digits": 9,
+    "prefix": "690"
+  },
+  {
+    "name_en": "Serbia",
+    "name_ar": "صربيا",
+    "code": "RS",
+    "flag": "🇷🇸",
+    "dial_code": "+381",
+    "phone_placeholder": "06X XXX XXX",
+    "max_digits": 9,
+    "prefix": "06"
+  },
+  {
+    "name_en": "South Sudan",
+    "name_ar": "جنوب السودان",
+    "code": "SS",
+    "flag": "🇸🇸",
+    "dial_code": "+211",
+    "phone_placeholder": "09X XXX XXXX",
+    "max_digits": 10,
+    "prefix": "09"
+  },
+  {
+    "name_en": "Sao Tome and Principe",
+    "name_ar": "ساو تومي وبرينسيبي",
+    "code": "ST",
+    "flag": "🇸🇹",
+    "dial_code": "+239",
+    "phone_placeholder": "98X XXXX",
+    "max_digits": 7,
+    "prefix": "98"
+  },
+  {
+    "name_en": "Suriname",
+    "name_ar": "سورينام",
+    "code": "SR",
+    "flag": "🇸🇷",
+    "dial_code": "+597",
+    "phone_placeholder": "7XX XXXX",
+    "max_digits": 7,
+    "prefix": "7"
+  },
+  {
+    "name_en": "Slovakia",
+    "name_ar": "سلوفاكيا",
+    "code": "SK",
+    "flag": "🇸🇰",
+    "dial_code": "+421",
+    "phone_placeholder": "09X XXX XXX",
+    "max_digits": 9,
+    "prefix": "09"
+  },
+  {
+    "name_en": "Slovenia",
+    "name_ar": "سلوفينيا",
+    "code": "SI",
+    "flag": "🇸🇮",
+    "dial_code": "+386",
+    "phone_placeholder": "03X XXX XXX",
+    "max_digits": 9,
+    "prefix": "03"
+  },
+  {
+    "name_en": "Sweden",
+    "name_ar": "السويد",
+    "code": "SE",
+    "flag": "🇸🇪",
+    "dial_code": "+46",
+    "phone_placeholder": "07X XXX XXXX",
+    "max_digits": 10,
+    "prefix": "07"
+  },
+  {
+    "name_en": "Eswatini",
+    "name_ar": "إسواتيني",
+    "code": "SZ",
+    "flag": "🇸🇿",
+    "dial_code": "+268",
+    "phone_placeholder": "7X XX XXXX",
+    "max_digits": 8,
+    "prefix": "7"
+  },
+  {
+    "name_en": "Sint Maarten (Dutch part)",
+    "name_ar": "سانت مارتن (الجزء الهولندي)",
+    "code": "SX",
+    "flag": "🇸🇽",
+    "dial_code": "+1",
+    "phone_placeholder": "721 XXX XXXX",
+    "max_digits": 10,
+    "prefix": "721"
+  },
+  {
+    "name_en": "Seychelles",
+    "name_ar": "سيشيل",
+    "code": "SC",
+    "flag": "🇸🇨",
+    "dial_code": "+248",
+    "phone_placeholder": "2XX XXXX",
+    "max_digits": 7,
+    "prefix": "2"
+  },
+  {
+    "name_en": "Syrian Arab Republic",
+    "name_ar": "الجمهورية العربية السورية",
+    "code": "SY",
+    "flag": "🇸🇾",
+    "dial_code": "+963",
+    "phone_placeholder": "09X XXX XXX",
+    "max_digits": 9,
+    "prefix": "09"
+  },
+  {
+    "name_en": "Turks and Caicos Islands",
+    "name_ar": "جزر تركس وكايكوس",
+    "code": "TC",
+    "flag": "🇹🇨",
+    "dial_code": "+1",
+    "phone_placeholder": "649 XXX XXXX",
+    "max_digits": 10,
+    "prefix": "649"
+  },
+  {
+    "name_en": "Chad",
+    "name_ar": "تشاد",
+    "code": "TD",
+    "flag": "🇹🇩",
+    "dial_code": "+235",
+    "phone_placeholder": "6X XX XX XX",
+    "max_digits": 8,
+    "prefix": "6"
+  },
+  {
+    "name_en": "Togo",
+    "name_ar": "توجو",
+    "code": "TG",
+    "flag": "🇹🇬",
+    "dial_code": "+228",
+    "phone_placeholder": "9X XX XX XX",
+    "max_digits": 8,
+    "prefix": "9"
+  },
+  {
+    "name_en": "Thailand",
+    "name_ar": "تايلاند",
+    "code": "TH",
+    "flag": "🇹🇭",
+    "dial_code": "+66",
+    "phone_placeholder": "09X XXX XXXX",
+    "max_digits": 10,
+    "prefix": "09"
+  },
+  {
+    "name_en": "Tajikistan",
+    "name_ar": "طاجيكستان",
+    "code": "TJ",
+    "flag": "🇹🇯",
+    "dial_code": "+992",
+    "phone_placeholder": "9X XXX XXXX",
+    "max_digits": 9,
+    "prefix": "9"
+  },
+  {
+    "name_en": "Tokelau",
+    "name_ar": "توكيلاو",
+    "code": "TK",
+    "flag": "🇹🇰",
+    "dial_code": "+690",
+    "phone_placeholder": "4XXX",
+    "max_digits": 4,
+    "prefix": "4"
+  },
+  {
+    "name_en": "Turkmenistan",
+    "name_ar": "تركمانستان",
+    "code": "TM",
+    "flag": "🇹🇲",
+    "dial_code": "+993",
+    "phone_placeholder": "6X XXX XXX",
+    "max_digits": 8,
+    "prefix": "6"
+  },
+  {
+    "name_en": "Timor-Leste",
+    "name_ar": "تيمور-ليست",
+    "code": "TL",
+    "flag": "🇹🇱",
+    "dial_code": "+670",
+    "phone_placeholder": "7X XXX XXXX",
+    "max_digits": 9,
+    "prefix": "7"
+  },
+  {
+    "name_en": "Tonga",
+    "name_ar": "تونغا",
+    "code": "TO",
+    "flag": "🇹🇴",
+    "dial_code": "+676",
+    "phone_placeholder": "8XXX XXX",
+    "max_digits": 7,
+    "prefix": "8"
+  },
+  {
+    "name_en": "Trinidad and Tobago",
+    "name_ar": "ترينيداد وتوباغو",
+    "code": "TT",
+    "flag": "🇹🇹",
+    "dial_code": "+1",
+    "phone_placeholder": "868 XXX XXXX",
+    "max_digits": 10,
+    "prefix": "868"
+  },
+  {
+    "name_en": "Tunisia",
+    "name_ar": "تونس",
+    "code": "TN",
+    "flag": "🇹🇳",
+    "dial_code": "+216",
+    "phone_placeholder": "2X XXX XXX",
+    "max_digits": 8,
+    "prefix": "2"
+  },
+  {
+    "name_en": "Türkiye",
+    "name_ar": "تركيا",
+    "code": "TR",
+    "flag": "🇹🇷",
+    "dial_code": "+90",
+    "phone_placeholder": "05X XXX XXXX",
+    "max_digits": 10,
+    "prefix": "05"
+  },
+  {
+    "name_en": "Tuvalu",
+    "name_ar": "توفالو",
+    "code": "TV",
+    "flag": "🇹🇻",
+    "dial_code": "+688",
+    "phone_placeholder": "90XXX",
+    "max_digits": 5,
+    "prefix": "90"
+  },
+  {
+    "name_en": "Taiwan, Province of China",
+    "name_ar": "تايوان، مقاطعة الصين",
+    "code": "TW",
+    "flag": "🇹🇼",
+    "dial_code": "+886",
+    "phone_placeholder": "09XX XXX XXX",
+    "max_digits": 10,
+    "prefix": "09"
+  },
+  {
+    "name_en": "Tanzania, United Republic of",
+    "name_ar": "تنزانيا، جمهورية المتحدة",
+    "code": "TZ",
+    "flag": "🇹🇿",
+    "dial_code": "+255",
+    "phone_placeholder": "07X XXX XXXX",
+    "max_digits": 10,
+    "prefix": "07"
+  },
+  {
+    "name_en": "Uganda",
+    "name_ar": "أوغندا",
+    "code": "UG",
+    "flag": "🇺🇬",
+    "dial_code": "+256",
+    "phone_placeholder": "07X XXX XXX",
+    "max_digits": 9,
+    "prefix": "07"
+  },
+  {
+    "name_en": "Ukraine",
+    "name_ar": "أوكرانيا",
+    "code": "UA",
+    "flag": "🇺🇦",
+    "dial_code": "+380",
+    "phone_placeholder": "09X XXX XXXX",
+    "max_digits": 10,
+    "prefix": "09"
+  },
+  {
+    "name_en": "United States Minor Outlying Islands",
+    "name_ar": "جزر الولايات المتحدة البعيدة الصغرى",
+    "code": "UM",
+    "flag": "🇺🇲",
+    "dial_code": "+0",
+    "phone_placeholder": "XXX XXX XXXX",
+    "max_digits": 10,
+    "prefix": ""
+  },
+  {
+    "name_en": "Uruguay",
+    "name_ar": "أوروغواي",
+    "code": "UY",
+    "flag": "🇺🇾",
+    "dial_code": "+598",
+    "phone_placeholder": "09X XXX XXX",
+    "max_digits": 9,
+    "prefix": "09"
+  },
+  {
+    "name_en": "United States",
+    "name_ar": "الولايات المتحدة",
+    "code": "US",
+    "flag": "🇺🇸",
+    "dial_code": "+1",
+    "phone_placeholder": "XXX XXX XXXX",
+    "max_digits": 10,
+    "prefix": ""
+  },
+  {
+    "name_en": "Uzbekistan",
+    "name_ar": "أوزبكستان",
+    "code": "UZ",
+    "flag": "🇺🇿",
+    "dial_code": "+998",
+    "phone_placeholder": "9X XXX XXXX",
+    "max_digits": 9,
+    "prefix": "9"
+  },
+  {
+    "name_en": "Holy See (Vatican City State)",
+    "name_ar": "الكرسي الرسولي (دولة مدينة الفاتيكان)",
+    "code": "VA",
+    "flag": "🇻🇦",
+    "dial_code": "+39",
+    "phone_placeholder": "3XX XXX XXXX",
+    "max_digits": 10,
+    "prefix": "3"
+  },
+  {
+    "name_en": "Saint Vincent and the Grenadines",
+    "name_ar": "سانت فنسنت وجزر غرينادين",
+    "code": "VC",
+    "flag": "🇻🇨",
+    "dial_code": "+1",
+    "phone_placeholder": "784 XXX XXXX",
+    "max_digits": 10,
+    "prefix": "784"
+  },
+  {
+    "name_en": "Venezuela, Bolivarian Republic of",
+    "name_ar": "فنزويلا، جمهورية بوليفارية",
+    "code": "VE",
+    "flag": "🇻🇪",
+    "dial_code": "+58",
+    "phone_placeholder": "04XX XXX XXX",
+    "max_digits": 10,
+    "prefix": "04"
+  },
+  {
+    "name_en": "Virgin Islands, British",
+    "name_ar": "جزر العذراء البريطانية",
+    "code": "VG",
+    "flag": "🇻🇬",
+    "dial_code": "+1",
+    "phone_placeholder": "284 XXX XXXX",
+    "max_digits": 10,
+    "prefix": "284"
+  },
+  {
+    "name_en": "Virgin Islands, U.S.",
+    "name_ar": "جزر العذراء الأمريكية",
+    "code": "VI",
+    "flag": "🇻🇮",
+    "dial_code": "+1",
+    "phone_placeholder": "340 XXX XXXX",
+    "max_digits": 10,
+    "prefix": "340"
+  },
+  {
+    "name_en": "Viet Nam",
+    "name_ar": "فيتنام",
+    "code": "VN",
+    "flag": "🇻🇳",
+    "dial_code": "+84",
+    "phone_placeholder": "09X XXX XXXX",
+    "max_digits": 10,
+    "prefix": "09"
+  },
+  {
+    "name_en": "Vanuatu",
+    "name_ar": "فانواتو",
+    "code": "VU",
+    "flag": "🇻🇺",
+    "dial_code": "+678",
+    "phone_placeholder": "5XXXX",
+    "max_digits": 5,
+    "prefix": "5"
+  },
+  {
+    "name_en": "Wallis and Futuna",
+    "name_ar": "واليس وفوتونا",
+    "code": "WF",
+    "flag": "🇼🇫",
+    "dial_code": "+681",
+    "phone_placeholder": "50 XX XX XX",
+    "max_digits": 8,
+    "prefix": "50"
+  },
+  {
+    "name_en": "Samoa",
+    "name_ar": "ساموا",
+    "code": "WS",
+    "flag": "🇼🇸",
+    "dial_code": "+685",
+    "phone_placeholder": "7X XX XXXX",
+    "max_digits": 8,
+    "prefix": "7"
+  },
+  {
+    "name_en": "Yemen",
+    "name_ar": "اليمن",
+    "code": "YE",
+    "flag": "🇾🇪",
+    "dial_code": "+967",
+    "phone_placeholder": "7X XXX XXX",
+    "max_digits": 8,
+    "prefix": "7"
+  },
+  {
+    "name_en": "South Africa",
+    "name_ar": "جنوب أفريقيا",
+    "code": "ZA",
+    "flag": "🇿🇦",
+    "dial_code": "+27",
+    "phone_placeholder": "06X XXX XXXX",
+    "max_digits": 10,
+    "prefix": "06"
+  },
+  {
+    "name_en": "Zambia",
+    "name_ar": "زامبيا",
+    "code": "ZM",
+    "flag": "🇿🇲",
+    "dial_code": "+260",
+    "phone_placeholder": "09X XXX XXX",
+    "max_digits": 9,
+    "prefix": "09"
+  },
+  {
+    "name_en": "Zimbabwe",
+    "name_ar": "زيمبابوي",
+    "code": "ZW",
+    "flag": "🇿🇼",
+    "dial_code": "+263",
+    "phone_placeholder": "07X XXX XXX",
+    "max_digits": 9,
+    "prefix": "07"
+  }
+];
+class CountryEntity {
+  constructor(data) {
+    this.data = data;
+  }
+  getName(lang = "en") {
+    return this.data["name_" + lang];
+  }
+  getCode() {
+    return this.data.code;
+  }
+  getFlag() {
+    return this.data.flag;
+  }
+  getDialCode() {
+    return this.data.dial_code;
+  }
+  getPhonePlaceholder() {
+    return this.data.phone_placeholder;
+  }
+  getMaxDigits() {
+    return this.data.max_digits;
+  }
+  getPrefix() {
+    return this.data.prefix;
+  }
+}
+class Countries {
+  countries;
+  constructor() {
+    this.countries = countriesData.map((country) => new CountryEntity(country));
+  }
+  from(countries) {
+    this.countries = this.get(countries);
+    return this;
+  }
+  get(countries = []) {
+    if (countries.length) {
+      return this.countries.filter((country) => countries.includes(country.getCode()));
+    }
+    return this.countries;
+  }
+  first() {
+    return this.countries[0] || null;
+  }
+}
+const $countries = new Countries();
+const _sfc_main$6 = /* @__PURE__ */ Object.assign({
+  name: "BsPhoneInput",
+  inheritAttrs: false
+}, {
+  __name: "BsInputPhone",
+  __ssrInlineRender: true,
+  props: {
+    id: String,
+    resource: {
+      type: String,
+      required: true
+    },
+    name: {
+      type: String,
+      required: true
+    },
+    label: String,
+    note: String,
+    error: {
+      type: String,
+      default: ""
+    },
+    modelValue: {
+      type: String,
+      default: ""
+    },
+    defaultCountry: {
+      type: String,
+      default: "SA"
+    },
+    countries: {
+      type: Array,
+      default: () => []
+    }
+  },
+  emits: ["update:modelValue"],
+  setup(__props, { emit: __emit }) {
+    const props = __props;
+    const attrs = useAttrs();
+    const input = ref(null);
+    const selectedCountry = ref(null);
+    const invalid = ref(false);
+    const validationError = ref("");
+    const displayValue = ref("");
+    const phoneNumber = ref(null);
+    const isInternalUpdate = ref(false);
+    const $phoneCountries = $countries.get();
+    const computedId = computed(() => {
+      return props.id || props.name;
+    });
+    const computedLabel = computed(() => {
+      if (props.label) return props.label;
+      const key = `${props.resource}.attributes.${props.name}`;
+      const translated = trans(key);
+      return translated === key ? null : translated;
+    });
+    const computedNote = computed(() => {
+      if (props.note !== void 0 && props.note !== null) return props.note;
+      const key = `${props.resource}.notes.${props.name}`;
+      const translated = trans(key);
+      return translated === key ? null : translated;
+    });
+    const search = ref("");
+    const locale = ref(locales.current());
+    const filteredCountries = computed(() => {
+      let countries = $phoneCountries;
+      if (props.countries.length > 0) {
+        countries = countries.filter((c) => props.countries.includes(c.getCode()));
+      }
+      const query = search.value.trim().toLowerCase();
+      if (!query) return countries;
+      return countries.filter(
+        (country) => `${country.getName("en")} ${country.getName("ar")} ${country.getCode()} ${country.getDialCode()} ${country.getFlag()}`.toLowerCase().includes(query)
+      ).sort((a, b) => {
+        const selectedCode = selectedCountry.value?.getCode();
+        if (a.getCode() === selectedCode) return -1;
+        if (b.getCode() === selectedCode) return 1;
+        return 0;
+      });
+    });
+    const qualifyModelValue = (value) => {
+      if (!value) {
+        displayValue.value = "";
+        return;
+      }
+      try {
+        phoneNumber.value = parsePhoneNumberFromString(value);
+        if (phoneNumber.value) {
+          selectedCountry.value = $phoneCountries.find((country) => country.getCode() === phoneNumber.value.country);
+          displayValue.value = phoneNumber.value.formatNational();
+        }
+      } catch (error) {
+        console.error("Invalid phone number:", error);
+      }
+    };
+    watch(() => props.modelValue, (newVal) => {
+      if (isInternalUpdate.value) {
+        isInternalUpdate.value = false;
+        return;
+      }
+      qualifyModelValue(newVal);
+    }, { immediate: true });
+    onMounted(() => {
+      selectedCountry.value = $phoneCountries.find((country) => country.getCode() === props.defaultCountry);
+      if (props.modelValue) {
+        qualifyModelValue(props.modelValue);
+      }
+    });
+    return (_ctx, _push, _parent, _attrs) => {
+      _push(`<div${ssrRenderAttrs(mergeProps({ class: "mb-3" }, _attrs))} data-v-79cb4e0e>`);
+      if (computedLabel.value) {
+        _push(`<label${ssrRenderAttr("for", computedId.value)} class="form-label" data-v-79cb4e0e>${ssrInterpolate(computedLabel.value)}</label>`);
+      } else {
+        _push(`<!---->`);
+      }
+      _push(`<div data-v-79cb4e0e><div class="${ssrRenderClass([{ "is-invalid": !!__props.error || invalid.value }, "input-group"])}" data-v-79cb4e0e>`);
+      if (locale.value.getDir() === "ltr") {
+        _push(`<button class="${ssrRenderClass([{ "is-invalid": !!__props.error || invalid.value }, "form-control dropdown-toggle"])}" style="${ssrRenderStyle({ "flex": ".3" })}" type="button" data-bs-toggle="dropdown" aria-expanded="false" data-v-79cb4e0e>${ssrInterpolate(selectedCountry.value?.getFlag())} ${ssrInterpolate(selectedCountry.value?.getDialCode())}</button>`);
+      } else {
+        _push(`<!---->`);
+      }
+      if (locale.value.getDir() === "ltr") {
+        _push(`<ul class="dropdown-menu" style="${ssrRenderStyle({ "max-height": "250px", "overflow-y": "auto", "position": "relative", "padding-top": "0" })}" data-v-79cb4e0e><li style="${ssrRenderStyle({ "position": "sticky", "top": "0", "background": "var(--bs-dropdown-bg)", "z-index": "10" })}" data-v-79cb4e0e><div class="p-2 border-bottom" data-v-79cb4e0e><input type="text"${ssrRenderAttr("placeholder", unref(trans)("actions.search"))} class="form-control form-control-sm"${ssrRenderAttr("value", search.value)} data-v-79cb4e0e></div></li><!--[-->`);
+        ssrRenderList(filteredCountries.value, (country) => {
+          _push(`<li data-v-79cb4e0e><a class="${ssrRenderClass([{ active: selectedCountry.value?.getCode() === country.getCode() }, "dropdown-item"])}" href="javascript:void(0);" data-v-79cb4e0e>${ssrInterpolate(country.getFlag())} ${ssrInterpolate(country.getCode())} (${ssrInterpolate(country.getDialCode())}) </a></li>`);
+        });
+        _push(`<!--]--></ul>`);
+      } else {
+        _push(`<!---->`);
+      }
+      _push(`<input${ssrRenderAttrs(mergeProps({ type: "tel" }, unref(attrs), {
+        ref_key: "input",
+        ref: input,
+        name: __props.name,
+        value: displayValue.value,
+        id: computedId.value,
+        class: ["form-control", { "is-invalid": !!__props.error || invalid.value }],
+        placeholder: selectedCountry.value?.getPhonePlaceholder(),
+        inputmode: "tel",
+        autocomplete: "tel",
+        style: { "direction": "ltr", "text-align": "left" }
+      }))} data-v-79cb4e0e>`);
+      if (locale.value.getDir() === "rtl") {
+        _push(`<button class="${ssrRenderClass([{ "is-invalid": !!__props.error || invalid.value }, "form-control dropdown-toggle"])}" style="${ssrRenderStyle({ "flex": ".3" })}" type="button" data-bs-toggle="dropdown" aria-expanded="false" data-v-79cb4e0e>${ssrInterpolate(selectedCountry.value?.getFlag())} ${ssrInterpolate(selectedCountry.value?.getDialCode())}</button>`);
+      } else {
+        _push(`<!---->`);
+      }
+      if (locale.value.getDir() === "rtl") {
+        _push(`<ul class="dropdown-menu" style="${ssrRenderStyle({ "max-height": "250px", "overflow-y": "auto", "position": "relative", "padding-top": "0" })}" data-v-79cb4e0e><li style="${ssrRenderStyle({ "position": "sticky", "top": "0", "background": "var(--bs-dropdown-bg)", "z-index": "10" })}" data-v-79cb4e0e><div class="p-2 border-bottom" data-v-79cb4e0e><input type="text"${ssrRenderAttr("placeholder", unref(trans)("actions.search"))} class="form-control form-control-sm"${ssrRenderAttr("value", search.value)} data-v-79cb4e0e></div></li><!--[-->`);
+        ssrRenderList(filteredCountries.value, (country) => {
+          _push(`<li data-v-79cb4e0e><a class="${ssrRenderClass([{ active: selectedCountry.value?.getCode() === country.getCode() }, "dropdown-item"])}" href="javascript:void(0);" data-v-79cb4e0e>${ssrInterpolate(country.getFlag())} ${ssrInterpolate(country.getName(locale.value.getCode()))} (${ssrInterpolate(country.getDialCode())}) </a></li>`);
+        });
+        _push(`<!--]--></ul>`);
+      } else {
+        _push(`<!---->`);
+      }
+      _push(`</div>`);
+      if (computedNote.value) {
+        _push(`<small class="text-muted" data-v-79cb4e0e>${ssrInterpolate(computedNote.value)}</small>`);
+      } else {
+        _push(`<!---->`);
+      }
+      if (__props.error || invalid.value) {
+        _push(`<div class="text-danger" data-v-79cb4e0e>${ssrInterpolate(__props.error || validationError.value)}</div>`);
+      } else {
+        _push(`<!---->`);
+      }
+      _push(`</div></div>`);
+    };
+  }
+});
+const _sfc_setup$6 = _sfc_main$6.setup;
+_sfc_main$6.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/components/Form/BsInputPhone.vue");
+  return _sfc_setup$6 ? _sfc_setup$6(props, ctx) : void 0;
+};
+const BsInputPhone = /* @__PURE__ */ _export_sfc(_sfc_main$6, [["__scopeId", "data-v-79cb4e0e"]]);
+const _sfc_main$5 = /* @__PURE__ */ Object.assign({
   name: "Register",
   layout: Guest
 }, {
@@ -980,25 +3999,27 @@ const _sfc_main$3 = /* @__PURE__ */ Object.assign({
   setup(__props) {
     const locales2 = inject("$locales");
     const form = useForm({
+      name: "",
       email: "",
+      phone: "",
       password: "",
-      remember: false
+      password_confirmation: ""
     });
     return (_ctx, _push, _parent, _attrs) => {
       _push(`<!--[-->`);
       _push(ssrRenderComponent(unref(Head), null, {
         default: withCtx((_, _push2, _parent2, _scopeId) => {
           if (_push2) {
-            _push2(`<title${_scopeId}>${ssrInterpolate()}</title>`);
+            _push2(`<title${_scopeId}>${ssrInterpolate(unref(trans)("auth.register.page_title"))} | ${ssrInterpolate(__props.app.name)}</title>`);
           } else {
             return [
-              createVNode("title", null, toDisplayString(), 1)
+              createVNode("title", null, toDisplayString(unref(trans)("auth.register.page_title")) + " | " + toDisplayString(__props.app.name), 1)
             ];
           }
         }),
         _: 1
       }, _parent));
-      _push(`<div class="authentication-inner row m-0"><div class="d-none d-lg-flex col-lg-7 col-xl-8 align-items-center p-5"><div class="w-100 d-flex justify-content-center"><img${ssrRenderAttr("src", __props.config.banner)} class="img-fluid" alt="Login image" width="700"></div></div><div class="d-flex col-12 col-lg-5 col-xl-4 align-items-center authentication-bg p-sm-5 p-4"><div class="w-px-400 mx-auto"><div class="app-brand mb-5">`);
+      _push(`<div class="authentication-inner row m-0"><div class="d-none d-lg-flex col-lg-7 col-xl-8 align-items-center p-5"><div class="w-100 d-flex justify-content-center"><img${ssrRenderAttr("src", __props.config.banner)} class="img-fluid" alt="Register image" width="700"></div></div><div class="d-flex col-12 col-lg-5 col-xl-4 align-items-center authentication-bg p-sm-5 p-4"><div class="w-px-400 mx-auto"><div class="app-brand mb-5">`);
       _push(ssrRenderComponent(unref(Link), {
         href: unref(route)("dashboard.home"),
         class: "app-brand-link gap-2"
@@ -1030,92 +4051,64 @@ const _sfc_main$3 = /* @__PURE__ */ Object.assign({
         }),
         _: 1
       }, _parent));
-      _push(`</div><h4 class="mb-2">${ssrInterpolate(_ctx.$t("auth.login.title", { app: __props.app.name }))}</h4><p class="mb-4">${ssrInterpolate(_ctx.$t("auth.login.subtitle"))}</p><form id="formAuthentication" class="mb-3" action="" method="POST">`);
-      _push(ssrRenderComponent(_sfc_main$6, {
-        resource: "auth.login",
+      _push(`</div><h4 class="mb-2">${ssrInterpolate(unref(trans)("auth.register.title", { app: __props.app.name }))}</h4><p class="mb-4">${ssrInterpolate(unref(trans)("auth.register.subtitle"))}</p><form id="formAuthentication" class="mb-3" action="" method="POST">`);
+      _push(ssrRenderComponent(_sfc_main$c, {
+        resource: "auth.register",
+        type: "text",
+        name: "name",
+        modelValue: unref(form).name,
+        "onUpdate:modelValue": ($event) => unref(form).name = $event,
+        autofocus: "",
+        error: unref(form).errors.name
+      }, null, _parent));
+      _push(ssrRenderComponent(_sfc_main$c, {
+        resource: "auth.register",
         type: "text",
         name: "email",
         modelValue: unref(form).email,
         "onUpdate:modelValue": ($event) => unref(form).email = $event,
-        autofocus: "",
         error: unref(form).errors.email
       }, null, _parent));
-      _push(ssrRenderComponent(_sfc_main$6, {
-        resource: "auth.login",
+      _push(ssrRenderComponent(BsInputPhone, {
+        resource: "auth.register",
+        type: "text",
+        name: "phone",
+        modelValue: unref(form).phone,
+        "onUpdate:modelValue": ($event) => unref(form).phone = $event,
+        error: unref(form).errors.phone
+      }, null, _parent));
+      _push(ssrRenderComponent(_sfc_main$c, {
+        resource: "auth.register",
         type: "password",
         name: "password",
         modelValue: unref(form).password,
         "onUpdate:modelValue": ($event) => unref(form).password = $event,
         error: unref(form).errors.password
+      }, null, _parent));
+      _push(ssrRenderComponent(_sfc_main$c, {
+        resource: "auth.register",
+        type: "password",
+        name: "password_confirmation",
+        modelValue: unref(form).password_confirmation,
+        "onUpdate:modelValue": ($event) => unref(form).password_confirmation = $event,
+        error: unref(form).errors.password_confirmation
+      }, null, _parent));
+      _push(`<button type="submit" class="btn btn-primary d-grid w-100"${ssrIncludeBooleanAttr(unref(form).processing) ? " disabled" : ""}>${ssrInterpolate(unref(trans)("auth.register.actions.submit"))}</button></form><p class="text-center"><span>${ssrInterpolate(unref(trans)("auth.register.actions.login-note"))}  </span>`);
+      _push(ssrRenderComponent(unref(Link), {
+        href: unref(route)("login")
       }, {
-        label: withCtx(({ label }, _push2, _parent2, _scopeId) => {
+        default: withCtx((_, _push2, _parent2, _scopeId) => {
           if (_push2) {
-            _push2(`<div class="d-flex justify-content-between"${_scopeId}><label class="form-label" for="password"${_scopeId}>${ssrInterpolate(label)}</label>`);
-            _push2(ssrRenderComponent(unref(Link), {
-              href: unref(route)("password.request")
-            }, {
-              default: withCtx((_, _push3, _parent3, _scopeId2) => {
-                if (_push3) {
-                  _push3(`<small${_scopeId2}>${ssrInterpolate(_ctx.$t("auth.login.actions.forget"))}</small>`);
-                } else {
-                  return [
-                    createVNode("small", null, toDisplayString(_ctx.$t("auth.login.actions.forget")), 1)
-                  ];
-                }
-              }),
-              _: 2
-            }, _parent2, _scopeId));
-            _push2(`</div>`);
+            _push2(`<span${_scopeId}>${ssrInterpolate(unref(trans)("auth.register.actions.login"))}</span>`);
           } else {
             return [
-              createVNode("div", { class: "d-flex justify-content-between" }, [
-                createVNode("label", {
-                  class: "form-label",
-                  for: "password"
-                }, toDisplayString(label), 1),
-                createVNode(unref(Link), {
-                  href: unref(route)("password.request")
-                }, {
-                  default: withCtx(() => [
-                    createVNode("small", null, toDisplayString(_ctx.$t("auth.login.actions.forget")), 1)
-                  ]),
-                  _: 1
-                }, 8, ["href"])
-              ])
+              createVNode("span", null, toDisplayString(unref(trans)("auth.register.actions.login")), 1)
             ];
           }
         }),
         _: 1
       }, _parent));
-      _push(ssrRenderComponent(_sfc_main$5, {
-        resource: "auth.login",
-        name: "remember",
-        modelValue: unref(form).remember,
-        "onUpdate:modelValue": ($event) => unref(form).remember = $event,
-        error: unref(form).errors.remember
-      }, null, _parent));
-      _push(`<button type="submit" class="btn btn-primary d-grid w-100"${ssrIncludeBooleanAttr(unref(form).processing) ? " disabled" : ""}>${ssrInterpolate(_ctx.$t("auth.login.actions.submit"))}</button></form>`);
-      if (__props.config.register) {
-        _push(`<p class="text-center"><span>${ssrInterpolate(_ctx.$t("auth.login.actions.register-note"))}  </span>`);
-        _push(ssrRenderComponent(unref(Link), {
-          href: unref(route)("register")
-        }, {
-          default: withCtx((_, _push2, _parent2, _scopeId) => {
-            if (_push2) {
-              _push2(`<span${_scopeId}>${ssrInterpolate(_ctx.$t("auth.login.actions.register"))}</span>`);
-            } else {
-              return [
-                createVNode("span", null, toDisplayString(_ctx.$t("auth.login.actions.register")), 1)
-              ];
-            }
-          }),
-          _: 1
-        }, _parent));
-        _push(`</p>`);
-      } else {
-        _push(`<!---->`);
-      }
-      _push(`<p class="text-center"><!--[-->`);
+      _push(`</p><p class="text-center"><!--[-->`);
       ssrRenderList(unref(locales2).get(), (locale) => {
         _push(`<!--[-->`);
         if (unref(locales2).current().getCode() === locale.getCode()) {
@@ -1125,17 +4118,244 @@ const _sfc_main$3 = /* @__PURE__ */ Object.assign({
         }
         _push(`<!--]-->`);
       });
-      _push(`<!--]--></p></div></div></div><!--]-->`);
+      _push(`<!--]--></p><div class="text-center">`);
+      _push(ssrRenderComponent(StyleSwitcher, null, null, _parent));
+      _push(`</div></div></div></div><!--]-->`);
+    };
+  }
+});
+const _sfc_setup$5 = _sfc_main$5.setup;
+_sfc_main$5.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/pages/Auth/Register.vue");
+  return _sfc_setup$5 ? _sfc_setup$5(props, ctx) : void 0;
+};
+const __vite_glob_0_4 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: _sfc_main$5
+}, Symbol.toStringTag, { value: "Module" }));
+const _sfc_main$4 = /* @__PURE__ */ Object.assign({
+  name: "ResetPassword",
+  layout: Guest
+}, {
+  __name: "ResetPassword",
+  __ssrInlineRender: true,
+  props: ["app", "config", "flash", "email", "token"],
+  setup(__props) {
+    const props = __props;
+    const locales2 = inject("$locales");
+    const form = useForm({
+      email: props.email,
+      token: props.token,
+      password: "",
+      password_confirmation: ""
+    });
+    return (_ctx, _push, _parent, _attrs) => {
+      _push(`<!--[-->`);
+      _push(ssrRenderComponent(unref(Head), null, {
+        default: withCtx((_, _push2, _parent2, _scopeId) => {
+          if (_push2) {
+            _push2(`<title${_scopeId}>${ssrInterpolate(_ctx.$t("auth.reset_password.page_title"))} | ${ssrInterpolate(__props.app.name)}</title>`);
+          } else {
+            return [
+              createVNode("title", null, toDisplayString(_ctx.$t("auth.reset_password.page_title")) + " | " + toDisplayString(__props.app.name), 1)
+            ];
+          }
+        }),
+        _: 1
+      }, _parent));
+      _push(`<div class="authentication-inner row m-0"><div class="d-none d-lg-flex col-lg-7 col-xl-8 align-items-center p-5"><div class="w-100 d-flex justify-content-center"><img${ssrRenderAttr("src", __props.config.banner)} class="img-fluid" alt="Reset Password image" width="700"></div></div><div class="d-flex col-12 col-lg-5 col-xl-4 align-items-center authentication-bg p-sm-5 p-4"><div class="w-px-400 mx-auto"><div class="app-brand mb-5">`);
+      _push(ssrRenderComponent(unref(Link), {
+        href: unref(route)("dashboard.home"),
+        class: "app-brand-link gap-2"
+      }, {
+        default: withCtx((_, _push2, _parent2, _scopeId) => {
+          if (_push2) {
+            if (__props.app.logo) {
+              _push2(`<span class="app-brand-logo demo"${_scopeId}><img${ssrRenderAttr("src", __props.app.logo)} class="mw-100" style="${ssrRenderStyle({ "height": "60px" })}"${ssrRenderAttr("alt", __props.app.name)}${_scopeId}></span>`);
+            } else {
+              _push2(`<!---->`);
+            }
+            _push2(`<span class="app-brand-text demo text-body fw-bold text-uppercase"${_scopeId}>${ssrInterpolate(__props.app.name)}</span>`);
+          } else {
+            return [
+              __props.app.logo ? (openBlock(), createBlock("span", {
+                key: 0,
+                class: "app-brand-logo demo"
+              }, [
+                createVNode("img", {
+                  src: __props.app.logo,
+                  class: "mw-100",
+                  style: { "height": "60px" },
+                  alt: __props.app.name
+                }, null, 8, ["src", "alt"])
+              ])) : createCommentVNode("", true),
+              createVNode("span", { class: "app-brand-text demo text-body fw-bold text-uppercase" }, toDisplayString(__props.app.name), 1)
+            ];
+          }
+        }),
+        _: 1
+      }, _parent));
+      _push(`</div><h4 class="mb-2">${ssrInterpolate(_ctx.$t("auth.reset_password.title", { app: __props.app.name }))}</h4><p class="mb-4">${ssrInterpolate(_ctx.$t("auth.reset_password.subtitle"))}</p><form id="formAuthentication" class="mb-3" action="" method="POST">`);
+      _push(ssrRenderComponent(_sfc_main$c, {
+        resource: "auth.reset_password",
+        type: "text",
+        name: "email",
+        modelValue: unref(form).email,
+        "onUpdate:modelValue": ($event) => unref(form).email = $event,
+        error: unref(form).errors.email
+      }, null, _parent));
+      _push(ssrRenderComponent(_sfc_main$c, {
+        resource: "auth.register",
+        type: "password",
+        name: "password",
+        modelValue: unref(form).password,
+        "onUpdate:modelValue": ($event) => unref(form).password = $event,
+        autofocus: "",
+        error: unref(form).errors.password
+      }, null, _parent));
+      _push(ssrRenderComponent(_sfc_main$c, {
+        resource: "auth.register",
+        type: "password",
+        name: "password_confirmation",
+        modelValue: unref(form).password_confirmation,
+        "onUpdate:modelValue": ($event) => unref(form).password_confirmation = $event,
+        error: unref(form).errors.password_confirmation
+      }, null, _parent));
+      _push(`<button type="submit" class="btn btn-primary d-grid w-100"${ssrIncludeBooleanAttr(unref(form).processing) ? " disabled" : ""}>${ssrInterpolate(_ctx.$t("auth.reset_password.actions.submit"))}</button></form><p class="text-center">`);
+      _push(ssrRenderComponent(unref(Link), {
+        href: unref(route)("login")
+      }, {
+        default: withCtx((_, _push2, _parent2, _scopeId) => {
+          if (_push2) {
+            _push2(`<span${_scopeId}>${ssrInterpolate(_ctx.$t("auth.reset_password.actions.login"))}</span>`);
+          } else {
+            return [
+              createVNode("span", null, toDisplayString(_ctx.$t("auth.reset_password.actions.login")), 1)
+            ];
+          }
+        }),
+        _: 1
+      }, _parent));
+      _push(`</p><p class="text-center"><!--[-->`);
+      ssrRenderList(unref(locales2).get(), (locale) => {
+        _push(`<!--[-->`);
+        if (unref(locales2).current().getCode() === locale.getCode()) {
+          _push(`<span class="text-muted d-inline-block me-2"><span class="me-1">${locale.getSvgFlag(20, 20) ?? ""}</span> ${ssrInterpolate(locale.getName())}</span>`);
+        } else {
+          _push(`<a class="d-inline-block me-2"${ssrRenderAttr("href", unref(route)("locale.change", locale.getCode()))}><span class="me-1">${locale.getSvgFlag(20, 20) ?? ""}</span> ${ssrInterpolate(locale.getName())}</a>`);
+        }
+        _push(`<!--]-->`);
+      });
+      _push(`<!--]--></p><div class="text-center">`);
+      _push(ssrRenderComponent(StyleSwitcher, null, null, _parent));
+      _push(`</div></div></div></div><!--]-->`);
+    };
+  }
+});
+const _sfc_setup$4 = _sfc_main$4.setup;
+_sfc_main$4.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/pages/Auth/ResetPassword.vue");
+  return _sfc_setup$4 ? _sfc_setup$4(props, ctx) : void 0;
+};
+const __vite_glob_0_5 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: _sfc_main$4
+}, Symbol.toStringTag, { value: "Module" }));
+const _sfc_main$3 = /* @__PURE__ */ Object.assign({
+  name: "VerifyEmail",
+  layout: Guest
+}, {
+  __name: "VerifyEmail",
+  __ssrInlineRender: true,
+  props: ["app", "config", "flash"],
+  setup(__props) {
+    const locales2 = inject("$locales");
+    return (_ctx, _push, _parent, _attrs) => {
+      _push(`<!--[-->`);
+      _push(ssrRenderComponent(unref(Head), null, {
+        default: withCtx((_, _push2, _parent2, _scopeId) => {
+          if (_push2) {
+            _push2(`<title${_scopeId}>${ssrInterpolate(unref(trans)("auth.verify_email.page_title"))} | ${ssrInterpolate(__props.app.name)}</title>`);
+          } else {
+            return [
+              createVNode("title", null, toDisplayString(unref(trans)("auth.verify_email.page_title")) + " | " + toDisplayString(__props.app.name), 1)
+            ];
+          }
+        }),
+        _: 1
+      }, _parent));
+      _push(`<div class="authentication-inner row m-0"><div class="d-none d-lg-flex col-lg-7 col-xl-8 align-items-center p-5"><div class="w-100 d-flex justify-content-center"><img${ssrRenderAttr("src", __props.config.banner)} class="img-fluid" alt="Verify Email image" width="700"></div></div><div class="d-flex col-12 col-lg-5 col-xl-4 align-items-center authentication-bg p-sm-5 p-4"><div class="w-px-400 mx-auto"><div class="app-brand mb-5">`);
+      _push(ssrRenderComponent(unref(Link), {
+        href: unref(route)("dashboard.home"),
+        class: "app-brand-link gap-2"
+      }, {
+        default: withCtx((_, _push2, _parent2, _scopeId) => {
+          if (_push2) {
+            if (__props.app.logo) {
+              _push2(`<span class="app-brand-logo demo"${_scopeId}><img${ssrRenderAttr("src", __props.app.logo)} class="mw-100" style="${ssrRenderStyle({ "height": "60px" })}"${ssrRenderAttr("alt", __props.app.name)}${_scopeId}></span>`);
+            } else {
+              _push2(`<!---->`);
+            }
+            _push2(`<span class="app-brand-text demo text-body fw-bold text-uppercase"${_scopeId}>${ssrInterpolate(__props.app.name)}</span>`);
+          } else {
+            return [
+              __props.app.logo ? (openBlock(), createBlock("span", {
+                key: 0,
+                class: "app-brand-logo demo"
+              }, [
+                createVNode("img", {
+                  src: __props.app.logo,
+                  class: "mw-100",
+                  style: { "height": "60px" },
+                  alt: __props.app.name
+                }, null, 8, ["src", "alt"])
+              ])) : createCommentVNode("", true),
+              createVNode("span", { class: "app-brand-text demo text-body fw-bold text-uppercase" }, toDisplayString(__props.app.name), 1)
+            ];
+          }
+        }),
+        _: 1
+      }, _parent));
+      _push(`</div><h3 class="mb-2">${ssrInterpolate(unref(trans)("auth.verify_email.title"))}</h3><p class="text-start">${ssrInterpolate(unref(trans)("auth.verify_email.subtitle"))}</p><a class="btn btn-primary w-100 my-3" href="javascript:void(0);">${ssrInterpolate(unref(trans)("auth.verify_email.actions.send"))}</a><p class="text-center">`);
+      _push(ssrRenderComponent(unref(Link), {
+        href: unref(route)("logout")
+      }, {
+        default: withCtx((_, _push2, _parent2, _scopeId) => {
+          if (_push2) {
+            _push2(`<span${_scopeId}>${ssrInterpolate(unref(trans)("auth.logout"))}</span>`);
+          } else {
+            return [
+              createVNode("span", null, toDisplayString(unref(trans)("auth.logout")), 1)
+            ];
+          }
+        }),
+        _: 1
+      }, _parent));
+      _push(`</p><p class="text-center"><!--[-->`);
+      ssrRenderList(unref(locales2).get(), (locale) => {
+        _push(`<!--[-->`);
+        if (unref(locales2).current().getCode() === locale.getCode()) {
+          _push(`<span class="text-muted d-inline-block me-2"><span class="me-1">${locale.getSvgFlag(20, 20) ?? ""}</span> ${ssrInterpolate(locale.getName())}</span>`);
+        } else {
+          _push(`<a class="d-inline-block me-2"${ssrRenderAttr("href", unref(route)("locale.change", locale.getCode()))}><span class="me-1">${locale.getSvgFlag(20, 20) ?? ""}</span> ${ssrInterpolate(locale.getName())}</a>`);
+        }
+        _push(`<!--]-->`);
+      });
+      _push(`<!--]--></p><div class="text-center">`);
+      _push(ssrRenderComponent(StyleSwitcher, null, null, _parent));
+      _push(`</div></div></div></div><!--]-->`);
     };
   }
 });
 const _sfc_setup$3 = _sfc_main$3.setup;
 _sfc_main$3.setup = (props, ctx) => {
   const ssrContext = useSSRContext();
-  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/pages/Auth/Register.vue");
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/pages/Auth/VerifyEmail.vue");
   return _sfc_setup$3 ? _sfc_setup$3(props, ctx) : void 0;
 };
-const __vite_glob_0_2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_6 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: _sfc_main$3
 }, Symbol.toStringTag, { value: "Module" }));
@@ -1167,7 +4387,7 @@ _sfc_main$2.setup = (props, ctx) => {
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/pages/Dashboard/Home.vue");
   return _sfc_setup$2 ? _sfc_setup$2(props, ctx) : void 0;
 };
-const __vite_glob_0_3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_7 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: _sfc_main$2
 }, Symbol.toStringTag, { value: "Module" }));
@@ -1201,11 +4421,15 @@ _sfc_main$1.setup = (props, ctx) => {
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/pages/Test.vue");
   return _sfc_setup$1 ? _sfc_setup$1(props, ctx) : void 0;
 };
-const __vite_glob_0_4 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_8 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: _sfc_main$1
 }, Symbol.toStringTag, { value: "Module" }));
 const php_ar = {
+  "actions.search": "بحث ...",
+  "actions.mode.light": "فاتح",
+  "actions.mode.dark": "داكن",
+  "actions.mode.system": "حسب النظام",
   "auth.failed": "بيانات الاعتماد هذه غير متطابقة مع سجلاتنا.",
   "auth.password": "كلمة المرور التي تم إدخالها غير صحيحة.",
   "auth.throttle": "عدد محاولات تسجيل الدخول كبير جداً. الرجاء المحاولة مرة أخرى خلال :seconds ثانية.",
@@ -1216,6 +4440,7 @@ const php_ar = {
   "auth.register.have_account": "هل لديك حساب بالفعل؟",
   "auth.register.actions.submit": "إنشاء حساب",
   "auth.register.actions.login": "تسجيل الدخول بدلاً من ذلك",
+  "auth.register.actions.login-note": "لديك حساب بالفعل؟",
   "auth.register.attributes.name": "الاسم",
   "auth.register.attributes.email": "البريد الإلكتروني",
   "auth.register.attributes.phone": "رقم الهاتف",
@@ -1249,7 +4474,7 @@ const php_ar = {
   "auth.reset_password.attributes.password_confirmation": "تأكيد كلمة المرور",
   "auth.verify_email.page_title": "تأكيد البريد الإلكتروني",
   "auth.verify_email.title": "أكد بريدك الإلكتروني ✉️",
-  "auth.verify_email.subtitle": "شكرًا لتسجيلك! قبل البدء، هل يمكنك تأكيد بريدك الإلكتروني بالنقر على الرابط الذي أرسلناه لك؟ إذا لم يصلك البريد، سنقوم بسرور بإرسال رابط آخر.",
+  "auth.verify_email.subtitle": "برجاء تأكيد بريدك الإلكتروني بالنقر على الرابط الذي أرسلناه لك؟ إذا لم يصلك البريد، سنقوم بإرسال رابط آخر.",
   "auth.verify_email.messages.sent": "تم إرسال رابط تحقق جديد إلى عنوان البريد الإلكتروني الذي قدمته أثناء التسجيل.",
   "auth.verify_email.actions.send": "إعادة إرسال رابط التحقق",
   "auth.confirm_password.page_title": "تأكيد كلمة المرور",
@@ -1656,6 +4881,10 @@ const php_en = {
   "validation.ulid": "The :attribute field must be a valid ULID.",
   "validation.uuid": "The :attribute field must be a valid UUID.",
   "validation.custom.attribute-name.rule-name": "custom-message",
+  "actions.search": "Search ...",
+  "actions.mode.light": "Light",
+  "actions.mode.dark": "Dark",
+  "actions.mode.system": "System",
   "auth.logout": "Log Out",
   "auth.register.page_title": "Register",
   "auth.register.title": "Adventure starts here 🚀",
@@ -1663,6 +4892,7 @@ const php_en = {
   "auth.register.have_account": "Already have an account?",
   "auth.register.actions.submit": "Sign up",
   "auth.register.actions.login": "Sign in instead",
+  "auth.register.actions.login-note": "Already have an account?",
   "auth.register.attributes.name": "Name",
   "auth.register.attributes.email": "Email",
   "auth.register.attributes.phone": "Phone Number",
@@ -1696,7 +4926,7 @@ const php_en = {
   "auth.reset_password.attributes.password_confirmation": "Confirm Password",
   "auth.verify_email.page_title": "Verify Email",
   "auth.verify_email.title": "Verify your email ✉️",
-  "auth.verify_email.subtitle": "Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn't receive the email, we will gladly send you another.",
+  "auth.verify_email.subtitle": "Please verify your email address by clicking on the link we just emailed to you? If you didn't receive the email, we will send you another.",
   "auth.verify_email.messages.sent": "A new verification link has been sent to the email address you provided during registration.",
   "auth.verify_email.actions.send": "Resend verification link",
   "auth.confirm_password.page_title": "Confirm Password",
@@ -1910,48 +5140,41 @@ const Auth = {
     });
   }
 };
-function useTheme() {
-  const theme = ref("light");
-  function resolveMode(mode) {
-    if (mode === "system") {
-      return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-    }
-    return mode;
-  }
-  function applyTheme(mode) {
-    const resolved = resolveMode(mode);
-    const html = document.documentElement;
-    html.setAttribute("data-mode", resolved);
-    localStorage.setItem("theme", mode);
-    if (theme.value !== mode) {
-      theme.value = mode;
-      if (typeof window !== "undefined") {
-        window.location.reload();
-      }
-    }
-  }
-  onMounted(() => {
-    const saved = localStorage.getItem("theme") || "system";
-    theme.value = saved;
-    applyTheme(saved);
-  });
-  return { theme, applyTheme, resolveMode };
-}
 const _sfc_main = {
   __name: "App",
   __ssrInlineRender: true,
   setup(__props) {
     useAuth();
     const locales2 = inject("$locales");
-    useTheme();
+    const { theme, pageLoaded } = useTheme();
     return (_ctx, _push, _parent, _attrs) => {
-      _push(`<div${ssrRenderAttrs(mergeProps({ class: "layout-wrapper layout-content-navbar" }, _attrs))}><div class="layout-container"><aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme"><div class="app-brand demo"><a href="/" class="app-brand-link"><span class="app-brand-logo demo"><img src="http://aroundme4.test/storage/1/logo.png" class="mw-100" style="${ssrRenderStyle({ "height": "35px" })}" alt=""></span></a><a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto"><i class="bx bx-chevron-left bx-sm align-middle"></i></a></div><div class="menu-inner-shadow"></div><ul class="menu-inner py-1"><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-home-circle"></i><div class="text-truncate" data-i18n="Dashboards">Dashboards</div><span class="badge badge-center rounded-pill bg-danger ms-auto">5</span></a><ul class="menu-sub"><li class="menu-item"><a href="dashboards-analytics.html" class="menu-link"><div class="text-truncate" data-i18n="Analytics">Analytics</div></a></li><li class="menu-item"><a href="dashboards-crm.html" class="menu-link"><div class="text-truncate" data-i18n="CRM">CRM</div></a></li><li class="menu-item"><a href="app-ecommerce-dashboard.html" class="menu-link"><div class="text-truncate" data-i18n="eCommerce">eCommerce</div></a></li><li class="menu-item"><a href="app-logistics-dashboard.html" class="menu-link"><div class="text-truncate" data-i18n="Logistics">Logistics</div></a></li><li class="menu-item"><a href="app-academy-dashboard.html" class="menu-link"><div class="text-truncate" data-i18n="Academy">Academy</div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-layout"></i><div class="text-truncate" data-i18n="Layouts">Layouts</div></a><ul class="menu-sub"><li class="menu-item"><a href="layouts-collapsed-menu.html" class="menu-link"><div class="text-truncate" data-i18n="Collapsed menu"> Collapsed menu </div></a></li><li class="menu-item"><a href="layouts-content-navbar.html" class="menu-link"><div class="text-truncate" data-i18n="Content navbar"> Content navbar </div></a></li><li class="menu-item"><a href="layouts-content-navbar-with-sidebar.html" class="menu-link"><div class="text-truncate" data-i18n="Content nav + Sidebar"> Content nav + Sidebar </div></a></li><li class="menu-item"><a href="/horizontal-menu-template" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Horizontal"> Horizontal </div></a></li><li class="menu-item"><a href="layouts-without-menu.html" class="menu-link"><div class="text-truncate" data-i18n="Without menu"> Without menu </div></a></li><li class="menu-item"><a href="layouts-without-navbar.html" class="menu-link"><div class="text-truncate" data-i18n="Without navbar"> Without navbar </div></a></li><li class="menu-item"><a href="layouts-fluid.html" class="menu-link"><div class="text-truncate" data-i18n="Fluid">Fluid</div></a></li><li class="menu-item"><a href="layouts-container.html" class="menu-link"><div class="text-truncate" data-i18n="Container">Container</div></a></li><li class="menu-item"><a href="layouts-blank.html" class="menu-link"><div class="text-truncate" data-i18n="Blank">Blank</div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-store"></i><div class="text-truncate" data-i18n="Front Pages">Front Pages</div></a><ul class="menu-sub"><li class="menu-item"><a href="/front-pages/landing-page.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Landing">Landing</div></a></li><li class="menu-item"><a href="/front-pages/pricing-page.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Pricing">Pricing</div></a></li><li class="menu-item"><a href="/front-pages/payment-page.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Payment">Payment</div></a></li><li class="menu-item"><a href="/front-pages/checkout-page.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Checkout">Checkout</div></a></li><li class="menu-item"><a href="/front-pages/help-center-landing.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Help Center"> Help Center </div></a></li></ul></li><li class="menu-header small text-uppercase"><span class="menu-header-text" data-i18n="Apps &amp; Pages"> Apps &amp; Pages </span></li><li class="menu-item"><a href="app-email.html" class="menu-link"><i class="menu-icon tf-icons bx bx-envelope"></i><div class="text-truncate" data-i18n="Email">Email</div></a></li><li class="menu-item"><a href="app-chat.html" class="menu-link"><i class="menu-icon tf-icons bx bx-chat"></i><div class="text-truncate" data-i18n="Chat">Chat</div></a></li><li class="menu-item"><a href="app-calendar.html" class="menu-link"><i class="menu-icon tf-icons bx bx-calendar"></i><div class="text-truncate" data-i18n="Calendar">Calendar</div></a></li><li class="menu-item"><a href="app-kanban.html" class="menu-link"><i class="menu-icon tf-icons bx bx-grid"></i><div class="text-truncate" data-i18n="Kanban">Kanban</div></a></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-cart-alt"></i><div class="text-truncate" data-i18n="eCommerce">eCommerce</div></a><ul class="menu-sub"><li class="menu-item"><a href="app-ecommerce-dashboard.html" class="menu-link"><div class="text-truncate" data-i18n="Dashboard">Dashboard</div></a></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Products">Products</div></a><ul class="menu-sub"><li class="menu-item"><a href="app-ecommerce-product-list.html" class="menu-link"><div class="text-truncate" data-i18n="Product List"> Product List </div></a></li><li class="menu-item"><a href="app-ecommerce-product-add.html" class="menu-link"><div class="text-truncate" data-i18n="Add Product"> Add Product </div></a></li><li class="menu-item"><a href="app-ecommerce-category-list.html" class="menu-link"><div class="text-truncate" data-i18n="Category List"> Category List </div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Order">Order</div></a><ul class="menu-sub"><li class="menu-item"><a href="app-ecommerce-order-list.html" class="menu-link"><div class="text-truncate" data-i18n="Order List"> Order List </div></a></li><li class="menu-item"><a href="app-ecommerce-order-details.html" class="menu-link"><div class="text-truncate" data-i18n="Order Details"> Order Details </div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Customer">Customer</div></a><ul class="menu-sub"><li class="menu-item"><a href="app-ecommerce-customer-all.html" class="menu-link"><div class="text-truncate" data-i18n="All Customers"> All Customers </div></a></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Customer Details"> Customer Details </div></a><ul class="menu-sub"><li class="menu-item"><a href="app-ecommerce-customer-details-overview.html" class="menu-link"><div class="text-truncate" data-i18n="Overview"> Overview </div></a></li><li class="menu-item"><a href="app-ecommerce-customer-details-security.html" class="menu-link"><div class="text-truncate" data-i18n="Security"> Security </div></a></li><li class="menu-item"><a href="app-ecommerce-customer-details-billing.html" class="menu-link"><div class="text-truncate" data-i18n="Address &amp; Billing"> Address &amp; Billing </div></a></li><li class="menu-item"><a href="app-ecommerce-customer-details-notifications.html" class="menu-link"><div class="text-truncate" data-i18n="Notifications"> Notifications </div></a></li></ul></li></ul></li><li class="menu-item"><a href="app-ecommerce-manage-reviews.html" class="menu-link"><div class="text-truncate" data-i18n="Manage Reviews"> Manage Reviews </div></a></li><li class="menu-item"><a href="app-ecommerce-referral.html" class="menu-link"><div class="text-truncate" data-i18n="Referrals">Referrals</div></a></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Settings">Settings</div></a><ul class="menu-sub"><li class="menu-item"><a href="app-ecommerce-settings-detail.html" class="menu-link"><div class="text-truncate" data-i18n="Store details"> Store details </div></a></li><li class="menu-item"><a href="app-ecommerce-settings-payments.html" class="menu-link"><div class="text-truncate" data-i18n="Payments"> Payments </div></a></li><li class="menu-item"><a href="app-ecommerce-settings-checkout.html" class="menu-link"><div class="text-truncate" data-i18n="Checkout"> Checkout </div></a></li><li class="menu-item"><a href="app-ecommerce-settings-shipping.html" class="menu-link"><div class="text-truncate" data-i18n="Shipping &amp; Delivery"> Shipping &amp; Delivery </div></a></li><li class="menu-item"><a href="app-ecommerce-settings-locations.html" class="menu-link"><div class="text-truncate" data-i18n="Locations"> Locations </div></a></li><li class="menu-item"><a href="app-ecommerce-settings-notifications.html" class="menu-link"><div class="text-truncate" data-i18n="Notifications"> Notifications </div></a></li></ul></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-book-open"></i><div class="text-truncate" data-i18n="Academy">Academy</div></a><ul class="menu-sub"><li class="menu-item"><a href="app-academy-dashboard.html" class="menu-link"><div class="text-truncate" data-i18n="Dashboard">Dashboard</div></a></li><li class="menu-item"><a href="app-academy-course.html" class="menu-link"><div class="text-truncate" data-i18n="My Course">My Course</div></a></li><li class="menu-item"><a href="app-academy-course-details.html" class="menu-link"><div class="text-truncate" data-i18n="Course Details"> Course Details </div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-car"></i><div class="text-truncate" data-i18n="Logistics">Logistics</div></a><ul class="menu-sub"><li class="menu-item"><a href="app-logistics-dashboard.html" class="menu-link"><div class="text-truncate" data-i18n="Dashboard">Dashboard</div></a></li><li class="menu-item"><a href="app-logistics-fleet.html" class="menu-link"><div class="text-truncate" data-i18n="Fleet">Fleet</div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-food-menu"></i><div class="text-truncate" data-i18n="Invoice">Invoice</div><span class="badge badge-center rounded-pill bg-success ms-auto"> 4 </span></a><ul class="menu-sub"><li class="menu-item"><a href="app-invoice-list.html" class="menu-link"><div class="text-truncate" data-i18n="List">List</div></a></li><li class="menu-item"><a href="app-invoice-preview.html" class="menu-link"><div class="text-truncate" data-i18n="Preview">Preview</div></a></li><li class="menu-item"><a href="app-invoice-edit.html" class="menu-link"><div class="text-truncate" data-i18n="Edit">Edit</div></a></li><li class="menu-item"><a href="app-invoice-add.html" class="menu-link"><div class="text-truncate" data-i18n="Add">Add</div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-user"></i><div class="text-truncate" data-i18n="Users">Users</div></a><ul class="menu-sub"><li class="menu-item"><a href="app-user-list.html" class="menu-link"><div class="text-truncate" data-i18n="List">List</div></a></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="View">View</div></a><ul class="menu-sub"><li class="menu-item"><a href="app-user-view-account.html" class="menu-link"><div class="text-truncate" data-i18n="Account"> Account </div></a></li><li class="menu-item"><a href="app-user-view-security.html" class="menu-link"><div class="text-truncate" data-i18n="Security"> Security </div></a></li><li class="menu-item"><a href="app-user-view-billing.html" class="menu-link"><div class="text-truncate" data-i18n="Billing &amp; Plans"> Billing &amp; Plans </div></a></li><li class="menu-item"><a href="app-user-view-notifications.html" class="menu-link"><div class="text-truncate" data-i18n="Notifications"> Notifications </div></a></li><li class="menu-item"><a href="app-user-view-connections.html" class="menu-link"><div class="text-truncate" data-i18n="Connections"> Connections </div></a></li></ul></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-check-shield"></i><div class="text-truncate" data-i18n="Roles &amp; Permissions"> Roles &amp; Permissions </div></a><ul class="menu-sub"><li class="menu-item"><a href="app-access-roles.html" class="menu-link"><div class="text-truncate" data-i18n="Roles">Roles</div></a></li><li class="menu-item"><a href="app-access-permission.html" class="menu-link"><div class="text-truncate" data-i18n="Permission"> Permission </div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-dock-top"></i><div class="text-truncate" data-i18n="Pages">Pages</div></a><ul class="menu-sub"><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="User Profile"> User Profile </div></a><ul class="menu-sub"><li class="menu-item"><a href="pages-profile-user.html" class="menu-link"><div class="text-truncate" data-i18n="Profile"> Profile </div></a></li><li class="menu-item"><a href="pages-profile-teams.html" class="menu-link"><div class="text-truncate" data-i18n="Teams">Teams</div></a></li><li class="menu-item"><a href="pages-profile-projects.html" class="menu-link"><div class="text-truncate" data-i18n="Projects"> Projects </div></a></li><li class="menu-item"><a href="pages-profile-connections.html" class="menu-link"><div class="text-truncate" data-i18n="Connections"> Connections </div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Account Settings"> Account Settings </div></a><ul class="menu-sub"><li class="menu-item"><a href="pages-account-settings-account.html" class="menu-link"><div class="text-truncate" data-i18n="Account"> Account </div></a></li><li class="menu-item"><a href="pages-account-settings-security.html" class="menu-link"><div class="text-truncate" data-i18n="Security"> Security </div></a></li><li class="menu-item"><a href="pages-account-settings-billing.html" class="menu-link"><div class="text-truncate" data-i18n="Billing &amp; Plans"> Billing &amp; Plans </div></a></li><li class="menu-item"><a href="pages-account-settings-notifications.html" class="menu-link"><div class="text-truncate" data-i18n="Notifications"> Notifications </div></a></li><li class="menu-item"><a href="pages-account-settings-connections.html" class="menu-link"><div class="text-truncate" data-i18n="Connections"> Connections </div></a></li></ul></li><li class="menu-item"><a href="pages-faq.html" class="menu-link"><div class="text-truncate" data-i18n="FAQ">FAQ</div></a></li><li class="menu-item"><a href="pages-pricing.html" class="menu-link"><div class="text-truncate" data-i18n="Pricing">Pricing</div></a></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Misc">Misc</div></a><ul class="menu-sub"><li class="menu-item"><a href="pages-misc-error.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Error">Error</div></a></li><li class="menu-item"><a href="pages-misc-under-maintenance.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Under Maintenance"> Under Maintenance </div></a></li><li class="menu-item"><a href="pages-misc-comingsoon.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Coming Soon"> Coming Soon </div></a></li><li class="menu-item"><a href="pages-misc-not-authorized.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Not Authorized"> Not Authorized </div></a></li></ul></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-lock-open-alt"></i><div class="text-truncate" data-i18n="Authentications"> Authentications </div></a><ul class="menu-sub"><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Login">Login</div></a><ul class="menu-sub"><li class="menu-item"><a href="auth-login-basic.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Basic">Basic</div></a></li><li class="menu-item"><a href="auth-login-cover.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Cover">Cover</div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Register">Register</div></a><ul class="menu-sub"><li class="menu-item"><a href="auth-register-basic.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Basic">Basic</div></a></li><li class="menu-item"><a href="auth-register-cover.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Cover">Cover</div></a></li><li class="menu-item"><a href="auth-register-multisteps.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Multi-steps"> Multi-steps </div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Verify Email"> Verify Email </div></a><ul class="menu-sub"><li class="menu-item"><a href="auth-verify-email-basic.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Basic">Basic</div></a></li><li class="menu-item"><a href="auth-verify-email-cover.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Cover">Cover</div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Reset Password"> Reset Password </div></a><ul class="menu-sub"><li class="menu-item"><a href="auth-reset-password-basic.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Basic">Basic</div></a></li><li class="menu-item"><a href="auth-reset-password-cover.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Cover">Cover</div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Forgot Password"> Forgot Password </div></a><ul class="menu-sub"><li class="menu-item"><a href="auth-forgot-password-basic.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Basic">Basic</div></a></li><li class="menu-item"><a href="auth-forgot-password-cover.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Cover">Cover</div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Two Steps">Two Steps</div></a><ul class="menu-sub"><li class="menu-item"><a href="auth-two-steps-basic.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Basic">Basic</div></a></li><li class="menu-item"><a href="auth-two-steps-cover.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Cover">Cover</div></a></li></ul></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-spreadsheet"></i><div class="text-truncate" data-i18n="Wizard Examples"> Wizard Examples </div></a><ul class="menu-sub"><li class="menu-item"><a href="wizard-ex-checkout.html" class="menu-link"><div class="text-truncate" data-i18n="Checkout">Checkout</div></a></li><li class="menu-item"><a href="wizard-ex-property-listing.html" class="menu-link"><div class="text-truncate" data-i18n="Property Listing"> Property Listing </div></a></li><li class="menu-item"><a href="wizard-ex-create-deal.html" class="menu-link"><div class="text-truncate" data-i18n="Create Deal"> Create Deal </div></a></li></ul></li><li class="menu-item"><a href="modal-examples.html" class="menu-link"><i class="menu-icon tf-icons bx bx-window-open"></i><div class="text-truncate" data-i18n="Modal Examples"> Modal Examples </div></a></li><li class="menu-header small text-uppercase"><span class="menu-header-text" data-i18n="Components">Components</span></li><li class="menu-item active open"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-collection"></i><div class="text-truncate" data-i18n="Cards">Cards</div><span class="badge badge-center rounded-pill bg-danger ms-auto">6</span></a><ul class="menu-sub"><li class="menu-item active"><a href="cards-basic.html" class="menu-link"><div class="text-truncate" data-i18n="Basic">Basic</div></a></li><li class="menu-item"><a href="cards-advance.html" class="menu-link"><div class="text-truncate" data-i18n="Advance">Advance</div></a></li><li class="menu-item"><a href="cards-statistics.html" class="menu-link"><div class="text-truncate" data-i18n="Statistics"> Statistics </div></a></li><li class="menu-item"><a href="cards-analytics.html" class="menu-link"><div class="text-truncate" data-i18n="Analytics">Analytics</div></a></li><li class="menu-item"><a href="cards-gamifications.html" class="menu-link"><div class="text-truncate" data-i18n="Gamifications"> Gamifications </div></a></li><li class="menu-item"><a href="cards-actions.html" class="menu-link"><div class="text-truncate" data-i18n="Actions">Actions</div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0)" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-box"></i><div class="text-truncate" data-i18n="User interface"> User interface </div></a><ul class="menu-sub"><li class="menu-item"><a href="ui-accordion.html" class="menu-link"><div class="text-truncate" data-i18n="Accordion">Accordion</div></a></li><li class="menu-item"><a href="ui-alerts.html" class="menu-link"><div class="text-truncate" data-i18n="Alerts">Alerts</div></a></li><li class="menu-item"><a href="ui-badges.html" class="menu-link"><div class="text-truncate" data-i18n="Badges">Badges</div></a></li><li class="menu-item"><a href="ui-buttons.html" class="menu-link"><div class="text-truncate" data-i18n="Buttons">Buttons</div></a></li><li class="menu-item"><a href="ui-carousel.html" class="menu-link"><div class="text-truncate" data-i18n="Carousel">Carousel</div></a></li><li class="menu-item"><a href="ui-collapse.html" class="menu-link"><div class="text-truncate" data-i18n="Collapse">Collapse</div></a></li><li class="menu-item"><a href="ui-dropdowns.html" class="menu-link"><div class="text-truncate" data-i18n="Dropdowns">Dropdowns</div></a></li><li class="menu-item"><a href="ui-footer.html" class="menu-link"><div class="text-truncate" data-i18n="Footer">Footer</div></a></li><li class="menu-item"><a href="ui-list-groups.html" class="menu-link"><div class="text-truncate" data-i18n="List Groups"> List groups </div></a></li><li class="menu-item"><a href="ui-modals.html" class="menu-link"><div class="text-truncate" data-i18n="Modals">Modals</div></a></li><li class="menu-item"><a href="ui-navbar.html" class="menu-link"><div class="text-truncate" data-i18n="Navbar">Navbar</div></a></li><li class="menu-item"><a href="ui-offcanvas.html" class="menu-link"><div class="text-truncate" data-i18n="Offcanvas">Offcanvas</div></a></li><li class="menu-item"><a href="ui-pagination-breadcrumbs.html" class="menu-link"><div class="text-truncate" data-i18n="Pagination &amp; Breadcrumbs"> Pagination &amp; Breadcrumbs </div></a></li><li class="menu-item"><a href="ui-progress.html" class="menu-link"><div class="text-truncate" data-i18n="Progress">Progress</div></a></li><li class="menu-item"><a href="ui-spinners.html" class="menu-link"><div class="text-truncate" data-i18n="Spinners">Spinners</div></a></li><li class="menu-item"><a href="ui-tabs-pills.html" class="menu-link"><div class="text-truncate" data-i18n="Tabs &amp; Pills"> Tabs &amp; Pills </div></a></li><li class="menu-item"><a href="ui-toasts.html" class="menu-link"><div class="text-truncate" data-i18n="Toasts">Toasts</div></a></li><li class="menu-item"><a href="ui-tooltips-popovers.html" class="menu-link"><div class="text-truncate" data-i18n="Tooltips &amp; Popovers"> Tooltips &amp; Popovers </div></a></li><li class="menu-item"><a href="ui-typography.html" class="menu-link"><div class="text-truncate" data-i18n="Typography"> Typography </div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0)" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-copy"></i><div class="text-truncate" data-i18n="Extended UI">Extended UI</div></a><ul class="menu-sub"><li class="menu-item"><a href="extended-ui-avatar.html" class="menu-link"><div class="text-truncate" data-i18n="Avatar">Avatar</div></a></li><li class="menu-item"><a href="extended-ui-blockui.html" class="menu-link"><div class="text-truncate" data-i18n="BlockUI">BlockUI</div></a></li><li class="menu-item"><a href="extended-ui-drag-and-drop.html" class="menu-link"><div class="text-truncate" data-i18n="Drag &amp; Drop"> Drag &amp; Drop </div></a></li><li class="menu-item"><a href="extended-ui-media-player.html" class="menu-link"><div class="text-truncate" data-i18n="Media Player"> Media Player </div></a></li><li class="menu-item"><a href="extended-ui-perfect-scrollbar.html" class="menu-link"><div class="text-truncate" data-i18n="Perfect Scrollbar"> Perfect Scrollbar </div></a></li><li class="menu-item"><a href="extended-ui-star-ratings.html" class="menu-link"><div class="text-truncate" data-i18n="Star Ratings"> Star Ratings </div></a></li><li class="menu-item"><a href="extended-ui-sweetalert2.html" class="menu-link"><div class="text-truncate" data-i18n="SweetAlert2"> SweetAlert2 </div></a></li><li class="menu-item"><a href="extended-ui-text-divider.html" class="menu-link"><div class="text-truncate" data-i18n="Text Divider"> Text Divider </div></a></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Timeline">Timeline</div></a><ul class="menu-sub"><li class="menu-item"><a href="extended-ui-timeline-basic.html" class="menu-link"><div class="text-truncate" data-i18n="Basic">Basic</div></a></li><li class="menu-item"><a href="extended-ui-timeline-fullscreen.html" class="menu-link"><div class="text-truncate" data-i18n="Fullscreen"> Fullscreen </div></a></li></ul></li><li class="menu-item"><a href="extended-ui-tour.html" class="menu-link"><div class="text-truncate" data-i18n="Tour">Tour</div></a></li><li class="menu-item"><a href="extended-ui-treeview.html" class="menu-link"><div class="text-truncate" data-i18n="Treeview">Treeview</div></a></li><li class="menu-item"><a href="extended-ui-misc.html" class="menu-link"><div class="text-truncate" data-i18n="Miscellaneous"> Miscellaneous </div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0)" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-crown"></i><div class="text-truncate" data-i18n="Icons">Icons</div></a><ul class="menu-sub"><li class="menu-item"><a href="icons-boxicons.html" class="menu-link"><div class="text-truncate" data-i18n="Boxicons">Boxicons</div></a></li><li class="menu-item"><a href="icons-font-awesome.html" class="menu-link"><div class="text-truncate" data-i18n="Fontawesome"> Fontawesome </div></a></li></ul></li><li class="menu-header small text-uppercase"><span class="menu-header-text" data-i18n="Forms &amp; Tables"> Forms &amp; Tables </span></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-detail"></i><div class="text-truncate" data-i18n="Form Elements">Form Elements</div></a><ul class="menu-sub"><li class="menu-item"><a href="forms-basic-inputs.html" class="menu-link"><div class="text-truncate" data-i18n="Basic Inputs"> Basic Inputs </div></a></li><li class="menu-item"><a href="forms-input-groups.html" class="menu-link"><div class="text-truncate" data-i18n="Input groups"> Input groups </div></a></li><li class="menu-item"><a href="forms-custom-options.html" class="menu-link"><div class="text-truncate" data-i18n="Custom Options"> Custom Options </div></a></li><li class="menu-item"><a href="forms-editors.html" class="menu-link"><div class="text-truncate" data-i18n="Editors">Editors</div></a></li><li class="menu-item"><a href="forms-file-upload.html" class="menu-link"><div class="text-truncate" data-i18n="File Upload"> File Upload </div></a></li><li class="menu-item"><a href="forms-pickers.html" class="menu-link"><div class="text-truncate" data-i18n="Pickers">Pickers</div></a></li><li class="menu-item"><a href="forms-selects.html" class="menu-link"><div class="text-truncate" data-i18n="Select &amp; Tags"> Select &amp; Tags </div></a></li><li class="menu-item"><a href="forms-sliders.html" class="menu-link"><div class="text-truncate" data-i18n="Sliders">Sliders</div></a></li><li class="menu-item"><a href="forms-switches.html" class="menu-link"><div class="text-truncate" data-i18n="Switches">Switches</div></a></li><li class="menu-item"><a href="forms-extras.html" class="menu-link"><div class="text-truncate" data-i18n="Extras">Extras</div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-detail"></i><div class="text-truncate" data-i18n="Form Layouts">Form Layouts</div></a><ul class="menu-sub"><li class="menu-item"><a href="form-layouts-vertical.html" class="menu-link"><div class="text-truncate" data-i18n="Vertical Form"> Vertical Form </div></a></li><li class="menu-item"><a href="form-layouts-horizontal.html" class="menu-link"><div class="text-truncate" data-i18n="Horizontal Form"> Horizontal Form </div></a></li><li class="menu-item"><a href="form-layouts-sticky.html" class="menu-link"><div class="text-truncate" data-i18n="Sticky Actions"> Sticky Actions </div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-carousel"></i><div class="text-truncate" data-i18n="Form Wizard">Form Wizard</div></a><ul class="menu-sub"><li class="menu-item"><a href="form-wizard-numbered.html" class="menu-link"><div class="text-truncate" data-i18n="Numbered">Numbered</div></a></li><li class="menu-item"><a href="form-wizard-icons.html" class="menu-link"><div class="text-truncate" data-i18n="Icons">Icons</div></a></li></ul></li><li class="menu-item"><a href="form-validation.html" class="menu-link"><i class="menu-icon tf-icons bx bx-list-check"></i><div class="text-truncate" data-i18n="Form Validation"> Form Validation </div></a></li><li class="menu-item"><a href="tables-basic.html" class="menu-link"><i class="menu-icon tf-icons bx bx-table"></i><div class="text-truncate" data-i18n="Tables">Tables</div></a></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-grid"></i><div class="text-truncate" data-i18n="Datatables">Datatables</div></a><ul class="menu-sub"><li class="menu-item"><a href="tables-datatables-basic.html" class="menu-link"><div class="text-truncate" data-i18n="Basic">Basic</div></a></li><li class="menu-item"><a href="tables-datatables-advanced.html" class="menu-link"><div class="text-truncate" data-i18n="Advanced">Advanced</div></a></li><li class="menu-item"><a href="tables-datatables-extensions.html" class="menu-link"><div class="text-truncate" data-i18n="Extensions"> Extensions </div></a></li></ul></li><li class="menu-header small text-uppercase"><span class="menu-header-text" data-i18n="Charts &amp; Maps"> Charts &amp; Maps </span></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-chart"></i><div class="text-truncate" data-i18n="Charts">Charts</div></a><ul class="menu-sub"><li class="menu-item"><a href="charts-apex.html" class="menu-link"><div class="text-truncate" data-i18n="Apex Charts"> Apex Charts </div></a></li><li class="menu-item"><a href="charts-chartjs.html" class="menu-link"><div class="text-truncate" data-i18n="ChartJS">ChartJS</div></a></li></ul></li><li class="menu-item"><a href="maps-leaflet.html" class="menu-link"><i class="menu-icon tf-icons bx bx-map-alt"></i><div class="text-truncate" data-i18n="Leaflet Maps">Leaflet Maps</div></a></li><li class="menu-header small text-uppercase"><span class="menu-header-text" data-i18n="Misc">Misc</span></li><li class="menu-item"><a href="https://themeselection.com/support/" target="_blank" class="menu-link"><i class="menu-icon tf-icons bx bx-support"></i><div class="text-truncate" data-i18n="Support">Support</div></a></li><li class="menu-item"><a href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/" target="_blank" class="menu-link"><i class="menu-icon tf-icons bx bx-file"></i><div class="text-truncate" data-i18n="Documentation">Documentation</div></a></li></ul></aside><div class="layout-page"><nav class="layout-navbar container-fluid navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar"><div class="layout-menu-toggle navbar-nav align-items-xl-center me-xl-0 d-xl-none me-3"><a class="nav-item nav-link me-xl-4 px-0" href="javascript:void(0)"><i class="bx bx-menu bx-sm"></i></a></div><div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse"><ul class="navbar-nav align-items-center ms-auto flex-row"><li class="nav-item dropdown-language dropdown me-2 me-xl-0"><a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown"><i class="bx bx-globe bx-sm"></i></a><ul class="dropdown-menu dropdown-menu-end"><!--[-->`);
-      ssrRenderList(unref(locales2).get(), (locale) => {
-        _push(`<li><a class="${ssrRenderClass([{ active: unref(locales2).current().getCode() === locale.getCode() }, "dropdown-item"])}"${ssrRenderAttr("href", unref(route)("locale.change", locale.getCode()))}><span class="me-1 align-middle">${locale.getSvgFlag(20, 20) ?? ""}</span><span class="align-middle">${ssrInterpolate(locale.getName())}</span></a></li>`);
-      });
-      _push(`<!--]--></ul></li><li class="nav-item dropdown-shortcuts navbar-dropdown dropdown me-2 me-xl-0"><a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"><i class="bx bx-grid-alt bx-sm"></i></a><div class="dropdown-menu dropdown-menu-end py-0"><div class="dropdown-menu-header border-bottom"><div class="dropdown-header d-flex align-items-center py-3"><h5 class="text-body mb-0 me-auto">Shortcuts</h5><a href="javascript:void(0)" class="dropdown-shortcuts-add text-body" data-bs-toggle="tooltip" data-bs-placement="top" title="Add shortcuts"><i class="bx bx-sm bx-plus-circle"></i></a></div></div><div class="dropdown-shortcuts-list scrollable-container"><div class="row row-bordered overflow-visible g-0"><div class="dropdown-shortcuts-item col"><span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2"><i class="bx bx-calendar fs-4"></i></span><a href="app-calendar.html" class="stretched-link">Calendar</a><small class="text-muted mb-0">Appointments</small></div><div class="dropdown-shortcuts-item col"><span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2"><i class="bx bx-food-menu fs-4"></i></span><a href="app-invoice-list.html" class="stretched-link">Invoice App</a><small class="text-muted mb-0">Manage Accounts</small></div></div><div class="row row-bordered overflow-visible g-0"><div class="dropdown-shortcuts-item col"><span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2"><i class="bx bx-user fs-4"></i></span><a href="app-user-list.html" class="stretched-link">User App</a><small class="text-muted mb-0">Manage Users</small></div><div class="dropdown-shortcuts-item col"><span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2"><i class="bx bx-check-shield fs-4"></i></span><a href="app-access-roles.html" class="stretched-link">Role Management</a><small class="text-muted mb-0">Permission</small></div></div><div class="row row-bordered overflow-visible g-0"><div class="dropdown-shortcuts-item col"><span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2"><i class="bx bx-pie-chart-alt-2 fs-4"></i></span><a href="index.html" class="stretched-link">Dashboard</a><small class="text-muted mb-0">User Profile</small></div><div class="dropdown-shortcuts-item col"><span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2"><i class="bx bx-cog fs-4"></i></span><a href="pages-account-settings-account.html" class="stretched-link">Setting</a><small class="text-muted mb-0">Account Settings</small></div></div><div class="row row-bordered overflow-visible g-0"><div class="dropdown-shortcuts-item col"><span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2"><i class="bx bx-help-circle fs-4"></i></span><a href="pages-faq.html" class="stretched-link">FAQs</a><small class="text-muted mb-0">FAQs &amp; Articles</small></div><div class="dropdown-shortcuts-item col"><span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2"><i class="bx bx-window-open fs-4"></i></span><a href="modal-examples.html" class="stretched-link">Modals</a><small class="text-muted mb-0">Useful Popups</small></div></div></div></div></li><li class="nav-item dropdown-style-switcher dropdown me-2 me-xl-0"><a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown"><i class="bx bx-sun bx-sm"></i></a><ul class="dropdown-menu dropdown-menu-end dropdown-styles"><li><a class="dropdown-item" href="javascript:void(0);"><span class="align-middle"><i class="bx bx-sun me-2"></i>Light</span></a></li><li><a class="dropdown-item" href="javascript:void(0);"><span class="align-middle"><i class="bx bx-moon me-2"></i>Dark</span></a></li><li><a class="dropdown-item" href="javascript:void(0);"><span class="align-middle"><i class="bx bx-desktop me-2"></i>System</span></a></li></ul></li><li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1"><a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"><i class="bx bx-bell bx-sm"></i><span class="badge bg-danger rounded-pill badge-notifications"> 5 </span></a><ul class="dropdown-menu dropdown-menu-end py-0"><li class="dropdown-menu-header border-bottom"><div class="dropdown-header d-flex align-items-center py-3"><h5 class="text-body mb-0 me-auto">Notification</h5><a href="javascript:void(0)" class="dropdown-notifications-all text-body" data-bs-toggle="tooltip" data-bs-placement="top" title="Mark all as read"><i class="bx fs-4 bx-envelope-open"></i></a></div></li><li class="dropdown-notifications-list scrollable-container"><ul class="list-group list-group-flush"><li class="list-group-item list-group-item-action dropdown-notifications-item"><div class="d-flex"><div class="flex-shrink-0 me-3"><div class="avatar"><img src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle"></div></div><div class="flex-grow-1"><h6 class="mb-1"> Congratulation Lettie 🎉 </h6><p class="mb-0"> Won the monthly best seller gold badge </p><small class="text-muted">1h ago</small></div><div class="flex-shrink-0 dropdown-notifications-actions"><a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a><a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a></div></div></li><li class="list-group-item list-group-item-action dropdown-notifications-item"><div class="d-flex"><div class="flex-shrink-0 me-3"><div class="avatar"><span class="avatar-initial rounded-circle bg-label-danger"> CF </span></div></div><div class="flex-grow-1"><h6 class="mb-1">Charles Franklin</h6><p class="mb-0">Accepted your connection</p><small class="text-muted">12hr ago</small></div><div class="flex-shrink-0 dropdown-notifications-actions"><a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a><a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a></div></div></li><li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read"><div class="d-flex"><div class="flex-shrink-0 me-3"><div class="avatar"><img src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/2.png" alt class="w-px-40 h-auto rounded-circle"></div></div><div class="flex-grow-1"><h6 class="mb-1">New Message ✉️</h6><p class="mb-0"> You have new message from Natalie </p><small class="text-muted">1h ago</small></div><div class="flex-shrink-0 dropdown-notifications-actions"><a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a><a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a></div></div></li><li class="list-group-item list-group-item-action dropdown-notifications-item"><div class="d-flex"><div class="flex-shrink-0 me-3"><div class="avatar"><span class="avatar-initial rounded-circle bg-label-success"><i class="bx bx-cart"></i></span></div></div><div class="flex-grow-1"><h6 class="mb-1"> Whoo! You have new order 🛒 </h6><p class="mb-0"> ACME Inc. made new order $1,154 </p><small class="text-muted">1 day ago</small></div><div class="flex-shrink-0 dropdown-notifications-actions"><a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a><a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a></div></div></li><li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read"><div class="d-flex"><div class="flex-shrink-0 me-3"><div class="avatar"><img src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/9.png" alt class="w-px-40 h-auto rounded-circle"></div></div><div class="flex-grow-1"><h6 class="mb-1"> Application has been approved 🚀 </h6><p class="mb-0"> Your ABC project application has been approved. </p><small class="text-muted">2 days ago</small></div><div class="flex-shrink-0 dropdown-notifications-actions"><a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a><a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a></div></div></li><li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read"><div class="d-flex"><div class="flex-shrink-0 me-3"><div class="avatar"><span class="avatar-initial rounded-circle bg-label-success"><i class="bx bx-pie-chart-alt"></i></span></div></div><div class="flex-grow-1"><h6 class="mb-1"> Monthly report is generated </h6><p class="mb-0"> July monthly financial report is generated </p><small class="text-muted">3 days ago</small></div><div class="flex-shrink-0 dropdown-notifications-actions"><a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a><a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a></div></div></li><li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read"><div class="d-flex"><div class="flex-shrink-0 me-3"><div class="avatar"><img src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/5.png" alt class="w-px-40 h-auto rounded-circle"></div></div><div class="flex-grow-1"><h6 class="mb-1"> Send connection request </h6><p class="mb-0"> Peter sent you connection request </p><small class="text-muted">4 days ago</small></div><div class="flex-shrink-0 dropdown-notifications-actions"><a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a><a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a></div></div></li><li class="list-group-item list-group-item-action dropdown-notifications-item"><div class="d-flex"><div class="flex-shrink-0 me-3"><div class="avatar"><img src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/6.png" alt class="w-px-40 h-auto rounded-circle"></div></div><div class="flex-grow-1"><h6 class="mb-1">New message from Jane</h6><p class="mb-0"> Your have new message from Jane </p><small class="text-muted">5 days ago</small></div><div class="flex-shrink-0 dropdown-notifications-actions"><a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a><a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a></div></div></li><li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read"><div class="d-flex"><div class="flex-shrink-0 me-3"><div class="avatar"><span class="avatar-initial rounded-circle bg-label-warning"><i class="bx bx-error"></i></span></div></div><div class="flex-grow-1"><h6 class="mb-1">CPU is running high</h6><p class="mb-0"> CPU Utilization Percent is currently at 88.63%, </p><small class="text-muted">5 days ago</small></div><div class="flex-shrink-0 dropdown-notifications-actions"><a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a><a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a></div></div></li></ul></li><li class="dropdown-menu-footer border-top p-3"><button class="btn btn-primary text-uppercase w-100"> view all notifications </button></li></ul></li><li class="nav-item navbar-dropdown dropdown-user dropdown"><a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown"><div class="avatar avatar-online"><img src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle"></div></a><ul class="dropdown-menu dropdown-menu-end"><li><a class="dropdown-item" href="pages-account-settings-account.html"><div class="d-flex"><div class="flex-shrink-0 me-3"><div class="avatar avatar-online"><img src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle"></div></div><div class="flex-grow-1"><span class="fw-medium d-block">John Doe</span><small class="text-muted">Admin</small></div></div></a></li><li><div class="dropdown-divider"></div></li><li><a class="dropdown-item" href="pages-profile-user.html"><i class="bx bx-user me-2"></i><span class="align-middle">My Profile</span></a></li><li><a class="dropdown-item" href="pages-account-settings-account.html"><i class="bx bx-cog me-2"></i><span class="align-middle">Settings</span></a></li><li><a class="dropdown-item" href="pages-account-settings-billing.html"><span class="d-flex align-items-center align-middle"><i class="flex-shrink-0 bx bx-credit-card me-2"></i><span class="flex-grow-1 align-middle"> Billing </span><span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20"> 4 </span></span></a></li><li><div class="dropdown-divider"></div></li><li><a class="dropdown-item" href="pages-faq.html"><i class="bx bx-help-circle me-2"></i><span class="align-middle">FAQ</span></a></li><li><a class="dropdown-item" href="pages-pricing.html"><i class="bx bx-dollar me-2"></i><span class="align-middle">Pricing</span></a></li><li><div class="dropdown-divider"></div></li><li><a class="dropdown-item" href="#"><i class="bx bx-power-off me-2"></i><span class="align-middle">${ssrInterpolate(_ctx.$t("auth.logout"))}</span></a></li></ul></li></ul></div></nav><div class="content-wrapper"><div class="container-fluid flex-grow-1 container-p-y"><div class="h4 mb-4 py-3"><span class="text-muted fw-light">UI Elements /</span> Cards Basic </div>`);
-      ssrRenderSlot(_ctx.$slots, "default", {}, null, _push, _parent);
-      _push(`</div><footer class="content-footer footer bg-footer-theme"><div class="container-fluid d-flex justify-content-between flex-md-row flex-column flex-wrap py-2"><div class="mb-md-0 mb-2">Laravel v12.32.5 (PHP v8.3.22)</div></div></footer><div class="content-backdrop fade"></div></div></div></div><div class="layout-overlay layout-menu-toggle"></div><div class="drag-target"></div></div>`);
+      if (unref(pageLoaded)) {
+        _push(`<div${ssrRenderAttrs(mergeProps({ class: "layout-wrapper layout-content-navbar" }, _attrs))}><div class="layout-container"><aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme"><div class="app-brand demo"><a href="/" class="app-brand-link"><span class="app-brand-logo demo"><img src="http://aroundme4.test/storage/1/logo.png" class="mw-100" style="${ssrRenderStyle({ "height": "35px" })}" alt=""></span></a><a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto"><i class="bx bx-chevron-left bx-sm align-middle"></i></a></div><div class="menu-inner-shadow"></div><ul class="menu-inner py-1"><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-home-circle"></i><div class="text-truncate" data-i18n="Dashboards">Dashboards</div><span class="badge badge-center rounded-pill bg-danger ms-auto">5</span></a><ul class="menu-sub"><li class="menu-item"><a href="dashboards-analytics.html" class="menu-link"><div class="text-truncate" data-i18n="Analytics">Analytics</div></a></li><li class="menu-item"><a href="dashboards-crm.html" class="menu-link"><div class="text-truncate" data-i18n="CRM">CRM</div></a></li><li class="menu-item"><a href="app-ecommerce-dashboard.html" class="menu-link"><div class="text-truncate" data-i18n="eCommerce">eCommerce</div></a></li><li class="menu-item"><a href="app-logistics-dashboard.html" class="menu-link"><div class="text-truncate" data-i18n="Logistics">Logistics</div></a></li><li class="menu-item"><a href="app-academy-dashboard.html" class="menu-link"><div class="text-truncate" data-i18n="Academy">Academy</div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-layout"></i><div class="text-truncate" data-i18n="Layouts">Layouts</div></a><ul class="menu-sub"><li class="menu-item"><a href="layouts-collapsed-menu.html" class="menu-link"><div class="text-truncate" data-i18n="Collapsed menu"> Collapsed menu </div></a></li><li class="menu-item"><a href="layouts-content-navbar.html" class="menu-link"><div class="text-truncate" data-i18n="Content navbar"> Content navbar </div></a></li><li class="menu-item"><a href="layouts-content-navbar-with-sidebar.html" class="menu-link"><div class="text-truncate" data-i18n="Content nav + Sidebar"> Content nav + Sidebar </div></a></li><li class="menu-item"><a href="/horizontal-menu-template" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Horizontal"> Horizontal </div></a></li><li class="menu-item"><a href="layouts-without-menu.html" class="menu-link"><div class="text-truncate" data-i18n="Without menu"> Without menu </div></a></li><li class="menu-item"><a href="layouts-without-navbar.html" class="menu-link"><div class="text-truncate" data-i18n="Without navbar"> Without navbar </div></a></li><li class="menu-item"><a href="layouts-fluid.html" class="menu-link"><div class="text-truncate" data-i18n="Fluid">Fluid</div></a></li><li class="menu-item"><a href="layouts-container.html" class="menu-link"><div class="text-truncate" data-i18n="Container">Container</div></a></li><li class="menu-item"><a href="layouts-blank.html" class="menu-link"><div class="text-truncate" data-i18n="Blank">Blank</div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-store"></i><div class="text-truncate" data-i18n="Front Pages">Front Pages</div></a><ul class="menu-sub"><li class="menu-item"><a href="/front-pages/landing-page.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Landing">Landing</div></a></li><li class="menu-item"><a href="/front-pages/pricing-page.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Pricing">Pricing</div></a></li><li class="menu-item"><a href="/front-pages/payment-page.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Payment">Payment</div></a></li><li class="menu-item"><a href="/front-pages/checkout-page.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Checkout">Checkout</div></a></li><li class="menu-item"><a href="/front-pages/help-center-landing.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Help Center"> Help Center </div></a></li></ul></li><li class="menu-header small text-uppercase"><span class="menu-header-text" data-i18n="Apps &amp; Pages"> Apps &amp; Pages </span></li><li class="menu-item"><a href="app-email.html" class="menu-link"><i class="menu-icon tf-icons bx bx-envelope"></i><div class="text-truncate" data-i18n="Email">Email</div></a></li><li class="menu-item"><a href="app-chat.html" class="menu-link"><i class="menu-icon tf-icons bx bx-chat"></i><div class="text-truncate" data-i18n="Chat">Chat</div></a></li><li class="menu-item"><a href="app-calendar.html" class="menu-link"><i class="menu-icon tf-icons bx bx-calendar"></i><div class="text-truncate" data-i18n="Calendar">Calendar</div></a></li><li class="menu-item"><a href="app-kanban.html" class="menu-link"><i class="menu-icon tf-icons bx bx-grid"></i><div class="text-truncate" data-i18n="Kanban">Kanban</div></a></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-cart-alt"></i><div class="text-truncate" data-i18n="eCommerce">eCommerce</div></a><ul class="menu-sub"><li class="menu-item"><a href="app-ecommerce-dashboard.html" class="menu-link"><div class="text-truncate" data-i18n="Dashboard">Dashboard</div></a></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Products">Products</div></a><ul class="menu-sub"><li class="menu-item"><a href="app-ecommerce-product-list.html" class="menu-link"><div class="text-truncate" data-i18n="Product List"> Product List </div></a></li><li class="menu-item"><a href="app-ecommerce-product-add.html" class="menu-link"><div class="text-truncate" data-i18n="Add Product"> Add Product </div></a></li><li class="menu-item"><a href="app-ecommerce-category-list.html" class="menu-link"><div class="text-truncate" data-i18n="Category List"> Category List </div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Order">Order</div></a><ul class="menu-sub"><li class="menu-item"><a href="app-ecommerce-order-list.html" class="menu-link"><div class="text-truncate" data-i18n="Order List"> Order List </div></a></li><li class="menu-item"><a href="app-ecommerce-order-details.html" class="menu-link"><div class="text-truncate" data-i18n="Order Details"> Order Details </div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Customer">Customer</div></a><ul class="menu-sub"><li class="menu-item"><a href="app-ecommerce-customer-all.html" class="menu-link"><div class="text-truncate" data-i18n="All Customers"> All Customers </div></a></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Customer Details"> Customer Details </div></a><ul class="menu-sub"><li class="menu-item"><a href="app-ecommerce-customer-details-overview.html" class="menu-link"><div class="text-truncate" data-i18n="Overview"> Overview </div></a></li><li class="menu-item"><a href="app-ecommerce-customer-details-security.html" class="menu-link"><div class="text-truncate" data-i18n="Security"> Security </div></a></li><li class="menu-item"><a href="app-ecommerce-customer-details-billing.html" class="menu-link"><div class="text-truncate" data-i18n="Address &amp; Billing"> Address &amp; Billing </div></a></li><li class="menu-item"><a href="app-ecommerce-customer-details-notifications.html" class="menu-link"><div class="text-truncate" data-i18n="Notifications"> Notifications </div></a></li></ul></li></ul></li><li class="menu-item"><a href="app-ecommerce-manage-reviews.html" class="menu-link"><div class="text-truncate" data-i18n="Manage Reviews"> Manage Reviews </div></a></li><li class="menu-item"><a href="app-ecommerce-referral.html" class="menu-link"><div class="text-truncate" data-i18n="Referrals">Referrals</div></a></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Settings">Settings</div></a><ul class="menu-sub"><li class="menu-item"><a href="app-ecommerce-settings-detail.html" class="menu-link"><div class="text-truncate" data-i18n="Store details"> Store details </div></a></li><li class="menu-item"><a href="app-ecommerce-settings-payments.html" class="menu-link"><div class="text-truncate" data-i18n="Payments"> Payments </div></a></li><li class="menu-item"><a href="app-ecommerce-settings-checkout.html" class="menu-link"><div class="text-truncate" data-i18n="Checkout"> Checkout </div></a></li><li class="menu-item"><a href="app-ecommerce-settings-shipping.html" class="menu-link"><div class="text-truncate" data-i18n="Shipping &amp; Delivery"> Shipping &amp; Delivery </div></a></li><li class="menu-item"><a href="app-ecommerce-settings-locations.html" class="menu-link"><div class="text-truncate" data-i18n="Locations"> Locations </div></a></li><li class="menu-item"><a href="app-ecommerce-settings-notifications.html" class="menu-link"><div class="text-truncate" data-i18n="Notifications"> Notifications </div></a></li></ul></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-book-open"></i><div class="text-truncate" data-i18n="Academy">Academy</div></a><ul class="menu-sub"><li class="menu-item"><a href="app-academy-dashboard.html" class="menu-link"><div class="text-truncate" data-i18n="Dashboard">Dashboard</div></a></li><li class="menu-item"><a href="app-academy-course.html" class="menu-link"><div class="text-truncate" data-i18n="My Course">My Course</div></a></li><li class="menu-item"><a href="app-academy-course-details.html" class="menu-link"><div class="text-truncate" data-i18n="Course Details"> Course Details </div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-car"></i><div class="text-truncate" data-i18n="Logistics">Logistics</div></a><ul class="menu-sub"><li class="menu-item"><a href="app-logistics-dashboard.html" class="menu-link"><div class="text-truncate" data-i18n="Dashboard">Dashboard</div></a></li><li class="menu-item"><a href="app-logistics-fleet.html" class="menu-link"><div class="text-truncate" data-i18n="Fleet">Fleet</div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-food-menu"></i><div class="text-truncate" data-i18n="Invoice">Invoice</div><span class="badge badge-center rounded-pill bg-success ms-auto"> 4 </span></a><ul class="menu-sub"><li class="menu-item"><a href="app-invoice-list.html" class="menu-link"><div class="text-truncate" data-i18n="List">List</div></a></li><li class="menu-item"><a href="app-invoice-preview.html" class="menu-link"><div class="text-truncate" data-i18n="Preview">Preview</div></a></li><li class="menu-item"><a href="app-invoice-edit.html" class="menu-link"><div class="text-truncate" data-i18n="Edit">Edit</div></a></li><li class="menu-item"><a href="app-invoice-add.html" class="menu-link"><div class="text-truncate" data-i18n="Add">Add</div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-user"></i><div class="text-truncate" data-i18n="Users">Users</div></a><ul class="menu-sub"><li class="menu-item"><a href="app-user-list.html" class="menu-link"><div class="text-truncate" data-i18n="List">List</div></a></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="View">View</div></a><ul class="menu-sub"><li class="menu-item"><a href="app-user-view-account.html" class="menu-link"><div class="text-truncate" data-i18n="Account"> Account </div></a></li><li class="menu-item"><a href="app-user-view-security.html" class="menu-link"><div class="text-truncate" data-i18n="Security"> Security </div></a></li><li class="menu-item"><a href="app-user-view-billing.html" class="menu-link"><div class="text-truncate" data-i18n="Billing &amp; Plans"> Billing &amp; Plans </div></a></li><li class="menu-item"><a href="app-user-view-notifications.html" class="menu-link"><div class="text-truncate" data-i18n="Notifications"> Notifications </div></a></li><li class="menu-item"><a href="app-user-view-connections.html" class="menu-link"><div class="text-truncate" data-i18n="Connections"> Connections </div></a></li></ul></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-check-shield"></i><div class="text-truncate" data-i18n="Roles &amp; Permissions"> Roles &amp; Permissions </div></a><ul class="menu-sub"><li class="menu-item"><a href="app-access-roles.html" class="menu-link"><div class="text-truncate" data-i18n="Roles">Roles</div></a></li><li class="menu-item"><a href="app-access-permission.html" class="menu-link"><div class="text-truncate" data-i18n="Permission"> Permission </div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-dock-top"></i><div class="text-truncate" data-i18n="Pages">Pages</div></a><ul class="menu-sub"><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="User Profile"> User Profile </div></a><ul class="menu-sub"><li class="menu-item"><a href="pages-profile-user.html" class="menu-link"><div class="text-truncate" data-i18n="Profile"> Profile </div></a></li><li class="menu-item"><a href="pages-profile-teams.html" class="menu-link"><div class="text-truncate" data-i18n="Teams">Teams</div></a></li><li class="menu-item"><a href="pages-profile-projects.html" class="menu-link"><div class="text-truncate" data-i18n="Projects"> Projects </div></a></li><li class="menu-item"><a href="pages-profile-connections.html" class="menu-link"><div class="text-truncate" data-i18n="Connections"> Connections </div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Account Settings"> Account Settings </div></a><ul class="menu-sub"><li class="menu-item"><a href="pages-account-settings-account.html" class="menu-link"><div class="text-truncate" data-i18n="Account"> Account </div></a></li><li class="menu-item"><a href="pages-account-settings-security.html" class="menu-link"><div class="text-truncate" data-i18n="Security"> Security </div></a></li><li class="menu-item"><a href="pages-account-settings-billing.html" class="menu-link"><div class="text-truncate" data-i18n="Billing &amp; Plans"> Billing &amp; Plans </div></a></li><li class="menu-item"><a href="pages-account-settings-notifications.html" class="menu-link"><div class="text-truncate" data-i18n="Notifications"> Notifications </div></a></li><li class="menu-item"><a href="pages-account-settings-connections.html" class="menu-link"><div class="text-truncate" data-i18n="Connections"> Connections </div></a></li></ul></li><li class="menu-item"><a href="pages-faq.html" class="menu-link"><div class="text-truncate" data-i18n="FAQ">FAQ</div></a></li><li class="menu-item"><a href="pages-pricing.html" class="menu-link"><div class="text-truncate" data-i18n="Pricing">Pricing</div></a></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Misc">Misc</div></a><ul class="menu-sub"><li class="menu-item"><a href="pages-misc-error.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Error">Error</div></a></li><li class="menu-item"><a href="pages-misc-under-maintenance.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Under Maintenance"> Under Maintenance </div></a></li><li class="menu-item"><a href="pages-misc-comingsoon.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Coming Soon"> Coming Soon </div></a></li><li class="menu-item"><a href="pages-misc-not-authorized.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Not Authorized"> Not Authorized </div></a></li></ul></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-lock-open-alt"></i><div class="text-truncate" data-i18n="Authentications"> Authentications </div></a><ul class="menu-sub"><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Login">Login</div></a><ul class="menu-sub"><li class="menu-item"><a href="auth-login-basic.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Basic">Basic</div></a></li><li class="menu-item"><a href="auth-login-cover.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Cover">Cover</div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Register">Register</div></a><ul class="menu-sub"><li class="menu-item"><a href="auth-register-basic.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Basic">Basic</div></a></li><li class="menu-item"><a href="auth-register-cover.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Cover">Cover</div></a></li><li class="menu-item"><a href="auth-register-multisteps.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Multi-steps"> Multi-steps </div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Verify Email"> Verify Email </div></a><ul class="menu-sub"><li class="menu-item"><a href="auth-verify-email-basic.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Basic">Basic</div></a></li><li class="menu-item"><a href="auth-verify-email-cover.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Cover">Cover</div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Reset Password"> Reset Password </div></a><ul class="menu-sub"><li class="menu-item"><a href="auth-reset-password-basic.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Basic">Basic</div></a></li><li class="menu-item"><a href="auth-reset-password-cover.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Cover">Cover</div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Forgot Password"> Forgot Password </div></a><ul class="menu-sub"><li class="menu-item"><a href="auth-forgot-password-basic.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Basic">Basic</div></a></li><li class="menu-item"><a href="auth-forgot-password-cover.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Cover">Cover</div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Two Steps">Two Steps</div></a><ul class="menu-sub"><li class="menu-item"><a href="auth-two-steps-basic.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Basic">Basic</div></a></li><li class="menu-item"><a href="auth-two-steps-cover.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Cover">Cover</div></a></li></ul></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-spreadsheet"></i><div class="text-truncate" data-i18n="Wizard Examples"> Wizard Examples </div></a><ul class="menu-sub"><li class="menu-item"><a href="wizard-ex-checkout.html" class="menu-link"><div class="text-truncate" data-i18n="Checkout">Checkout</div></a></li><li class="menu-item"><a href="wizard-ex-property-listing.html" class="menu-link"><div class="text-truncate" data-i18n="Property Listing"> Property Listing </div></a></li><li class="menu-item"><a href="wizard-ex-create-deal.html" class="menu-link"><div class="text-truncate" data-i18n="Create Deal"> Create Deal </div></a></li></ul></li><li class="menu-item"><a href="modal-examples.html" class="menu-link"><i class="menu-icon tf-icons bx bx-window-open"></i><div class="text-truncate" data-i18n="Modal Examples"> Modal Examples </div></a></li><li class="menu-header small text-uppercase"><span class="menu-header-text" data-i18n="Components">Components</span></li><li class="menu-item active open"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-collection"></i><div class="text-truncate" data-i18n="Cards">Cards</div><span class="badge badge-center rounded-pill bg-danger ms-auto">6</span></a><ul class="menu-sub"><li class="menu-item active"><a href="cards-basic.html" class="menu-link"><div class="text-truncate" data-i18n="Basic">Basic</div></a></li><li class="menu-item"><a href="cards-advance.html" class="menu-link"><div class="text-truncate" data-i18n="Advance">Advance</div></a></li><li class="menu-item"><a href="cards-statistics.html" class="menu-link"><div class="text-truncate" data-i18n="Statistics"> Statistics </div></a></li><li class="menu-item"><a href="cards-analytics.html" class="menu-link"><div class="text-truncate" data-i18n="Analytics">Analytics</div></a></li><li class="menu-item"><a href="cards-gamifications.html" class="menu-link"><div class="text-truncate" data-i18n="Gamifications"> Gamifications </div></a></li><li class="menu-item"><a href="cards-actions.html" class="menu-link"><div class="text-truncate" data-i18n="Actions">Actions</div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0)" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-box"></i><div class="text-truncate" data-i18n="User interface"> User interface </div></a><ul class="menu-sub"><li class="menu-item"><a href="ui-accordion.html" class="menu-link"><div class="text-truncate" data-i18n="Accordion">Accordion</div></a></li><li class="menu-item"><a href="ui-alerts.html" class="menu-link"><div class="text-truncate" data-i18n="Alerts">Alerts</div></a></li><li class="menu-item"><a href="ui-badges.html" class="menu-link"><div class="text-truncate" data-i18n="Badges">Badges</div></a></li><li class="menu-item"><a href="ui-buttons.html" class="menu-link"><div class="text-truncate" data-i18n="Buttons">Buttons</div></a></li><li class="menu-item"><a href="ui-carousel.html" class="menu-link"><div class="text-truncate" data-i18n="Carousel">Carousel</div></a></li><li class="menu-item"><a href="ui-collapse.html" class="menu-link"><div class="text-truncate" data-i18n="Collapse">Collapse</div></a></li><li class="menu-item"><a href="ui-dropdowns.html" class="menu-link"><div class="text-truncate" data-i18n="Dropdowns">Dropdowns</div></a></li><li class="menu-item"><a href="ui-footer.html" class="menu-link"><div class="text-truncate" data-i18n="Footer">Footer</div></a></li><li class="menu-item"><a href="ui-list-groups.html" class="menu-link"><div class="text-truncate" data-i18n="List Groups"> List groups </div></a></li><li class="menu-item"><a href="ui-modals.html" class="menu-link"><div class="text-truncate" data-i18n="Modals">Modals</div></a></li><li class="menu-item"><a href="ui-navbar.html" class="menu-link"><div class="text-truncate" data-i18n="Navbar">Navbar</div></a></li><li class="menu-item"><a href="ui-offcanvas.html" class="menu-link"><div class="text-truncate" data-i18n="Offcanvas">Offcanvas</div></a></li><li class="menu-item"><a href="ui-pagination-breadcrumbs.html" class="menu-link"><div class="text-truncate" data-i18n="Pagination &amp; Breadcrumbs"> Pagination &amp; Breadcrumbs </div></a></li><li class="menu-item"><a href="ui-progress.html" class="menu-link"><div class="text-truncate" data-i18n="Progress">Progress</div></a></li><li class="menu-item"><a href="ui-spinners.html" class="menu-link"><div class="text-truncate" data-i18n="Spinners">Spinners</div></a></li><li class="menu-item"><a href="ui-tabs-pills.html" class="menu-link"><div class="text-truncate" data-i18n="Tabs &amp; Pills"> Tabs &amp; Pills </div></a></li><li class="menu-item"><a href="ui-toasts.html" class="menu-link"><div class="text-truncate" data-i18n="Toasts">Toasts</div></a></li><li class="menu-item"><a href="ui-tooltips-popovers.html" class="menu-link"><div class="text-truncate" data-i18n="Tooltips &amp; Popovers"> Tooltips &amp; Popovers </div></a></li><li class="menu-item"><a href="ui-typography.html" class="menu-link"><div class="text-truncate" data-i18n="Typography"> Typography </div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0)" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-copy"></i><div class="text-truncate" data-i18n="Extended UI">Extended UI</div></a><ul class="menu-sub"><li class="menu-item"><a href="extended-ui-avatar.html" class="menu-link"><div class="text-truncate" data-i18n="Avatar">Avatar</div></a></li><li class="menu-item"><a href="extended-ui-blockui.html" class="menu-link"><div class="text-truncate" data-i18n="BlockUI">BlockUI</div></a></li><li class="menu-item"><a href="extended-ui-drag-and-drop.html" class="menu-link"><div class="text-truncate" data-i18n="Drag &amp; Drop"> Drag &amp; Drop </div></a></li><li class="menu-item"><a href="extended-ui-media-player.html" class="menu-link"><div class="text-truncate" data-i18n="Media Player"> Media Player </div></a></li><li class="menu-item"><a href="extended-ui-perfect-scrollbar.html" class="menu-link"><div class="text-truncate" data-i18n="Perfect Scrollbar"> Perfect Scrollbar </div></a></li><li class="menu-item"><a href="extended-ui-star-ratings.html" class="menu-link"><div class="text-truncate" data-i18n="Star Ratings"> Star Ratings </div></a></li><li class="menu-item"><a href="extended-ui-sweetalert2.html" class="menu-link"><div class="text-truncate" data-i18n="SweetAlert2"> SweetAlert2 </div></a></li><li class="menu-item"><a href="extended-ui-text-divider.html" class="menu-link"><div class="text-truncate" data-i18n="Text Divider"> Text Divider </div></a></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Timeline">Timeline</div></a><ul class="menu-sub"><li class="menu-item"><a href="extended-ui-timeline-basic.html" class="menu-link"><div class="text-truncate" data-i18n="Basic">Basic</div></a></li><li class="menu-item"><a href="extended-ui-timeline-fullscreen.html" class="menu-link"><div class="text-truncate" data-i18n="Fullscreen"> Fullscreen </div></a></li></ul></li><li class="menu-item"><a href="extended-ui-tour.html" class="menu-link"><div class="text-truncate" data-i18n="Tour">Tour</div></a></li><li class="menu-item"><a href="extended-ui-treeview.html" class="menu-link"><div class="text-truncate" data-i18n="Treeview">Treeview</div></a></li><li class="menu-item"><a href="extended-ui-misc.html" class="menu-link"><div class="text-truncate" data-i18n="Miscellaneous"> Miscellaneous </div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0)" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-crown"></i><div class="text-truncate" data-i18n="Icons">Icons</div></a><ul class="menu-sub"><li class="menu-item"><a href="icons-boxicons.html" class="menu-link"><div class="text-truncate" data-i18n="Boxicons">Boxicons</div></a></li><li class="menu-item"><a href="icons-font-awesome.html" class="menu-link"><div class="text-truncate" data-i18n="Fontawesome"> Fontawesome </div></a></li></ul></li><li class="menu-header small text-uppercase"><span class="menu-header-text" data-i18n="Forms &amp; Tables"> Forms &amp; Tables </span></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-detail"></i><div class="text-truncate" data-i18n="Form Elements">Form Elements</div></a><ul class="menu-sub"><li class="menu-item"><a href="forms-basic-inputs.html" class="menu-link"><div class="text-truncate" data-i18n="Basic Inputs"> Basic Inputs </div></a></li><li class="menu-item"><a href="forms-input-groups.html" class="menu-link"><div class="text-truncate" data-i18n="Input groups"> Input groups </div></a></li><li class="menu-item"><a href="forms-custom-options.html" class="menu-link"><div class="text-truncate" data-i18n="Custom Options"> Custom Options </div></a></li><li class="menu-item"><a href="forms-editors.html" class="menu-link"><div class="text-truncate" data-i18n="Editors">Editors</div></a></li><li class="menu-item"><a href="forms-file-upload.html" class="menu-link"><div class="text-truncate" data-i18n="File Upload"> File Upload </div></a></li><li class="menu-item"><a href="forms-pickers.html" class="menu-link"><div class="text-truncate" data-i18n="Pickers">Pickers</div></a></li><li class="menu-item"><a href="forms-selects.html" class="menu-link"><div class="text-truncate" data-i18n="Select &amp; Tags"> Select &amp; Tags </div></a></li><li class="menu-item"><a href="forms-sliders.html" class="menu-link"><div class="text-truncate" data-i18n="Sliders">Sliders</div></a></li><li class="menu-item"><a href="forms-switches.html" class="menu-link"><div class="text-truncate" data-i18n="Switches">Switches</div></a></li><li class="menu-item"><a href="forms-extras.html" class="menu-link"><div class="text-truncate" data-i18n="Extras">Extras</div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-detail"></i><div class="text-truncate" data-i18n="Form Layouts">Form Layouts</div></a><ul class="menu-sub"><li class="menu-item"><a href="form-layouts-vertical.html" class="menu-link"><div class="text-truncate" data-i18n="Vertical Form"> Vertical Form </div></a></li><li class="menu-item"><a href="form-layouts-horizontal.html" class="menu-link"><div class="text-truncate" data-i18n="Horizontal Form"> Horizontal Form </div></a></li><li class="menu-item"><a href="form-layouts-sticky.html" class="menu-link"><div class="text-truncate" data-i18n="Sticky Actions"> Sticky Actions </div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-carousel"></i><div class="text-truncate" data-i18n="Form Wizard">Form Wizard</div></a><ul class="menu-sub"><li class="menu-item"><a href="form-wizard-numbered.html" class="menu-link"><div class="text-truncate" data-i18n="Numbered">Numbered</div></a></li><li class="menu-item"><a href="form-wizard-icons.html" class="menu-link"><div class="text-truncate" data-i18n="Icons">Icons</div></a></li></ul></li><li class="menu-item"><a href="form-validation.html" class="menu-link"><i class="menu-icon tf-icons bx bx-list-check"></i><div class="text-truncate" data-i18n="Form Validation"> Form Validation </div></a></li><li class="menu-item"><a href="tables-basic.html" class="menu-link"><i class="menu-icon tf-icons bx bx-table"></i><div class="text-truncate" data-i18n="Tables">Tables</div></a></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-grid"></i><div class="text-truncate" data-i18n="Datatables">Datatables</div></a><ul class="menu-sub"><li class="menu-item"><a href="tables-datatables-basic.html" class="menu-link"><div class="text-truncate" data-i18n="Basic">Basic</div></a></li><li class="menu-item"><a href="tables-datatables-advanced.html" class="menu-link"><div class="text-truncate" data-i18n="Advanced">Advanced</div></a></li><li class="menu-item"><a href="tables-datatables-extensions.html" class="menu-link"><div class="text-truncate" data-i18n="Extensions"> Extensions </div></a></li></ul></li><li class="menu-header small text-uppercase"><span class="menu-header-text" data-i18n="Charts &amp; Maps"> Charts &amp; Maps </span></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-chart"></i><div class="text-truncate" data-i18n="Charts">Charts</div></a><ul class="menu-sub"><li class="menu-item"><a href="charts-apex.html" class="menu-link"><div class="text-truncate" data-i18n="Apex Charts"> Apex Charts </div></a></li><li class="menu-item"><a href="charts-chartjs.html" class="menu-link"><div class="text-truncate" data-i18n="ChartJS">ChartJS</div></a></li></ul></li><li class="menu-item"><a href="maps-leaflet.html" class="menu-link"><i class="menu-icon tf-icons bx bx-map-alt"></i><div class="text-truncate" data-i18n="Leaflet Maps">Leaflet Maps</div></a></li><li class="menu-header small text-uppercase"><span class="menu-header-text" data-i18n="Misc">Misc</span></li><li class="menu-item"><a href="https://themeselection.com/support/" target="_blank" class="menu-link"><i class="menu-icon tf-icons bx bx-support"></i><div class="text-truncate" data-i18n="Support">Support</div></a></li><li class="menu-item"><a href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/" target="_blank" class="menu-link"><i class="menu-icon tf-icons bx bx-file"></i><div class="text-truncate" data-i18n="Documentation">Documentation</div></a></li></ul></aside><div class="layout-page"><nav class="layout-navbar container-fluid navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar"><div class="layout-menu-toggle navbar-nav align-items-xl-center me-xl-0 d-xl-none me-3"><a class="nav-item nav-link me-xl-4 px-0" href="javascript:void(0)"><i class="bx bx-menu bx-sm"></i></a></div><div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse"><ul class="navbar-nav align-items-center ms-auto flex-row"><li class="nav-item dropdown-language dropdown me-2 me-xl-0"><a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown"><i class="bx bx-globe bx-sm"></i></a><ul class="dropdown-menu dropdown-menu-end"><!--[-->`);
+        ssrRenderList(unref(locales2).get(), (locale) => {
+          _push(`<li><a class="${ssrRenderClass([{ active: unref(locales2).current().getCode() === locale.getCode() }, "dropdown-item"])}"${ssrRenderAttr("href", unref(route)("locale.change", locale.getCode()))}><span class="me-1 align-middle">${locale.getSvgFlag(20, 20) ?? ""}</span><span class="align-middle">${ssrInterpolate(locale.getName())}</span></a></li>`);
+        });
+        _push(`<!--]--></ul></li><li class="nav-item dropdown-shortcuts navbar-dropdown dropdown me-2 me-xl-0"><a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"><i class="bx bx-grid-alt bx-sm"></i></a><div class="dropdown-menu dropdown-menu-end py-0"><div class="dropdown-menu-header border-bottom"><div class="dropdown-header d-flex align-items-center py-3"><h5 class="text-body mb-0 me-auto">Shortcuts</h5><a href="javascript:void(0)" class="dropdown-shortcuts-add text-body" data-bs-toggle="tooltip" data-bs-placement="top" title="Add shortcuts"><i class="bx bx-sm bx-plus-circle"></i></a></div></div><div class="dropdown-shortcuts-list scrollable-container"><div class="row row-bordered overflow-visible g-0"><div class="dropdown-shortcuts-item col"><span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2"><i class="bx bx-calendar fs-4"></i></span><a href="app-calendar.html" class="stretched-link">Calendar</a><small class="text-muted mb-0">Appointments</small></div><div class="dropdown-shortcuts-item col"><span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2"><i class="bx bx-food-menu fs-4"></i></span><a href="app-invoice-list.html" class="stretched-link">Invoice App</a><small class="text-muted mb-0">Manage Accounts</small></div></div><div class="row row-bordered overflow-visible g-0"><div class="dropdown-shortcuts-item col"><span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2"><i class="bx bx-user fs-4"></i></span><a href="app-user-list.html" class="stretched-link">User App</a><small class="text-muted mb-0">Manage Users</small></div><div class="dropdown-shortcuts-item col"><span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2"><i class="bx bx-check-shield fs-4"></i></span><a href="app-access-roles.html" class="stretched-link">Role Management</a><small class="text-muted mb-0">Permission</small></div></div><div class="row row-bordered overflow-visible g-0"><div class="dropdown-shortcuts-item col"><span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2"><i class="bx bx-pie-chart-alt-2 fs-4"></i></span><a href="index.html" class="stretched-link">Dashboard</a><small class="text-muted mb-0">User Profile</small></div><div class="dropdown-shortcuts-item col"><span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2"><i class="bx bx-cog fs-4"></i></span><a href="pages-account-settings-account.html" class="stretched-link">Setting</a><small class="text-muted mb-0">Account Settings</small></div></div><div class="row row-bordered overflow-visible g-0"><div class="dropdown-shortcuts-item col"><span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2"><i class="bx bx-help-circle fs-4"></i></span><a href="pages-faq.html" class="stretched-link">FAQs</a><small class="text-muted mb-0">FAQs &amp; Articles</small></div><div class="dropdown-shortcuts-item col"><span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2"><i class="bx bx-window-open fs-4"></i></span><a href="modal-examples.html" class="stretched-link">Modals</a><small class="text-muted mb-0">Useful Popups</small></div></div></div></div></li><li class="nav-item dropdown-style-switcher dropdown me-2 me-xl-0"><a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">`);
+        if (unref(theme) === "light") {
+          _push(`<i class="bx bx-sun bx-sm"></i>`);
+        } else {
+          _push(`<!---->`);
+        }
+        if (unref(theme) === "dark") {
+          _push(`<i class="bx bx-moon bx-sm"></i>`);
+        } else {
+          _push(`<!---->`);
+        }
+        if (unref(theme) === "system") {
+          _push(`<i class="bx bx-desktop bx-sm"></i>`);
+        } else {
+          _push(`<!---->`);
+        }
+        _push(`</a><ul class="dropdown-menu dropdown-menu-end dropdown-styles"><li><a class="${ssrRenderClass([{ active: unref(theme) === "light" }, "dropdown-item"])}" href="javascript:void(0);"><span class="align-middle"><i class="bx bx-sun me-2"></i>${ssrInterpolate(_ctx.$t("actions.mode.light"))}</span></a></li><li><a class="${ssrRenderClass([{ active: unref(theme) === "dark" }, "dropdown-item"])}" href="javascript:void(0);"><span class="align-middle"><i class="bx bx-moon me-2"></i>${ssrInterpolate(_ctx.$t("actions.mode.dark"))}</span></a></li><li><a class="${ssrRenderClass([{ active: unref(theme) === "system" }, "dropdown-item"])}" href="javascript:void(0);"><span class="align-middle"><i class="bx bx-desktop me-2"></i>${ssrInterpolate(_ctx.$t("actions.mode.system"))}</span></a></li></ul></li><li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1"><a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"><i class="bx bx-bell bx-sm"></i><span class="badge bg-danger rounded-pill badge-notifications"> 5 </span></a><ul class="dropdown-menu dropdown-menu-end py-0"><li class="dropdown-menu-header border-bottom"><div class="dropdown-header d-flex align-items-center py-3"><h5 class="text-body mb-0 me-auto">Notification</h5><a href="javascript:void(0)" class="dropdown-notifications-all text-body" data-bs-toggle="tooltip" data-bs-placement="top" title="Mark all as read"><i class="bx fs-4 bx-envelope-open"></i></a></div></li><li class="dropdown-notifications-list scrollable-container"><ul class="list-group list-group-flush"><li class="list-group-item list-group-item-action dropdown-notifications-item"><div class="d-flex"><div class="flex-shrink-0 me-3"><div class="avatar"><img src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle"></div></div><div class="flex-grow-1"><h6 class="mb-1"> Congratulation Lettie 🎉 </h6><p class="mb-0"> Won the monthly best seller gold badge </p><small class="text-muted">1h ago</small></div><div class="flex-shrink-0 dropdown-notifications-actions"><a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a><a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a></div></div></li><li class="list-group-item list-group-item-action dropdown-notifications-item"><div class="d-flex"><div class="flex-shrink-0 me-3"><div class="avatar"><span class="avatar-initial rounded-circle bg-label-danger"> CF </span></div></div><div class="flex-grow-1"><h6 class="mb-1">Charles Franklin</h6><p class="mb-0">Accepted your connection</p><small class="text-muted">12hr ago</small></div><div class="flex-shrink-0 dropdown-notifications-actions"><a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a><a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a></div></div></li><li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read"><div class="d-flex"><div class="flex-shrink-0 me-3"><div class="avatar"><img src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/2.png" alt class="w-px-40 h-auto rounded-circle"></div></div><div class="flex-grow-1"><h6 class="mb-1">New Message ✉️</h6><p class="mb-0"> You have new message from Natalie </p><small class="text-muted">1h ago</small></div><div class="flex-shrink-0 dropdown-notifications-actions"><a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a><a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a></div></div></li><li class="list-group-item list-group-item-action dropdown-notifications-item"><div class="d-flex"><div class="flex-shrink-0 me-3"><div class="avatar"><span class="avatar-initial rounded-circle bg-label-success"><i class="bx bx-cart"></i></span></div></div><div class="flex-grow-1"><h6 class="mb-1"> Whoo! You have new order 🛒 </h6><p class="mb-0"> ACME Inc. made new order $1,154 </p><small class="text-muted">1 day ago</small></div><div class="flex-shrink-0 dropdown-notifications-actions"><a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a><a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a></div></div></li><li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read"><div class="d-flex"><div class="flex-shrink-0 me-3"><div class="avatar"><img src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/9.png" alt class="w-px-40 h-auto rounded-circle"></div></div><div class="flex-grow-1"><h6 class="mb-1"> Application has been approved 🚀 </h6><p class="mb-0"> Your ABC project application has been approved. </p><small class="text-muted">2 days ago</small></div><div class="flex-shrink-0 dropdown-notifications-actions"><a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a><a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a></div></div></li><li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read"><div class="d-flex"><div class="flex-shrink-0 me-3"><div class="avatar"><span class="avatar-initial rounded-circle bg-label-success"><i class="bx bx-pie-chart-alt"></i></span></div></div><div class="flex-grow-1"><h6 class="mb-1"> Monthly report is generated </h6><p class="mb-0"> July monthly financial report is generated </p><small class="text-muted">3 days ago</small></div><div class="flex-shrink-0 dropdown-notifications-actions"><a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a><a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a></div></div></li><li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read"><div class="d-flex"><div class="flex-shrink-0 me-3"><div class="avatar"><img src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/5.png" alt class="w-px-40 h-auto rounded-circle"></div></div><div class="flex-grow-1"><h6 class="mb-1"> Send connection request </h6><p class="mb-0"> Peter sent you connection request </p><small class="text-muted">4 days ago</small></div><div class="flex-shrink-0 dropdown-notifications-actions"><a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a><a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a></div></div></li><li class="list-group-item list-group-item-action dropdown-notifications-item"><div class="d-flex"><div class="flex-shrink-0 me-3"><div class="avatar"><img src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/6.png" alt class="w-px-40 h-auto rounded-circle"></div></div><div class="flex-grow-1"><h6 class="mb-1">New message from Jane</h6><p class="mb-0"> Your have new message from Jane </p><small class="text-muted">5 days ago</small></div><div class="flex-shrink-0 dropdown-notifications-actions"><a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a><a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a></div></div></li><li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read"><div class="d-flex"><div class="flex-shrink-0 me-3"><div class="avatar"><span class="avatar-initial rounded-circle bg-label-warning"><i class="bx bx-error"></i></span></div></div><div class="flex-grow-1"><h6 class="mb-1">CPU is running high</h6><p class="mb-0"> CPU Utilization Percent is currently at 88.63%, </p><small class="text-muted">5 days ago</small></div><div class="flex-shrink-0 dropdown-notifications-actions"><a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a><a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a></div></div></li></ul></li><li class="dropdown-menu-footer border-top p-3"><button class="btn btn-primary text-uppercase w-100"> view all notifications </button></li></ul></li><li class="nav-item navbar-dropdown dropdown-user dropdown"><a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown"><div class="avatar avatar-online"><img src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle"></div></a><ul class="dropdown-menu dropdown-menu-end"><li><a class="dropdown-item" href="pages-account-settings-account.html"><div class="d-flex"><div class="flex-shrink-0 me-3"><div class="avatar avatar-online"><img src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle"></div></div><div class="flex-grow-1"><span class="fw-medium d-block">John Doe</span><small class="text-muted">Admin</small></div></div></a></li><li><div class="dropdown-divider"></div></li><li><a class="dropdown-item" href="pages-profile-user.html"><i class="bx bx-user me-2"></i><span class="align-middle">My Profile</span></a></li><li><a class="dropdown-item" href="pages-account-settings-account.html"><i class="bx bx-cog me-2"></i><span class="align-middle">Settings</span></a></li><li><a class="dropdown-item" href="pages-account-settings-billing.html"><span class="d-flex align-items-center align-middle"><i class="flex-shrink-0 bx bx-credit-card me-2"></i><span class="flex-grow-1 align-middle"> Billing </span><span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20"> 4 </span></span></a></li><li><div class="dropdown-divider"></div></li><li><a class="dropdown-item" href="pages-faq.html"><i class="bx bx-help-circle me-2"></i><span class="align-middle">FAQ</span></a></li><li><a class="dropdown-item" href="pages-pricing.html"><i class="bx bx-dollar me-2"></i><span class="align-middle">Pricing</span></a></li><li><div class="dropdown-divider"></div></li><li><a class="dropdown-item" href="#"><i class="bx bx-power-off me-2"></i><span class="align-middle">${ssrInterpolate(_ctx.$t("auth.logout"))}</span></a></li></ul></li></ul></div></nav><div class="content-wrapper"><div class="container-fluid flex-grow-1 container-p-y"><div class="h4 mb-4 py-3"><span class="text-muted fw-light">UI Elements /</span> Cards Basic </div>`);
+        ssrRenderSlot(_ctx.$slots, "default", {}, null, _push, _parent);
+        _push(`</div><footer class="content-footer footer bg-footer-theme"><div class="container-fluid d-flex justify-content-between flex-md-row flex-column flex-wrap py-2"><div class="mb-md-0 mb-2">Laravel v12.32.5 (PHP v8.3.22)</div></div></footer><div class="content-backdrop fade"></div></div></div></div><div class="layout-overlay layout-menu-toggle"></div><div class="drag-target"></div></div>`);
+      } else {
+        _push(`<!---->`);
+      }
     };
   }
 };
@@ -1966,7 +5189,7 @@ createServer(
     page,
     render: renderToString,
     resolve: (name) => {
-      const pages = /* @__PURE__ */ Object.assign({ "../pages/About.vue": __vite_glob_0_0, "../pages/Auth/Login.vue": __vite_glob_0_1, "../pages/Auth/Register.vue": __vite_glob_0_2, "../pages/Dashboard/Home.vue": __vite_glob_0_3, "../pages/Test.vue": __vite_glob_0_4 });
+      const pages = /* @__PURE__ */ Object.assign({ "../pages/About.vue": __vite_glob_0_0$1, "../pages/Auth/ConfirmPassword.vue": __vite_glob_0_1, "../pages/Auth/ForgetPassword.vue": __vite_glob_0_2, "../pages/Auth/Login.vue": __vite_glob_0_3, "../pages/Auth/Register.vue": __vite_glob_0_4, "../pages/Auth/ResetPassword.vue": __vite_glob_0_5, "../pages/Auth/VerifyEmail.vue": __vite_glob_0_6, "../pages/Dashboard/Home.vue": __vite_glob_0_7, "../pages/Test.vue": __vite_glob_0_8 });
       const page2 = pages[`../pages/${name}.vue`];
       if (page2 && page2.default && page2.default.layout === void 0) {
         page2.default.layout = _sfc_main;

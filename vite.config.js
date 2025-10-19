@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
 import i18n from 'laravel-vue-i18n/vite';
+import { viteStaticCopy } from 'vite-plugin-static-copy'
 
 export default defineConfig({
     plugins: [
@@ -33,7 +34,15 @@ export default defineConfig({
                 },
             },
         }),
-        i18n()
+        i18n(),
+        viteStaticCopy({
+            targets: [
+                {
+                    src: 'resources/templates/sneat/assets/img/*',
+                    dest: 'images',
+                },
+            ]
+        })
     ],
     esbuild: {
         legalComments: "none"
@@ -50,6 +59,7 @@ export default defineConfig({
         rollupOptions: {
             onwarn(warning, warn) {
                 if (warning.message.includes('eval')) return;
+                if (warning.message.includes('ssrRenderDynamicModel')) return;
                 warn(warning);
             },
         },

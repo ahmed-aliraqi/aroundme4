@@ -18,7 +18,7 @@ class PasswordResetLinkController extends Controller
     {
         return inertia('Auth/ForgetPassword', [
             'config' => [
-                'banner' => 'https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/illustrations/girl-unlock-password-light.png',
+                'banner' => asset('build/images/illustrations/girl-unlock-password-light.png'),
             ],
         ]);
     }

@@ -20,7 +20,7 @@ class AuthenticatedSessionController extends Controller
     {
         return inertia('Auth/Login', [
             'config' => [
-                'banner' => 'https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/illustrations/boy-with-rocket-light.png',
+                'banner' => asset('build/images/illustrations/boy-with-rocket-light.png'),
                 'register' => Route::has('register'),
             ],
 

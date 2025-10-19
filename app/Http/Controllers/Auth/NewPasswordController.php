@@ -25,7 +25,7 @@ class NewPasswordController extends Controller
             'token' => $request->route('token'),
             'email' => $request->input('email'),
             'config' => [
-                'banner' => 'https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/illustrations/boy-with-laptop-light.png',
+                'banner' => asset('build/images/illustrations/boy-with-laptop-light.png'),
             ],
         ]);
     }

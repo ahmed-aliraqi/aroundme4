@@ -25,7 +25,7 @@ class RegisteredUserController extends Controller
     {
         return inertia('Auth/Register', [
             'config' => [
-                'banner' => 'https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/illustrations/girl-with-laptop-light.png',
+                'banner' => asset('build/images/illustrations/girl-with-laptop-light.png'),
             ],
         ]);
     }

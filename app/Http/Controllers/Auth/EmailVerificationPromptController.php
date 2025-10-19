@@ -19,7 +19,7 @@ class EmailVerificationPromptController extends Controller
                     ? redirect()->intended(route('dashboard.home', absolute: false))
                     : inertia('Auth/VerifyEmail', [
                         'config' => [
-                            'banner' => 'https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/illustrations/boy-verify-email-light.png',
+                            'banner' => asset('build/images/illustrations/boy-verify-email-light.png'),
                         ],
                     ]);
     }
