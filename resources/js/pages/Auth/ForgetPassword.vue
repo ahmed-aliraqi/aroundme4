@@ -56,13 +56,13 @@ const setLocale = (locale) => {
                 <img
                     :src="config.banner"
                     class="img-fluid"
-                    alt="Login image"
+                    alt="Forget Password image"
                     width="700"/>
             </div>
         </div>
         <!-- /Left Text -->
 
-        <!-- Login -->
+        <!-- Forget Password -->
         <div class="d-flex col-12 col-lg-5 col-xl-4 align-items-center authentication-bg p-sm-5 p-4">
             <div class="w-px-400 mx-auto">
                 <!-- Logo -->
@@ -116,6 +116,6 @@ const setLocale = (locale) => {
 
             </div>
         </div>
-        <!-- /Login -->
+        <!-- /Forget Password -->
     </div>
 </template>

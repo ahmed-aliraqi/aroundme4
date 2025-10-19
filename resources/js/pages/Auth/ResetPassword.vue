@@ -6,8 +6,6 @@ import { useForm } from '@/plugins/useForm.js';
 import { Head, Link } from '@inertiajs/vue3';
 import { inject } from 'vue';
 import StyleSwitcher from '@/components/Guest/StyleSwitcher.vue';
-import toast from '@/plugins/tostify.js';
-import { trans } from 'laravel-vue-i18n';
 
 const props = defineProps(['app', 'config', 'flash', 'email', 'token'])
 defineOptions({

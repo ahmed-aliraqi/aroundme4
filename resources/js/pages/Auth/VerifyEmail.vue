@@ -42,12 +42,12 @@
         <!-- /Left Text -->
         <div class="d-none d-lg-flex col-lg-7 col-xl-8 align-items-center p-5">
             <div class="w-100 d-flex justify-content-center">
-                <img :src="config.banner" class="img-fluid" alt="Login image" width="700" />
+                <img :src="config.banner" class="img-fluid" alt="Verify Email image" width="700" />
             </div>
         </div>
         <!-- /Left Text -->
 
-        <!-- Login -->
+        <!-- Verify Email -->
         <div
             class="d-flex col-12 col-lg-5 col-xl-4 align-items-center authentication-bg p-sm-5 p-4"
         >
@@ -112,6 +112,6 @@
                 </div>
             </div>
         </div>
-        <!-- /Login -->
+        <!-- /Verify Email -->
     </div>
 </template>
