@@ -2,11 +2,11 @@ import { createApp, h } from 'vue';
 import { i18nVue } from 'laravel-vue-i18n';
 
 import Vuex from '@/store/index';
+import '@/plugins/select2.js';
 import Axios from '@/plugins/axios.js';
 import Auth from '@/plugins/auth.js';
 import AppLayout from '@/layouts/dashboard/App.vue';
-import { Locale } from '@/plugins/locales';
-// import BootstrapForms from 'vue3-bootstrap5-forms';
+import { Locale, Locales } from '@/plugins/locales';
 
 
 import { createInertiaApp } from '@inertiajs/vue3'
@@ -36,6 +36,7 @@ const App = createInertiaApp({
             .use(Vuex)
             .use(Auth)
             .provide('$locale', Locale)
+            .provide('$locales', Locales)
             .provide('$axios', Axios)
             .mount(el)
     },

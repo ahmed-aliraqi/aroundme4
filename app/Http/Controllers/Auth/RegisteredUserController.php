@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Inertia\Response;
 use Laraeast\LaravelBootstrapForms\Rules\PhoneNumber;
 
 class RegisteredUserController extends Controller
@@ -20,9 +21,13 @@ class RegisteredUserController extends Controller
     /**
      * Display the registration view.
      */
-    public function create(): View
+    public function create(): Response
     {
-        return view('auth.register');
+        return inertia('Auth/Register', [
+            'config' => [
+                'banner' => 'https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/illustrations/girl-with-laptop-light.png',
+            ],
+        ]);
     }
 
     /**
@@ -37,7 +42,7 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'phone' => ['required', new PhoneNumber, Rule::unique(User::class)],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+        ], [], __('auth.register.attributes'));
 
         $user = User::create([
             'name' => $request->name,

@@ -3,5 +3,7 @@
 </script>
 
 <template>
-<slot></slot>
+    <div class="authentication-wrapper authentication-cover">
+        <slot></slot>
+    </div>
 </template>

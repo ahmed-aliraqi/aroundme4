@@ -1,6 +1,6 @@
 <template>
     <!-- Layout wrapper -->
-    <div class="layout-wrapper layout-content-navbar">
+    <div class="layout-wrapper layout-content-navbar" v-if="pageLoaded">
         <div class="layout-container">
             <!-- Menu -->
 
@@ -74,32 +74,51 @@
                         <ul class="menu-sub">
                             <li class="menu-item">
                                 <a href="layouts-collapsed-menu.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="Collapsed menu">Collapsed menu</div>
+                                    <div class="text-truncate" data-i18n="Collapsed menu">
+                                        Collapsed menu
+                                    </div>
                                 </a>
                             </li>
                             <li class="menu-item">
                                 <a href="layouts-content-navbar.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="Content navbar">Content navbar</div>
+                                    <div class="text-truncate" data-i18n="Content navbar">
+                                        Content navbar
+                                    </div>
                                 </a>
                             </li>
                             <li class="menu-item">
-                                <a href="layouts-content-navbar-with-sidebar.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="Content nav + Sidebar">Content nav + Sidebar</div>
+                                <a
+                                    href="layouts-content-navbar-with-sidebar.html"
+                                    class="menu-link"
+                                >
+                                    <div class="text-truncate" data-i18n="Content nav + Sidebar">
+                                        Content nav + Sidebar
+                                    </div>
                                 </a>
                             </li>
                             <li class="menu-item">
-                                <a href="/horizontal-menu-template" class="menu-link" target="_blank">
-                                    <div class="text-truncate" data-i18n="Horizontal">Horizontal</div>
+                                <a
+                                    href="/horizontal-menu-template"
+                                    class="menu-link"
+                                    target="_blank"
+                                >
+                                    <div class="text-truncate" data-i18n="Horizontal">
+                                        Horizontal
+                                    </div>
                                 </a>
                             </li>
                             <li class="menu-item">
                                 <a href="layouts-without-menu.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="Without menu">Without menu</div>
+                                    <div class="text-truncate" data-i18n="Without menu">
+                                        Without menu
+                                    </div>
                                 </a>
                             </li>
                             <li class="menu-item">
                                 <a href="layouts-without-navbar.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="Without navbar">Without navbar</div>
+                                    <div class="text-truncate" data-i18n="Without navbar">
+                                        Without navbar
+                                    </div>
                                 </a>
                             </li>
                             <li class="menu-item">
@@ -128,28 +147,50 @@
                         </a>
                         <ul class="menu-sub">
                             <li class="menu-item">
-                                <a href="/front-pages/landing-page.html" class="menu-link" target="_blank">
+                                <a
+                                    href="/front-pages/landing-page.html"
+                                    class="menu-link"
+                                    target="_blank"
+                                >
                                     <div class="text-truncate" data-i18n="Landing">Landing</div>
                                 </a>
                             </li>
                             <li class="menu-item">
-                                <a href="/front-pages/pricing-page.html" class="menu-link" target="_blank">
+                                <a
+                                    href="/front-pages/pricing-page.html"
+                                    class="menu-link"
+                                    target="_blank"
+                                >
                                     <div class="text-truncate" data-i18n="Pricing">Pricing</div>
                                 </a>
                             </li>
                             <li class="menu-item">
-                                <a href="/front-pages/payment-page.html" class="menu-link" target="_blank">
+                                <a
+                                    href="/front-pages/payment-page.html"
+                                    class="menu-link"
+                                    target="_blank"
+                                >
                                     <div class="text-truncate" data-i18n="Payment">Payment</div>
                                 </a>
                             </li>
                             <li class="menu-item">
-                                <a href="/front-pages/checkout-page.html" class="menu-link" target="_blank">
+                                <a
+                                    href="/front-pages/checkout-page.html"
+                                    class="menu-link"
+                                    target="_blank"
+                                >
                                     <div class="text-truncate" data-i18n="Checkout">Checkout</div>
                                 </a>
                             </li>
                             <li class="menu-item">
-                                <a href="/front-pages/help-center-landing.html" class="menu-link" target="_blank">
-                                    <div class="text-truncate" data-i18n="Help Center">Help Center</div>
+                                <a
+                                    href="/front-pages/help-center-landing.html"
+                                    class="menu-link"
+                                    target="_blank"
+                                >
+                                    <div class="text-truncate" data-i18n="Help Center">
+                                        Help Center
+                                    </div>
                                 </a>
                             </li>
                         </ul>
@@ -157,7 +198,9 @@
 
                     <!-- Apps & Pages -->
                     <li class="menu-header small text-uppercase">
-                        <span class="menu-header-text" data-i18n="Apps & Pages">Apps &amp; Pages</span>
+                        <span class="menu-header-text" data-i18n="Apps & Pages">
+                            Apps &amp; Pages
+                        </span>
                     </li>
                     <li class="menu-item">
                         <a href="app-email.html" class="menu-link">
@@ -202,17 +245,26 @@
                                 <ul class="menu-sub">
                                     <li class="menu-item">
                                         <a href="app-ecommerce-product-list.html" class="menu-link">
-                                            <div class="text-truncate" data-i18n="Product List">Product List</div>
+                                            <div class="text-truncate" data-i18n="Product List">
+                                                Product List
+                                            </div>
                                         </a>
                                     </li>
                                     <li class="menu-item">
                                         <a href="app-ecommerce-product-add.html" class="menu-link">
-                                            <div class="text-truncate" data-i18n="Add Product">Add Product</div>
+                                            <div class="text-truncate" data-i18n="Add Product">
+                                                Add Product
+                                            </div>
                                         </a>
                                     </li>
                                     <li class="menu-item">
-                                        <a href="app-ecommerce-category-list.html" class="menu-link">
-                                            <div class="text-truncate" data-i18n="Category List">Category List</div>
+                                        <a
+                                            href="app-ecommerce-category-list.html"
+                                            class="menu-link"
+                                        >
+                                            <div class="text-truncate" data-i18n="Category List">
+                                                Category List
+                                            </div>
                                         </a>
                                     </li>
                                 </ul>
@@ -224,12 +276,19 @@
                                 <ul class="menu-sub">
                                     <li class="menu-item">
                                         <a href="app-ecommerce-order-list.html" class="menu-link">
-                                            <div class="text-truncate" data-i18n="Order List">Order List</div>
+                                            <div class="text-truncate" data-i18n="Order List">
+                                                Order List
+                                            </div>
                                         </a>
                                     </li>
                                     <li class="menu-item">
-                                        <a href="app-ecommerce-order-details.html" class="menu-link">
-                                            <div class="text-truncate" data-i18n="Order Details">Order Details</div>
+                                        <a
+                                            href="app-ecommerce-order-details.html"
+                                            class="menu-link"
+                                        >
+                                            <div class="text-truncate" data-i18n="Order Details">
+                                                Order Details
+                                            </div>
                                         </a>
                                     </li>
                                 </ul>
@@ -241,32 +300,62 @@
                                 <ul class="menu-sub">
                                     <li class="menu-item">
                                         <a href="app-ecommerce-customer-all.html" class="menu-link">
-                                            <div class="text-truncate" data-i18n="All Customers">All Customers</div>
+                                            <div class="text-truncate" data-i18n="All Customers">
+                                                All Customers
+                                            </div>
                                         </a>
                                     </li>
                                     <li class="menu-item">
                                         <a href="javascript:void(0);" class="menu-link menu-toggle">
-                                            <div class="text-truncate" data-i18n="Customer Details">Customer Details</div>
+                                            <div class="text-truncate" data-i18n="Customer Details">
+                                                Customer Details
+                                            </div>
                                         </a>
                                         <ul class="menu-sub">
                                             <li class="menu-item">
-                                                <a href="app-ecommerce-customer-details-overview.html" class="menu-link">
-                                                    <div class="text-truncate" data-i18n="Overview">Overview</div>
+                                                <a
+                                                    href="app-ecommerce-customer-details-overview.html"
+                                                    class="menu-link"
+                                                >
+                                                    <div class="text-truncate" data-i18n="Overview">
+                                                        Overview
+                                                    </div>
                                                 </a>
                                             </li>
                                             <li class="menu-item">
-                                                <a href="app-ecommerce-customer-details-security.html" class="menu-link">
-                                                    <div class="text-truncate" data-i18n="Security">Security</div>
+                                                <a
+                                                    href="app-ecommerce-customer-details-security.html"
+                                                    class="menu-link"
+                                                >
+                                                    <div class="text-truncate" data-i18n="Security">
+                                                        Security
+                                                    </div>
                                                 </a>
                                             </li>
                                             <li class="menu-item">
-                                                <a href="app-ecommerce-customer-details-billing.html" class="menu-link">
-                                                    <div class="text-truncate" data-i18n="Address & Billing">Address & Billing</div>
+                                                <a
+                                                    href="app-ecommerce-customer-details-billing.html"
+                                                    class="menu-link"
+                                                >
+                                                    <div
+                                                        class="text-truncate"
+                                                        data-i18n="Address & Billing"
+                                                    >
+                                                        Address & Billing
+                                                    </div>
                                                 </a>
                                             </li>
                                             <li class="menu-item">
-                                                <a href="app-ecommerce-customer-details-notifications.html" class="menu-link">
-                                                    <div class="text-truncate" data-i18n="Notifications">Notifications</div>
+                                                <a
+                                                    href="app-ecommerce-customer-details-notifications.html"
+                                                    class="menu-link"
+                                                >
+                                                    <div
+                                                        class="text-truncate"
+                                                        data-i18n="Notifications"
+                                                    >
+                                                        Notifications
+                                                    </div>
                                                 </a>
                                             </li>
                                         </ul>
@@ -275,7 +364,9 @@
                             </li>
                             <li class="menu-item">
                                 <a href="app-ecommerce-manage-reviews.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="Manage Reviews">Manage Reviews</div>
+                                    <div class="text-truncate" data-i18n="Manage Reviews">
+                                        Manage Reviews
+                                    </div>
                                 </a>
                             </li>
                             <li class="menu-item">
@@ -289,33 +380,66 @@
                                 </a>
                                 <ul class="menu-sub">
                                     <li class="menu-item">
-                                        <a href="app-ecommerce-settings-detail.html" class="menu-link">
-                                            <div class="text-truncate" data-i18n="Store details">Store details</div>
+                                        <a
+                                            href="app-ecommerce-settings-detail.html"
+                                            class="menu-link"
+                                        >
+                                            <div class="text-truncate" data-i18n="Store details">
+                                                Store details
+                                            </div>
                                         </a>
                                     </li>
                                     <li class="menu-item">
-                                        <a href="app-ecommerce-settings-payments.html" class="menu-link">
-                                            <div class="text-truncate" data-i18n="Payments">Payments</div>
+                                        <a
+                                            href="app-ecommerce-settings-payments.html"
+                                            class="menu-link"
+                                        >
+                                            <div class="text-truncate" data-i18n="Payments">
+                                                Payments
+                                            </div>
                                         </a>
                                     </li>
                                     <li class="menu-item">
-                                        <a href="app-ecommerce-settings-checkout.html" class="menu-link">
-                                            <div class="text-truncate" data-i18n="Checkout">Checkout</div>
+                                        <a
+                                            href="app-ecommerce-settings-checkout.html"
+                                            class="menu-link"
+                                        >
+                                            <div class="text-truncate" data-i18n="Checkout">
+                                                Checkout
+                                            </div>
                                         </a>
                                     </li>
                                     <li class="menu-item">
-                                        <a href="app-ecommerce-settings-shipping.html" class="menu-link">
-                                            <div class="text-truncate" data-i18n="Shipping & Delivery">Shipping & Delivery</div>
+                                        <a
+                                            href="app-ecommerce-settings-shipping.html"
+                                            class="menu-link"
+                                        >
+                                            <div
+                                                class="text-truncate"
+                                                data-i18n="Shipping & Delivery"
+                                            >
+                                                Shipping & Delivery
+                                            </div>
                                         </a>
                                     </li>
                                     <li class="menu-item">
-                                        <a href="app-ecommerce-settings-locations.html" class="menu-link">
-                                            <div class="text-truncate" data-i18n="Locations">Locations</div>
+                                        <a
+                                            href="app-ecommerce-settings-locations.html"
+                                            class="menu-link"
+                                        >
+                                            <div class="text-truncate" data-i18n="Locations">
+                                                Locations
+                                            </div>
                                         </a>
                                     </li>
                                     <li class="menu-item">
-                                        <a href="app-ecommerce-settings-notifications.html" class="menu-link">
-                                            <div class="text-truncate" data-i18n="Notifications">Notifications</div>
+                                        <a
+                                            href="app-ecommerce-settings-notifications.html"
+                                            class="menu-link"
+                                        >
+                                            <div class="text-truncate" data-i18n="Notifications">
+                                                Notifications
+                                            </div>
                                         </a>
                                     </li>
                                 </ul>
@@ -342,7 +466,9 @@
                             </li>
                             <li class="menu-item">
                                 <a href="app-academy-course-details.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="Course Details">Course Details</div>
+                                    <div class="text-truncate" data-i18n="Course Details">
+                                        Course Details
+                                    </div>
                                 </a>
                             </li>
                         </ul>
@@ -370,7 +496,9 @@
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class="menu-icon tf-icons bx bx-food-menu"></i>
                             <div class="text-truncate" data-i18n="Invoice">Invoice</div>
-                            <span class="badge badge-center rounded-pill bg-success ms-auto">4</span>
+                            <span class="badge badge-center rounded-pill bg-success ms-auto">
+                                4
+                            </span>
                         </a>
                         <ul class="menu-sub">
                             <li class="menu-item">
@@ -414,27 +542,40 @@
                                 <ul class="menu-sub">
                                     <li class="menu-item">
                                         <a href="app-user-view-account.html" class="menu-link">
-                                            <div class="text-truncate" data-i18n="Account">Account</div>
+                                            <div class="text-truncate" data-i18n="Account">
+                                                Account
+                                            </div>
                                         </a>
                                     </li>
                                     <li class="menu-item">
                                         <a href="app-user-view-security.html" class="menu-link">
-                                            <div class="text-truncate" data-i18n="Security">Security</div>
+                                            <div class="text-truncate" data-i18n="Security">
+                                                Security
+                                            </div>
                                         </a>
                                     </li>
                                     <li class="menu-item">
                                         <a href="app-user-view-billing.html" class="menu-link">
-                                            <div class="text-truncate" data-i18n="Billing & Plans">Billing & Plans</div>
+                                            <div class="text-truncate" data-i18n="Billing & Plans">
+                                                Billing & Plans
+                                            </div>
                                         </a>
                                     </li>
                                     <li class="menu-item">
-                                        <a href="app-user-view-notifications.html" class="menu-link">
-                                            <div class="text-truncate" data-i18n="Notifications">Notifications</div>
+                                        <a
+                                            href="app-user-view-notifications.html"
+                                            class="menu-link"
+                                        >
+                                            <div class="text-truncate" data-i18n="Notifications">
+                                                Notifications
+                                            </div>
                                         </a>
                                     </li>
                                     <li class="menu-item">
                                         <a href="app-user-view-connections.html" class="menu-link">
-                                            <div class="text-truncate" data-i18n="Connections">Connections</div>
+                                            <div class="text-truncate" data-i18n="Connections">
+                                                Connections
+                                            </div>
                                         </a>
                                     </li>
                                 </ul>
@@ -444,7 +585,9 @@
                     <li class="menu-item">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class="menu-icon tf-icons bx bx-check-shield"></i>
-                            <div class="text-truncate" data-i18n="Roles & Permissions">Roles & Permissions</div>
+                            <div class="text-truncate" data-i18n="Roles & Permissions">
+                                Roles & Permissions
+                            </div>
                         </a>
                         <ul class="menu-sub">
                             <li class="menu-item">
@@ -454,7 +597,9 @@
                             </li>
                             <li class="menu-item">
                                 <a href="app-access-permission.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="Permission">Permission</div>
+                                    <div class="text-truncate" data-i18n="Permission">
+                                        Permission
+                                    </div>
                                 </a>
                             </li>
                         </ul>
@@ -467,12 +612,16 @@
                         <ul class="menu-sub">
                             <li class="menu-item">
                                 <a href="javascript:void(0);" class="menu-link menu-toggle">
-                                    <div class="text-truncate" data-i18n="User Profile">User Profile</div>
+                                    <div class="text-truncate" data-i18n="User Profile">
+                                        User Profile
+                                    </div>
                                 </a>
                                 <ul class="menu-sub">
                                     <li class="menu-item">
                                         <a href="pages-profile-user.html" class="menu-link">
-                                            <div class="text-truncate" data-i18n="Profile">Profile</div>
+                                            <div class="text-truncate" data-i18n="Profile">
+                                                Profile
+                                            </div>
                                         </a>
                                     </li>
                                     <li class="menu-item">
@@ -482,44 +631,75 @@
                                     </li>
                                     <li class="menu-item">
                                         <a href="pages-profile-projects.html" class="menu-link">
-                                            <div class="text-truncate" data-i18n="Projects">Projects</div>
+                                            <div class="text-truncate" data-i18n="Projects">
+                                                Projects
+                                            </div>
                                         </a>
                                     </li>
                                     <li class="menu-item">
                                         <a href="pages-profile-connections.html" class="menu-link">
-                                            <div class="text-truncate" data-i18n="Connections">Connections</div>
+                                            <div class="text-truncate" data-i18n="Connections">
+                                                Connections
+                                            </div>
                                         </a>
                                     </li>
                                 </ul>
                             </li>
                             <li class="menu-item">
                                 <a href="javascript:void(0);" class="menu-link menu-toggle">
-                                    <div class="text-truncate" data-i18n="Account Settings">Account Settings</div>
+                                    <div class="text-truncate" data-i18n="Account Settings">
+                                        Account Settings
+                                    </div>
                                 </a>
                                 <ul class="menu-sub">
                                     <li class="menu-item">
-                                        <a href="pages-account-settings-account.html" class="menu-link">
-                                            <div class="text-truncate" data-i18n="Account">Account</div>
+                                        <a
+                                            href="pages-account-settings-account.html"
+                                            class="menu-link"
+                                        >
+                                            <div class="text-truncate" data-i18n="Account">
+                                                Account
+                                            </div>
                                         </a>
                                     </li>
                                     <li class="menu-item">
-                                        <a href="pages-account-settings-security.html" class="menu-link">
-                                            <div class="text-truncate" data-i18n="Security">Security</div>
+                                        <a
+                                            href="pages-account-settings-security.html"
+                                            class="menu-link"
+                                        >
+                                            <div class="text-truncate" data-i18n="Security">
+                                                Security
+                                            </div>
                                         </a>
                                     </li>
                                     <li class="menu-item">
-                                        <a href="pages-account-settings-billing.html" class="menu-link">
-                                            <div class="text-truncate" data-i18n="Billing & Plans">Billing & Plans</div>
+                                        <a
+                                            href="pages-account-settings-billing.html"
+                                            class="menu-link"
+                                        >
+                                            <div class="text-truncate" data-i18n="Billing & Plans">
+                                                Billing & Plans
+                                            </div>
                                         </a>
                                     </li>
                                     <li class="menu-item">
-                                        <a href="pages-account-settings-notifications.html" class="menu-link">
-                                            <div class="text-truncate" data-i18n="Notifications">Notifications</div>
+                                        <a
+                                            href="pages-account-settings-notifications.html"
+                                            class="menu-link"
+                                        >
+                                            <div class="text-truncate" data-i18n="Notifications">
+                                                Notifications
+                                            </div>
                                         </a>
                                     </li>
                                     <li class="menu-item">
-                                        <a href="pages-account-settings-connections.html" class="menu-link">
-                                            <div class="text-truncate" data-i18n="Connections">Connections</div>
+                                        <a
+                                            href="pages-account-settings-connections.html"
+                                            class="menu-link"
+                                        >
+                                            <div class="text-truncate" data-i18n="Connections">
+                                                Connections
+                                            </div>
                                         </a>
                                     </li>
                                 </ul>
@@ -540,23 +720,48 @@
                                 </a>
                                 <ul class="menu-sub">
                                     <li class="menu-item">
-                                        <a href="pages-misc-error.html" class="menu-link" target="_blank">
+                                        <a
+                                            href="pages-misc-error.html"
+                                            class="menu-link"
+                                            target="_blank"
+                                        >
                                             <div class="text-truncate" data-i18n="Error">Error</div>
                                         </a>
                                     </li>
                                     <li class="menu-item">
-                                        <a href="pages-misc-under-maintenance.html" class="menu-link" target="_blank">
-                                            <div class="text-truncate" data-i18n="Under Maintenance">Under Maintenance</div>
+                                        <a
+                                            href="pages-misc-under-maintenance.html"
+                                            class="menu-link"
+                                            target="_blank"
+                                        >
+                                            <div
+                                                class="text-truncate"
+                                                data-i18n="Under Maintenance"
+                                            >
+                                                Under Maintenance
+                                            </div>
                                         </a>
                                     </li>
                                     <li class="menu-item">
-                                        <a href="pages-misc-comingsoon.html" class="menu-link" target="_blank">
-                                            <div class="text-truncate" data-i18n="Coming Soon">Coming Soon</div>
+                                        <a
+                                            href="pages-misc-comingsoon.html"
+                                            class="menu-link"
+                                            target="_blank"
+                                        >
+                                            <div class="text-truncate" data-i18n="Coming Soon">
+                                                Coming Soon
+                                            </div>
                                         </a>
                                     </li>
                                     <li class="menu-item">
-                                        <a href="pages-misc-not-authorized.html" class="menu-link" target="_blank">
-                                            <div class="text-truncate" data-i18n="Not Authorized">Not Authorized</div>
+                                        <a
+                                            href="pages-misc-not-authorized.html"
+                                            class="menu-link"
+                                            target="_blank"
+                                        >
+                                            <div class="text-truncate" data-i18n="Not Authorized">
+                                                Not Authorized
+                                            </div>
                                         </a>
                                     </li>
                                 </ul>
@@ -566,7 +771,9 @@
                     <li class="menu-item">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-                            <div class="text-truncate" data-i18n="Authentications">Authentications</div>
+                            <div class="text-truncate" data-i18n="Authentications">
+                                Authentications
+                            </div>
                         </a>
                         <ul class="menu-sub">
                             <li class="menu-item">
@@ -575,12 +782,20 @@
                                 </a>
                                 <ul class="menu-sub">
                                     <li class="menu-item">
-                                        <a href="auth-login-basic.html" class="menu-link" target="_blank">
+                                        <a
+                                            href="auth-login-basic.html"
+                                            class="menu-link"
+                                            target="_blank"
+                                        >
                                             <div class="text-truncate" data-i18n="Basic">Basic</div>
                                         </a>
                                     </li>
                                     <li class="menu-item">
-                                        <a href="auth-login-cover.html" class="menu-link" target="_blank">
+                                        <a
+                                            href="auth-login-cover.html"
+                                            class="menu-link"
+                                            target="_blank"
+                                        >
                                             <div class="text-truncate" data-i18n="Cover">Cover</div>
                                         </a>
                                     </li>
@@ -592,34 +807,58 @@
                                 </a>
                                 <ul class="menu-sub">
                                     <li class="menu-item">
-                                        <a href="auth-register-basic.html" class="menu-link" target="_blank">
+                                        <a
+                                            href="auth-register-basic.html"
+                                            class="menu-link"
+                                            target="_blank"
+                                        >
                                             <div class="text-truncate" data-i18n="Basic">Basic</div>
                                         </a>
                                     </li>
                                     <li class="menu-item">
-                                        <a href="auth-register-cover.html" class="menu-link" target="_blank">
+                                        <a
+                                            href="auth-register-cover.html"
+                                            class="menu-link"
+                                            target="_blank"
+                                        >
                                             <div class="text-truncate" data-i18n="Cover">Cover</div>
                                         </a>
                                     </li>
                                     <li class="menu-item">
-                                        <a href="auth-register-multisteps.html" class="menu-link" target="_blank">
-                                            <div class="text-truncate" data-i18n="Multi-steps">Multi-steps</div>
+                                        <a
+                                            href="auth-register-multisteps.html"
+                                            class="menu-link"
+                                            target="_blank"
+                                        >
+                                            <div class="text-truncate" data-i18n="Multi-steps">
+                                                Multi-steps
+                                            </div>
                                         </a>
                                     </li>
                                 </ul>
                             </li>
                             <li class="menu-item">
                                 <a href="javascript:void(0);" class="menu-link menu-toggle">
-                                    <div class="text-truncate" data-i18n="Verify Email">Verify Email</div>
+                                    <div class="text-truncate" data-i18n="Verify Email">
+                                        Verify Email
+                                    </div>
                                 </a>
                                 <ul class="menu-sub">
                                     <li class="menu-item">
-                                        <a href="auth-verify-email-basic.html" class="menu-link" target="_blank">
+                                        <a
+                                            href="auth-verify-email-basic.html"
+                                            class="menu-link"
+                                            target="_blank"
+                                        >
                                             <div class="text-truncate" data-i18n="Basic">Basic</div>
                                         </a>
                                     </li>
                                     <li class="menu-item">
-                                        <a href="auth-verify-email-cover.html" class="menu-link" target="_blank">
+                                        <a
+                                            href="auth-verify-email-cover.html"
+                                            class="menu-link"
+                                            target="_blank"
+                                        >
                                             <div class="text-truncate" data-i18n="Cover">Cover</div>
                                         </a>
                                     </li>
@@ -627,16 +866,26 @@
                             </li>
                             <li class="menu-item">
                                 <a href="javascript:void(0);" class="menu-link menu-toggle">
-                                    <div class="text-truncate" data-i18n="Reset Password">Reset Password</div>
+                                    <div class="text-truncate" data-i18n="Reset Password">
+                                        Reset Password
+                                    </div>
                                 </a>
                                 <ul class="menu-sub">
                                     <li class="menu-item">
-                                        <a href="auth-reset-password-basic.html" class="menu-link" target="_blank">
+                                        <a
+                                            href="auth-reset-password-basic.html"
+                                            class="menu-link"
+                                            target="_blank"
+                                        >
                                             <div class="text-truncate" data-i18n="Basic">Basic</div>
                                         </a>
                                     </li>
                                     <li class="menu-item">
-                                        <a href="auth-reset-password-cover.html" class="menu-link" target="_blank">
+                                        <a
+                                            href="auth-reset-password-cover.html"
+                                            class="menu-link"
+                                            target="_blank"
+                                        >
                                             <div class="text-truncate" data-i18n="Cover">Cover</div>
                                         </a>
                                     </li>
@@ -644,16 +893,26 @@
                             </li>
                             <li class="menu-item">
                                 <a href="javascript:void(0);" class="menu-link menu-toggle">
-                                    <div class="text-truncate" data-i18n="Forgot Password">Forgot Password</div>
+                                    <div class="text-truncate" data-i18n="Forgot Password">
+                                        Forgot Password
+                                    </div>
                                 </a>
                                 <ul class="menu-sub">
                                     <li class="menu-item">
-                                        <a href="auth-forgot-password-basic.html" class="menu-link" target="_blank">
+                                        <a
+                                            href="auth-forgot-password-basic.html"
+                                            class="menu-link"
+                                            target="_blank"
+                                        >
                                             <div class="text-truncate" data-i18n="Basic">Basic</div>
                                         </a>
                                     </li>
                                     <li class="menu-item">
-                                        <a href="auth-forgot-password-cover.html" class="menu-link" target="_blank">
+                                        <a
+                                            href="auth-forgot-password-cover.html"
+                                            class="menu-link"
+                                            target="_blank"
+                                        >
                                             <div class="text-truncate" data-i18n="Cover">Cover</div>
                                         </a>
                                     </li>
@@ -665,12 +924,20 @@
                                 </a>
                                 <ul class="menu-sub">
                                     <li class="menu-item">
-                                        <a href="auth-two-steps-basic.html" class="menu-link" target="_blank">
+                                        <a
+                                            href="auth-two-steps-basic.html"
+                                            class="menu-link"
+                                            target="_blank"
+                                        >
                                             <div class="text-truncate" data-i18n="Basic">Basic</div>
                                         </a>
                                     </li>
                                     <li class="menu-item">
-                                        <a href="auth-two-steps-cover.html" class="menu-link" target="_blank">
+                                        <a
+                                            href="auth-two-steps-cover.html"
+                                            class="menu-link"
+                                            target="_blank"
+                                        >
                                             <div class="text-truncate" data-i18n="Cover">Cover</div>
                                         </a>
                                     </li>
@@ -681,7 +948,9 @@
                     <li class="menu-item">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class="menu-icon tf-icons bx bx-spreadsheet"></i>
-                            <div class="text-truncate" data-i18n="Wizard Examples">Wizard Examples</div>
+                            <div class="text-truncate" data-i18n="Wizard Examples">
+                                Wizard Examples
+                            </div>
                         </a>
                         <ul class="menu-sub">
                             <li class="menu-item">
@@ -691,12 +960,16 @@
                             </li>
                             <li class="menu-item">
                                 <a href="wizard-ex-property-listing.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="Property Listing">Property Listing</div>
+                                    <div class="text-truncate" data-i18n="Property Listing">
+                                        Property Listing
+                                    </div>
                                 </a>
                             </li>
                             <li class="menu-item">
                                 <a href="wizard-ex-create-deal.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="Create Deal">Create Deal</div>
+                                    <div class="text-truncate" data-i18n="Create Deal">
+                                        Create Deal
+                                    </div>
                                 </a>
                             </li>
                         </ul>
@@ -704,7 +977,9 @@
                     <li class="menu-item">
                         <a href="modal-examples.html" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-window-open"></i>
-                            <div class="text-truncate" data-i18n="Modal Examples">Modal Examples</div>
+                            <div class="text-truncate" data-i18n="Modal Examples">
+                                Modal Examples
+                            </div>
                         </a>
                     </li>
 
@@ -732,7 +1007,9 @@
                             </li>
                             <li class="menu-item">
                                 <a href="cards-statistics.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="Statistics">Statistics</div>
+                                    <div class="text-truncate" data-i18n="Statistics">
+                                        Statistics
+                                    </div>
                                 </a>
                             </li>
                             <li class="menu-item">
@@ -742,7 +1019,9 @@
                             </li>
                             <li class="menu-item">
                                 <a href="cards-gamifications.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="Gamifications">Gamifications</div>
+                                    <div class="text-truncate" data-i18n="Gamifications">
+                                        Gamifications
+                                    </div>
                                 </a>
                             </li>
                             <li class="menu-item">
@@ -756,7 +1035,9 @@
                     <li class="menu-item">
                         <a href="javascript:void(0)" class="menu-link menu-toggle">
                             <i class="menu-icon tf-icons bx bx-box"></i>
-                            <div class="text-truncate" data-i18n="User interface">User interface</div>
+                            <div class="text-truncate" data-i18n="User interface">
+                                User interface
+                            </div>
                         </a>
                         <ul class="menu-sub">
                             <li class="menu-item">
@@ -801,7 +1082,9 @@
                             </li>
                             <li class="menu-item">
                                 <a href="ui-list-groups.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="List Groups">List groups</div>
+                                    <div class="text-truncate" data-i18n="List Groups">
+                                        List groups
+                                    </div>
                                 </a>
                             </li>
                             <li class="menu-item">
@@ -821,7 +1104,9 @@
                             </li>
                             <li class="menu-item">
                                 <a href="ui-pagination-breadcrumbs.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="Pagination & Breadcrumbs">Pagination &amp; Breadcrumbs</div>
+                                    <div class="text-truncate" data-i18n="Pagination & Breadcrumbs">
+                                        Pagination &amp; Breadcrumbs
+                                    </div>
                                 </a>
                             </li>
                             <li class="menu-item">
@@ -836,7 +1121,9 @@
                             </li>
                             <li class="menu-item">
                                 <a href="ui-tabs-pills.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="Tabs & Pills">Tabs &amp; Pills</div>
+                                    <div class="text-truncate" data-i18n="Tabs & Pills">
+                                        Tabs &amp; Pills
+                                    </div>
                                 </a>
                             </li>
                             <li class="menu-item">
@@ -846,12 +1133,16 @@
                             </li>
                             <li class="menu-item">
                                 <a href="ui-tooltips-popovers.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="Tooltips & Popovers">Tooltips &amp; Popovers</div>
+                                    <div class="text-truncate" data-i18n="Tooltips & Popovers">
+                                        Tooltips &amp; Popovers
+                                    </div>
                                 </a>
                             </li>
                             <li class="menu-item">
                                 <a href="ui-typography.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="Typography">Typography</div>
+                                    <div class="text-truncate" data-i18n="Typography">
+                                        Typography
+                                    </div>
                                 </a>
                             </li>
                         </ul>
@@ -876,32 +1167,44 @@
                             </li>
                             <li class="menu-item">
                                 <a href="extended-ui-drag-and-drop.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="Drag & Drop">Drag &amp; Drop</div>
+                                    <div class="text-truncate" data-i18n="Drag & Drop">
+                                        Drag &amp; Drop
+                                    </div>
                                 </a>
                             </li>
                             <li class="menu-item">
                                 <a href="extended-ui-media-player.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="Media Player">Media Player</div>
+                                    <div class="text-truncate" data-i18n="Media Player">
+                                        Media Player
+                                    </div>
                                 </a>
                             </li>
                             <li class="menu-item">
                                 <a href="extended-ui-perfect-scrollbar.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="Perfect Scrollbar">Perfect Scrollbar</div>
+                                    <div class="text-truncate" data-i18n="Perfect Scrollbar">
+                                        Perfect Scrollbar
+                                    </div>
                                 </a>
                             </li>
                             <li class="menu-item">
                                 <a href="extended-ui-star-ratings.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="Star Ratings">Star Ratings</div>
+                                    <div class="text-truncate" data-i18n="Star Ratings">
+                                        Star Ratings
+                                    </div>
                                 </a>
                             </li>
                             <li class="menu-item">
                                 <a href="extended-ui-sweetalert2.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="SweetAlert2">SweetAlert2</div>
+                                    <div class="text-truncate" data-i18n="SweetAlert2">
+                                        SweetAlert2
+                                    </div>
                                 </a>
                             </li>
                             <li class="menu-item">
                                 <a href="extended-ui-text-divider.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="Text Divider">Text Divider</div>
+                                    <div class="text-truncate" data-i18n="Text Divider">
+                                        Text Divider
+                                    </div>
                                 </a>
                             </li>
                             <li class="menu-item">
@@ -915,8 +1218,13 @@
                                         </a>
                                     </li>
                                     <li class="menu-item">
-                                        <a href="extended-ui-timeline-fullscreen.html" class="menu-link">
-                                            <div class="text-truncate" data-i18n="Fullscreen">Fullscreen</div>
+                                        <a
+                                            href="extended-ui-timeline-fullscreen.html"
+                                            class="menu-link"
+                                        >
+                                            <div class="text-truncate" data-i18n="Fullscreen">
+                                                Fullscreen
+                                            </div>
                                         </a>
                                     </li>
                                 </ul>
@@ -933,7 +1241,9 @@
                             </li>
                             <li class="menu-item">
                                 <a href="extended-ui-misc.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="Miscellaneous">Miscellaneous</div>
+                                    <div class="text-truncate" data-i18n="Miscellaneous">
+                                        Miscellaneous
+                                    </div>
                                 </a>
                             </li>
                         </ul>
@@ -953,7 +1263,9 @@
                             </li>
                             <li class="menu-item">
                                 <a href="icons-font-awesome.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="Fontawesome">Fontawesome</div>
+                                    <div class="text-truncate" data-i18n="Fontawesome">
+                                        Fontawesome
+                                    </div>
                                 </a>
                             </li>
                         </ul>
@@ -961,7 +1273,9 @@
 
                     <!-- Forms & Tables -->
                     <li class="menu-header small text-uppercase">
-                        <span class="menu-header-text" data-i18n="Forms & Tables">Forms &amp; Tables</span>
+                        <span class="menu-header-text" data-i18n="Forms & Tables">
+                            Forms &amp; Tables
+                        </span>
                     </li>
                     <!-- Forms -->
                     <li class="menu-item">
@@ -972,17 +1286,23 @@
                         <ul class="menu-sub">
                             <li class="menu-item">
                                 <a href="forms-basic-inputs.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="Basic Inputs">Basic Inputs</div>
+                                    <div class="text-truncate" data-i18n="Basic Inputs">
+                                        Basic Inputs
+                                    </div>
                                 </a>
                             </li>
                             <li class="menu-item">
                                 <a href="forms-input-groups.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="Input groups">Input groups</div>
+                                    <div class="text-truncate" data-i18n="Input groups">
+                                        Input groups
+                                    </div>
                                 </a>
                             </li>
                             <li class="menu-item">
                                 <a href="forms-custom-options.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="Custom Options">Custom Options</div>
+                                    <div class="text-truncate" data-i18n="Custom Options">
+                                        Custom Options
+                                    </div>
                                 </a>
                             </li>
                             <li class="menu-item">
@@ -992,7 +1312,9 @@
                             </li>
                             <li class="menu-item">
                                 <a href="forms-file-upload.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="File Upload">File Upload</div>
+                                    <div class="text-truncate" data-i18n="File Upload">
+                                        File Upload
+                                    </div>
                                 </a>
                             </li>
                             <li class="menu-item">
@@ -1002,7 +1324,9 @@
                             </li>
                             <li class="menu-item">
                                 <a href="forms-selects.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="Select & Tags">Select &amp; Tags</div>
+                                    <div class="text-truncate" data-i18n="Select & Tags">
+                                        Select &amp; Tags
+                                    </div>
                                 </a>
                             </li>
                             <li class="menu-item">
@@ -1030,17 +1354,23 @@
                         <ul class="menu-sub">
                             <li class="menu-item">
                                 <a href="form-layouts-vertical.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="Vertical Form">Vertical Form</div>
+                                    <div class="text-truncate" data-i18n="Vertical Form">
+                                        Vertical Form
+                                    </div>
                                 </a>
                             </li>
                             <li class="menu-item">
                                 <a href="form-layouts-horizontal.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="Horizontal Form">Horizontal Form</div>
+                                    <div class="text-truncate" data-i18n="Horizontal Form">
+                                        Horizontal Form
+                                    </div>
                                 </a>
                             </li>
                             <li class="menu-item">
                                 <a href="form-layouts-sticky.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="Sticky Actions">Sticky Actions</div>
+                                    <div class="text-truncate" data-i18n="Sticky Actions">
+                                        Sticky Actions
+                                    </div>
                                 </a>
                             </li>
                         </ul>
@@ -1066,7 +1396,9 @@
                     <li class="menu-item">
                         <a href="form-validation.html" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-list-check"></i>
-                            <div class="text-truncate" data-i18n="Form Validation">Form Validation</div>
+                            <div class="text-truncate" data-i18n="Form Validation">
+                                Form Validation
+                            </div>
                         </a>
                     </li>
                     <!-- Tables -->
@@ -1094,7 +1426,9 @@
                             </li>
                             <li class="menu-item">
                                 <a href="tables-datatables-extensions.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="Extensions">Extensions</div>
+                                    <div class="text-truncate" data-i18n="Extensions">
+                                        Extensions
+                                    </div>
                                 </a>
                             </li>
                         </ul>
@@ -1102,7 +1436,9 @@
 
                     <!-- Charts & Maps -->
                     <li class="menu-header small text-uppercase">
-                        <span class="menu-header-text" data-i18n="Charts & Maps">Charts &amp; Maps</span>
+                        <span class="menu-header-text" data-i18n="Charts & Maps">
+                            Charts &amp; Maps
+                        </span>
                     </li>
                     <li class="menu-item">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -1112,7 +1448,9 @@
                         <ul class="menu-sub">
                             <li class="menu-item">
                                 <a href="charts-apex.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="Apex Charts">Apex Charts</div>
+                                    <div class="text-truncate" data-i18n="Apex Charts">
+                                        Apex Charts
+                                    </div>
                                 </a>
                             </li>
                             <li class="menu-item">
@@ -1134,7 +1472,11 @@
                         <span class="menu-header-text" data-i18n="Misc">Misc</span>
                     </li>
                     <li class="menu-item">
-                        <a href="https://themeselection.com/support/" target="_blank" class="menu-link">
+                        <a
+                            href="https://themeselection.com/support/"
+                            target="_blank"
+                            class="menu-link"
+                        >
                             <i class="menu-icon tf-icons bx bx-support"></i>
                             <div class="text-truncate" data-i18n="Support">Support</div>
                         </a>
@@ -1143,7 +1485,8 @@
                         <a
                             href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/"
                             target="_blank"
-                            class="menu-link">
+                            class="menu-link"
+                        >
                             <i class="menu-icon tf-icons bx bx-file"></i>
                             <div class="text-truncate" data-i18n="Documentation">Documentation</div>
                         </a>
@@ -1169,47 +1512,169 @@
                     </div>
 
                     <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+
                         <ul class="navbar-nav align-items-center ms-auto flex-row">
                             <!-- Language -->
                             <li class="nav-item dropdown-language dropdown me-2 me-xl-0">
-                                <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                                <a
+                                    class="nav-link dropdown-toggle hide-arrow"
+                                    href="javascript:void(0);"
+                                    data-bs-toggle="dropdown"
+                                >
                                     <i class="bx bx-globe bx-sm"></i>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
-                                    <li>
-                                        <a class="dropdown-item" href="javascript:void(0);" data-language="en" data-text-direction="ltr">
-                                            <span class="align-middle">English</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="javascript:void(0);" data-language="fr" data-text-direction="ltr">
-                                            <span class="align-middle">French</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="javascript:void(0);" data-language="ar" data-text-direction="rtl">
-                                            <span class="align-middle">Arabic</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="javascript:void(0);" data-language="de" data-text-direction="ltr">
-                                            <span class="align-middle">German</span>
+                                    <li v-for="locale in locales.get()">
+                                        <a
+                                            class="dropdown-item"
+                                            :class="{active: locales.current().getCode() === locale.getCode()}"
+                                            :href="route('locale.change', locale.getCode())"
+                                            @click.prevent="setLocale(locale)"
+                                        >
+                                            <span class="me-1 align-middle" v-html="locale.getSvgFlag(20,20)"></span>
+                                            <span class="align-middle">{{ locale.getName() }}</span>
                                         </a>
                                     </li>
                                 </ul>
                             </li>
                             <!-- /Language -->
 
-                            <!-- Notification -->
-                            <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">
+                            <!-- Quick links  -->
+                            <li class="nav-item dropdown-shortcuts navbar-dropdown dropdown me-2 me-xl-0">
                                 <a
                                     class="nav-link dropdown-toggle hide-arrow"
                                     href="javascript:void(0);"
                                     data-bs-toggle="dropdown"
                                     data-bs-auto-close="outside"
                                     aria-expanded="false">
+                                    <i class="bx bx-grid-alt bx-sm"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end py-0">
+                                    <div class="dropdown-menu-header border-bottom">
+                                        <div class="dropdown-header d-flex align-items-center py-3">
+                                            <h5 class="text-body mb-0 me-auto">Shortcuts</h5>
+                                            <a
+                                                href="javascript:void(0)"
+                                                class="dropdown-shortcuts-add text-body"
+                                                data-bs-toggle="tooltip"
+                                                data-bs-placement="top"
+                                                title="Add shortcuts"
+                                            ><i class="bx bx-sm bx-plus-circle"></i
+                                            ></a>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown-shortcuts-list scrollable-container">
+                                        <div class="row row-bordered overflow-visible g-0">
+                                            <div class="dropdown-shortcuts-item col">
+                          <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
+                            <i class="bx bx-calendar fs-4"></i>
+                          </span>
+                                                <a href="app-calendar.html" class="stretched-link">Calendar</a>
+                                                <small class="text-muted mb-0">Appointments</small>
+                                            </div>
+                                            <div class="dropdown-shortcuts-item col">
+                          <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
+                            <i class="bx bx-food-menu fs-4"></i>
+                          </span>
+                                                <a href="app-invoice-list.html" class="stretched-link">Invoice App</a>
+                                                <small class="text-muted mb-0">Manage Accounts</small>
+                                            </div>
+                                        </div>
+                                        <div class="row row-bordered overflow-visible g-0">
+                                            <div class="dropdown-shortcuts-item col">
+                          <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
+                            <i class="bx bx-user fs-4"></i>
+                          </span>
+                                                <a href="app-user-list.html" class="stretched-link">User App</a>
+                                                <small class="text-muted mb-0">Manage Users</small>
+                                            </div>
+                                            <div class="dropdown-shortcuts-item col">
+                          <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
+                            <i class="bx bx-check-shield fs-4"></i>
+                          </span>
+                                                <a href="app-access-roles.html" class="stretched-link">Role Management</a>
+                                                <small class="text-muted mb-0">Permission</small>
+                                            </div>
+                                        </div>
+                                        <div class="row row-bordered overflow-visible g-0">
+                                            <div class="dropdown-shortcuts-item col">
+                          <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
+                            <i class="bx bx-pie-chart-alt-2 fs-4"></i>
+                          </span>
+                                                <a href="index.html" class="stretched-link">Dashboard</a>
+                                                <small class="text-muted mb-0">User Profile</small>
+                                            </div>
+                                            <div class="dropdown-shortcuts-item col">
+                          <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
+                            <i class="bx bx-cog fs-4"></i>
+                          </span>
+                                                <a href="pages-account-settings-account.html" class="stretched-link">Setting</a>
+                                                <small class="text-muted mb-0">Account Settings</small>
+                                            </div>
+                                        </div>
+                                        <div class="row row-bordered overflow-visible g-0">
+                                            <div class="dropdown-shortcuts-item col">
+                          <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
+                            <i class="bx bx-help-circle fs-4"></i>
+                          </span>
+                                                <a href="pages-faq.html" class="stretched-link">FAQs</a>
+                                                <small class="text-muted mb-0">FAQs & Articles</small>
+                                            </div>
+                                            <div class="dropdown-shortcuts-item col">
+                          <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
+                            <i class="bx bx-window-open fs-4"></i>
+                          </span>
+                                                <a href="modal-examples.html" class="stretched-link">Modals</a>
+                                                <small class="text-muted mb-0">Useful Popups</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- Quick links -->
+
+                            <!-- Style Switcher -->
+                            <li class="nav-item dropdown-style-switcher dropdown me-2 me-xl-0">
+                                <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                                    <i v-if="theme === 'light'" class="bx bx-sun bx-sm"></i>
+                                    <i v-if="theme === 'dark'" class="bx bx-moon bx-sm"></i>
+                                    <i v-if="theme === 'system'" class="bx bx-desktop bx-sm"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-styles">
+                                    <li>
+                                        <a class="dropdown-item" :class="{active: theme === 'light'}" href="javascript:void(0);" @click.prevent="applyTheme('light')">
+                                            <span class="align-middle"><i class="bx bx-sun me-2"></i>{{ $t('actions.mode.light') }}</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" :class="{active: theme === 'dark'}" href="javascript:void(0);" @click.prevent="applyTheme('dark')">
+                                            <span class="align-middle"><i class="bx bx-moon me-2"></i>{{ $t('actions.mode.dark') }}</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" :class="{active: theme === 'system'}" href="javascript:void(0);" @click.prevent="applyTheme('system')">
+                                            <span class="align-middle"><i class="bx bx-desktop me-2"></i>{{ $t('actions.mode.system') }}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!-- / Style Switcher-->
+
+                            <!-- Notification -->
+                            <li
+                                class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1"
+                            >
+                                <a
+                                    class="nav-link dropdown-toggle hide-arrow"
+                                    href="javascript:void(0);"
+                                    data-bs-toggle="dropdown"
+                                    data-bs-auto-close="outside"
+                                    aria-expanded="false"
+                                >
                                     <i class="bx bx-bell bx-sm"></i>
-                                    <span class="badge bg-danger rounded-pill badge-notifications">5</span>
+                                    <span class="badge bg-danger rounded-pill badge-notifications">
+                                        5
+                                    </span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end py-0">
                                     <li class="dropdown-menu-header border-bottom">
@@ -1221,39 +1686,64 @@
                                                 data-bs-toggle="tooltip"
                                                 data-bs-placement="top"
                                                 title="Mark all as read"
-                                            ><i class="bx fs-4 bx-envelope-open"></i
-                                            ></a>
+                                            >
+                                                <i class="bx fs-4 bx-envelope-open"></i>
+                                            </a>
                                         </div>
                                     </li>
                                     <li class="dropdown-notifications-list scrollable-container">
                                         <ul class="list-group list-group-flush">
-                                            <li class="list-group-item list-group-item-action dropdown-notifications-item">
+                                            <li
+                                                class="list-group-item list-group-item-action dropdown-notifications-item"
+                                            >
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar">
-                                                            <img src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                                                            <img
+                                                                src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/1.png"
+                                                                alt
+                                                                class="w-px-40 h-auto rounded-circle"
+                                                            />
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1">
-                                                        <h6 class="mb-1">Congratulation Lettie 🎉</h6>
-                                                        <p class="mb-0">Won the monthly best seller gold badge</p>
+                                                        <h6 class="mb-1">
+                                                            Congratulation Lettie 🎉
+                                                        </h6>
+                                                        <p class="mb-0">
+                                                            Won the monthly best seller gold badge
+                                                        </p>
                                                         <small class="text-muted">1h ago</small>
                                                     </div>
-                                                    <div class="flex-shrink-0 dropdown-notifications-actions">
-                                                        <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                                        ><span class="badge badge-dot"></span
-                                                        ></a>
-                                                        <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                                        ><span class="bx bx-x"></span
-                                                        ></a>
+                                                    <div
+                                                        class="flex-shrink-0 dropdown-notifications-actions"
+                                                    >
+                                                        <a
+                                                            href="javascript:void(0)"
+                                                            class="dropdown-notifications-read"
+                                                        >
+                                                            <span class="badge badge-dot"></span>
+                                                        </a>
+                                                        <a
+                                                            href="javascript:void(0)"
+                                                            class="dropdown-notifications-archive"
+                                                        >
+                                                            <span class="bx bx-x"></span>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </li>
-                                            <li class="list-group-item list-group-item-action dropdown-notifications-item">
+                                            <li
+                                                class="list-group-item list-group-item-action dropdown-notifications-item"
+                                            >
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar">
-                                                            <span class="avatar-initial rounded-circle bg-label-danger">CF</span>
+                                                            <span
+                                                                class="avatar-initial rounded-circle bg-label-danger"
+                                                            >
+                                                                CF
+                                                            </span>
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1">
@@ -1261,180 +1751,307 @@
                                                         <p class="mb-0">Accepted your connection</p>
                                                         <small class="text-muted">12hr ago</small>
                                                     </div>
-                                                    <div class="flex-shrink-0 dropdown-notifications-actions">
-                                                        <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                                        ><span class="badge badge-dot"></span
-                                                        ></a>
-                                                        <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                                        ><span class="bx bx-x"></span
-                                                        ></a>
+                                                    <div
+                                                        class="flex-shrink-0 dropdown-notifications-actions"
+                                                    >
+                                                        <a
+                                                            href="javascript:void(0)"
+                                                            class="dropdown-notifications-read"
+                                                        >
+                                                            <span class="badge badge-dot"></span>
+                                                        </a>
+                                                        <a
+                                                            href="javascript:void(0)"
+                                                            class="dropdown-notifications-archive"
+                                                        >
+                                                            <span class="bx bx-x"></span>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </li>
-                                            <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
+                                            <li
+                                                class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read"
+                                            >
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar">
-                                                            <img src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/2.png" alt class="w-px-40 h-auto rounded-circle" />
+                                                            <img
+                                                                src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/2.png"
+                                                                alt
+                                                                class="w-px-40 h-auto rounded-circle"
+                                                            />
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1">
                                                         <h6 class="mb-1">New Message ✉️</h6>
-                                                        <p class="mb-0">You have new message from Natalie</p>
+                                                        <p class="mb-0">
+                                                            You have new message from Natalie
+                                                        </p>
                                                         <small class="text-muted">1h ago</small>
                                                     </div>
-                                                    <div class="flex-shrink-0 dropdown-notifications-actions">
-                                                        <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                                        ><span class="badge badge-dot"></span
-                                                        ></a>
-                                                        <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                                        ><span class="bx bx-x"></span
-                                                        ></a>
+                                                    <div
+                                                        class="flex-shrink-0 dropdown-notifications-actions"
+                                                    >
+                                                        <a
+                                                            href="javascript:void(0)"
+                                                            class="dropdown-notifications-read"
+                                                        >
+                                                            <span class="badge badge-dot"></span>
+                                                        </a>
+                                                        <a
+                                                            href="javascript:void(0)"
+                                                            class="dropdown-notifications-archive"
+                                                        >
+                                                            <span class="bx bx-x"></span>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </li>
-                                            <li class="list-group-item list-group-item-action dropdown-notifications-item">
+                                            <li
+                                                class="list-group-item list-group-item-action dropdown-notifications-item"
+                                            >
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar">
-                                <span class="avatar-initial rounded-circle bg-label-success"
-                                ><i class="bx bx-cart"></i
-                                ></span>
+                                                            <span
+                                                                class="avatar-initial rounded-circle bg-label-success"
+                                                            >
+                                                                <i class="bx bx-cart"></i>
+                                                            </span>
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1">
-                                                        <h6 class="mb-1">Whoo! You have new order 🛒</h6>
-                                                        <p class="mb-0">ACME Inc. made new order $1,154</p>
+                                                        <h6 class="mb-1">
+                                                            Whoo! You have new order 🛒
+                                                        </h6>
+                                                        <p class="mb-0">
+                                                            ACME Inc. made new order $1,154
+                                                        </p>
                                                         <small class="text-muted">1 day ago</small>
                                                     </div>
-                                                    <div class="flex-shrink-0 dropdown-notifications-actions">
-                                                        <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                                        ><span class="badge badge-dot"></span
-                                                        ></a>
-                                                        <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                                        ><span class="bx bx-x"></span
-                                                        ></a>
+                                                    <div
+                                                        class="flex-shrink-0 dropdown-notifications-actions"
+                                                    >
+                                                        <a
+                                                            href="javascript:void(0)"
+                                                            class="dropdown-notifications-read"
+                                                        >
+                                                            <span class="badge badge-dot"></span>
+                                                        </a>
+                                                        <a
+                                                            href="javascript:void(0)"
+                                                            class="dropdown-notifications-archive"
+                                                        >
+                                                            <span class="bx bx-x"></span>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </li>
-                                            <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
+                                            <li
+                                                class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read"
+                                            >
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar">
-                                                            <img src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/9.png" alt class="w-px-40 h-auto rounded-circle" />
+                                                            <img
+                                                                src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/9.png"
+                                                                alt
+                                                                class="w-px-40 h-auto rounded-circle"
+                                                            />
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1">
-                                                        <h6 class="mb-1">Application has been approved 🚀</h6>
-                                                        <p class="mb-0">Your ABC project application has been approved.</p>
+                                                        <h6 class="mb-1">
+                                                            Application has been approved 🚀
+                                                        </h6>
+                                                        <p class="mb-0">
+                                                            Your ABC project application has been
+                                                            approved.
+                                                        </p>
                                                         <small class="text-muted">2 days ago</small>
                                                     </div>
-                                                    <div class="flex-shrink-0 dropdown-notifications-actions">
-                                                        <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                                        ><span class="badge badge-dot"></span
-                                                        ></a>
-                                                        <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                                        ><span class="bx bx-x"></span
-                                                        ></a>
+                                                    <div
+                                                        class="flex-shrink-0 dropdown-notifications-actions"
+                                                    >
+                                                        <a
+                                                            href="javascript:void(0)"
+                                                            class="dropdown-notifications-read"
+                                                        >
+                                                            <span class="badge badge-dot"></span>
+                                                        </a>
+                                                        <a
+                                                            href="javascript:void(0)"
+                                                            class="dropdown-notifications-archive"
+                                                        >
+                                                            <span class="bx bx-x"></span>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </li>
-                                            <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
+                                            <li
+                                                class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read"
+                                            >
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar">
-                                <span class="avatar-initial rounded-circle bg-label-success"
-                                ><i class="bx bx-pie-chart-alt"></i
-                                ></span>
+                                                            <span
+                                                                class="avatar-initial rounded-circle bg-label-success"
+                                                            >
+                                                                <i class="bx bx-pie-chart-alt"></i>
+                                                            </span>
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1">
-                                                        <h6 class="mb-1">Monthly report is generated</h6>
-                                                        <p class="mb-0">July monthly financial report is generated</p>
+                                                        <h6 class="mb-1">
+                                                            Monthly report is generated
+                                                        </h6>
+                                                        <p class="mb-0">
+                                                            July monthly financial report is
+                                                            generated
+                                                        </p>
                                                         <small class="text-muted">3 days ago</small>
                                                     </div>
-                                                    <div class="flex-shrink-0 dropdown-notifications-actions">
-                                                        <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                                        ><span class="badge badge-dot"></span
-                                                        ></a>
-                                                        <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                                        ><span class="bx bx-x"></span
-                                                        ></a>
+                                                    <div
+                                                        class="flex-shrink-0 dropdown-notifications-actions"
+                                                    >
+                                                        <a
+                                                            href="javascript:void(0)"
+                                                            class="dropdown-notifications-read"
+                                                        >
+                                                            <span class="badge badge-dot"></span>
+                                                        </a>
+                                                        <a
+                                                            href="javascript:void(0)"
+                                                            class="dropdown-notifications-archive"
+                                                        >
+                                                            <span class="bx bx-x"></span>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </li>
-                                            <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
+                                            <li
+                                                class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read"
+                                            >
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar">
-                                                            <img src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/5.png" alt class="w-px-40 h-auto rounded-circle" />
+                                                            <img
+                                                                src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/5.png"
+                                                                alt
+                                                                class="w-px-40 h-auto rounded-circle"
+                                                            />
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1">
-                                                        <h6 class="mb-1">Send connection request</h6>
-                                                        <p class="mb-0">Peter sent you connection request</p>
+                                                        <h6 class="mb-1">
+                                                            Send connection request
+                                                        </h6>
+                                                        <p class="mb-0">
+                                                            Peter sent you connection request
+                                                        </p>
                                                         <small class="text-muted">4 days ago</small>
                                                     </div>
-                                                    <div class="flex-shrink-0 dropdown-notifications-actions">
-                                                        <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                                        ><span class="badge badge-dot"></span
-                                                        ></a>
-                                                        <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                                        ><span class="bx bx-x"></span
-                                                        ></a>
+                                                    <div
+                                                        class="flex-shrink-0 dropdown-notifications-actions"
+                                                    >
+                                                        <a
+                                                            href="javascript:void(0)"
+                                                            class="dropdown-notifications-read"
+                                                        >
+                                                            <span class="badge badge-dot"></span>
+                                                        </a>
+                                                        <a
+                                                            href="javascript:void(0)"
+                                                            class="dropdown-notifications-archive"
+                                                        >
+                                                            <span class="bx bx-x"></span>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </li>
-                                            <li class="list-group-item list-group-item-action dropdown-notifications-item">
+                                            <li
+                                                class="list-group-item list-group-item-action dropdown-notifications-item"
+                                            >
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar">
-                                                            <img src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/6.png" alt class="w-px-40 h-auto rounded-circle" />
+                                                            <img
+                                                                src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/6.png"
+                                                                alt
+                                                                class="w-px-40 h-auto rounded-circle"
+                                                            />
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1">
                                                         <h6 class="mb-1">New message from Jane</h6>
-                                                        <p class="mb-0">Your have new message from Jane</p>
+                                                        <p class="mb-0">
+                                                            Your have new message from Jane
+                                                        </p>
                                                         <small class="text-muted">5 days ago</small>
                                                     </div>
-                                                    <div class="flex-shrink-0 dropdown-notifications-actions">
-                                                        <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                                        ><span class="badge badge-dot"></span
-                                                        ></a>
-                                                        <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                                        ><span class="bx bx-x"></span
-                                                        ></a>
+                                                    <div
+                                                        class="flex-shrink-0 dropdown-notifications-actions"
+                                                    >
+                                                        <a
+                                                            href="javascript:void(0)"
+                                                            class="dropdown-notifications-read"
+                                                        >
+                                                            <span class="badge badge-dot"></span>
+                                                        </a>
+                                                        <a
+                                                            href="javascript:void(0)"
+                                                            class="dropdown-notifications-archive"
+                                                        >
+                                                            <span class="bx bx-x"></span>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </li>
-                                            <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
+                                            <li
+                                                class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read"
+                                            >
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar">
-                                <span class="avatar-initial rounded-circle bg-label-warning"
-                                ><i class="bx bx-error"></i
-                                ></span>
+                                                            <span
+                                                                class="avatar-initial rounded-circle bg-label-warning"
+                                                            >
+                                                                <i class="bx bx-error"></i>
+                                                            </span>
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1">
                                                         <h6 class="mb-1">CPU is running high</h6>
-                                                        <p class="mb-0">CPU Utilization Percent is currently at 88.63%,</p>
+                                                        <p class="mb-0">
+                                                            CPU Utilization Percent is currently at
+                                                            88.63%,
+                                                        </p>
                                                         <small class="text-muted">5 days ago</small>
                                                     </div>
-                                                    <div class="flex-shrink-0 dropdown-notifications-actions">
-                                                        <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                                        ><span class="badge badge-dot"></span
-                                                        ></a>
-                                                        <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                                        ><span class="bx bx-x"></span
-                                                        ></a>
+                                                    <div
+                                                        class="flex-shrink-0 dropdown-notifications-actions"
+                                                    >
+                                                        <a
+                                                            href="javascript:void(0)"
+                                                            class="dropdown-notifications-read"
+                                                        >
+                                                            <span class="badge badge-dot"></span>
+                                                        </a>
+                                                        <a
+                                                            href="javascript:void(0)"
+                                                            class="dropdown-notifications-archive"
+                                                        >
+                                                            <span class="bx bx-x"></span>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </li>
                                         </ul>
                                     </li>
                                     <li class="dropdown-menu-footer border-top p-3">
-                                        <button class="btn btn-primary text-uppercase w-100">view all notifications</button>
+                                        <button class="btn btn-primary text-uppercase w-100">
+                                            view all notifications
+                                        </button>
                                     </li>
                                 </ul>
                             </li>
@@ -1442,18 +2059,33 @@
 
                             <!-- User -->
                             <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                                <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                                <a
+                                    class="nav-link dropdown-toggle hide-arrow"
+                                    href="javascript:void(0);"
+                                    data-bs-toggle="dropdown"
+                                >
                                     <div class="avatar avatar-online">
-                                        <img src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                                        <img
+                                            src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/1.png"
+                                            alt
+                                            class="w-px-40 h-auto rounded-circle"
+                                        />
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
                                     <li>
-                                        <a class="dropdown-item" href="pages-account-settings-account.html">
+                                        <a
+                                            class="dropdown-item"
+                                            href="pages-account-settings-account.html"
+                                        >
                                             <div class="d-flex">
                                                 <div class="flex-shrink-0 me-3">
                                                     <div class="avatar avatar-online">
-                                                        <img src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                                                        <img
+                                                            src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/1.png"
+                                                            alt
+                                                            class="w-px-40 h-auto rounded-circle"
+                                                        />
                                                     </div>
                                                 </div>
                                                 <div class="flex-grow-1">
@@ -1473,18 +2105,30 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="pages-account-settings-account.html">
+                                        <a
+                                            class="dropdown-item"
+                                            href="pages-account-settings-account.html"
+                                        >
                                             <i class="bx bx-cog me-2"></i>
                                             <span class="align-middle">Settings</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="pages-account-settings-billing.html">
-                        <span class="d-flex align-items-center align-middle">
-                          <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                          <span class="flex-grow-1 align-middle">Billing</span>
-                          <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                        </span>
+                                        <a
+                                            class="dropdown-item"
+                                            href="pages-account-settings-billing.html"
+                                        >
+                                            <span class="d-flex align-items-center align-middle">
+                                                <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
+                                                <span class="flex-grow-1 align-middle">
+                                                    Billing
+                                                </span>
+                                                <span
+                                                    class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20"
+                                                >
+                                                    4
+                                                </span>
+                                            </span>
                                         </a>
                                     </li>
                                     <li>
@@ -1506,9 +2150,13 @@
                                         <div class="dropdown-divider"></div>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="auth-login-cover.html" target="_blank">
+                                        <a
+                                            class="dropdown-item"
+                                            href="#"
+                                            @click.prevent="logout"
+                                        >
                                             <i class="bx bx-power-off me-2"></i>
-                                            <span class="align-middle">Log Out</span>
+                                            <span class="align-middle">{{ $t('auth.logout') }}</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -1526,7 +2174,8 @@
 
                     <div class="container-fluid flex-grow-1 container-p-y">
                         <div class="h4 mb-4 py-3">
-                            <span class="text-muted fw-light">UI Elements /</span> Cards Basic
+                            <span class="text-muted fw-light">UI Elements /</span>
+                            Cards Basic
                         </div>
 
                         <slot></slot>
@@ -1538,9 +2187,7 @@
                         <div
                             class="container-fluid d-flex justify-content-between flex-md-row flex-column flex-wrap py-2"
                         >
-                            <div class="mb-md-0 mb-2">
-                                Laravel v12.32.5 (PHP v8.3.22)
-                            </div>
+                            <div class="mb-md-0 mb-2">Laravel v12.32.5 (PHP v8.3.22)</div>
                         </div>
                     </footer>
                     <!-- / Footer -->
@@ -1560,5 +2207,19 @@
     </div>
     <!-- / Layout wrapper -->
 </template>
-<script setup lang="ts">
+<script setup>
+    import { route } from 'ziggy-js';
+    import { useAuth } from '@/composables/useAuth';
+    import { inject } from 'vue';
+    import { useTheme } from '@/composables/useTheme'
+
+    const { logout } = useAuth();
+    const locales = inject('$locales');
+    const {theme, applyTheme, pageLoaded } = useTheme();
+
+
+    const setLocale = locale => {
+        locales.setLocale(locale.getCode())
+    }
+
 </script>

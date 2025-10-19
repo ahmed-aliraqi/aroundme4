@@ -3,6 +3,7 @@
       class="light-style layout-navbar-fixed layout-menu-fixed layout-compact"
       dir="{{ Locales::getDir() }}"
       data-theme="theme-default"
+      data-mode="light"
       data-template="vertical-menu-template-no-customizer">
 
     <head>
@@ -16,6 +17,7 @@
         <!--end::Primary Meta Tags-->
 
         <!-- Styles -->
+        @routes
         @vite('resources/sass/sneat.scss')
         @vite(['resources/js/ui/layout-config.js'])
 

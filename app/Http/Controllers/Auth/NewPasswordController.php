@@ -12,15 +12,22 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Inertia\Response;
 
 class NewPasswordController extends Controller
 {
     /**
      * Display the password reset view.
      */
-    public function create(Request $request): View
+    public function create(Request $request): Response
     {
-        return view('auth.reset-password', ['request' => $request]);
+        return inertia('Auth/ResetPassword', [
+            'token' => $request->route('token'),
+            'email' => $request->input('email'),
+            'config' => [
+                'banner' => 'https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/illustrations/boy-with-laptop-light.png',
+            ],
+        ]);
     }
 
     /**

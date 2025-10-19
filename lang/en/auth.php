@@ -26,6 +26,7 @@ return [
         'actions' => [
             'submit' => 'Sign up',
             'login' => 'Sign in instead',
+            'login-note' => 'Already have an account?',
         ],
         'attributes' => [
             'name' => 'Name',
@@ -44,6 +45,7 @@ return [
             'submit' => 'Sign in',
             'forget' => 'Forget Password',
             'register' => 'Sign up',
+            'register-note' => 'Don\'t have an account yet?',
         ],
         'attributes' => [
             'email' => 'Email',
@@ -83,7 +85,7 @@ return [
     'verify_email' => [
         'page_title' => 'Verify Email',
         'title' => 'Verify your email ✉️',
-        'subtitle' => 'Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.',
+        'subtitle' => 'Please verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will send you another.',
         'messages' => [
             'sent' => 'A new verification link has been sent to the email address you provided during registration.',
         ],

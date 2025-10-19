@@ -6,16 +6,21 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Inertia\Response;
 
 class EmailVerificationPromptController extends Controller
 {
     /**
      * Display the email verification prompt.
      */
-    public function __invoke(Request $request): RedirectResponse|View
+    public function __invoke(Request $request): RedirectResponse|Response
     {
         return $request->user()->hasVerifiedEmail()
                     ? redirect()->intended(route('dashboard.home', absolute: false))
-                    : view('auth.verify-email');
+                    : inertia('Auth/VerifyEmail', [
+                        'config' => [
+                            'banner' => 'https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/illustrations/boy-verify-email-light.png',
+                        ],
+                    ]);
     }
 }

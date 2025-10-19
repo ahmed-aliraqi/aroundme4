@@ -8,6 +8,10 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/sass/sneat.scss',
+                'resources/templates/sneat/assets/vendor/css/rtl/core.css',
+                'resources/templates/sneat/assets/vendor/css/rtl/theme-default.css',
+                'resources/templates/sneat/assets/vendor/css/rtl/core-dark.css',
+                'resources/templates/sneat/assets/vendor/css/rtl/theme-default-dark.css',
                 'resources/js/ui/layout-config.js',
                 'resources/js/sneat.js',
                 'resources/templates/sneat/assets/js/main.js',
@@ -37,6 +41,7 @@ export default defineConfig({
     resolve: {
         alias: {
             '@lang': '/lang',
+            '@asset': '/resources/',
             '@': '/resources/js',
         },
     },
@@ -49,4 +54,5 @@ export default defineConfig({
             },
         },
     },
+    assetsInclude: ['**/*.html'],
 });

@@ -1,6 +1,7 @@
 import { computed } from 'vue'
-import { usePage } from '@inertiajs/vue3'
+import { usePage, router } from '@inertiajs/vue3'
 import type { User } from '@/types/User'
+import { route } from 'ziggy-js';
 
 interface AuthProps {
     check: boolean
@@ -12,9 +13,13 @@ export function useAuth() {
 
     const auth = computed(() => page.props.auth)
     const user = computed(() => page.props.auth?.user ?? null)
+    const logout = () => {
+        router.post(route('logout'))
+    }
 
     return {
         auth,
         user,
+        logout,
     }
 }

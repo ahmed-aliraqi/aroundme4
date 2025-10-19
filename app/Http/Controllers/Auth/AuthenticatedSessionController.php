@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
 use Inertia\Response;
 
@@ -17,7 +18,13 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): Response
     {
-        return inertia('Auth/Login');
+        return inertia('Auth/Login', [
+            'config' => [
+                'banner' => 'https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/illustrations/boy-with-rocket-light.png',
+                'register' => Route::has('register'),
+            ],
+
+        ]);
     }
 
     /**
@@ -43,6 +50,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return to_route('login');
     }
 }
