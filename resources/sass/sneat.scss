@@ -1,6 +1,6 @@
 @use 'icons';
 @use 'fonts';
-@use 'customize';
+@import 'customize';
 
 @import '../templates/sneat/assets/vendor/css/rtl/core.css';
 @import '../templates/sneat/assets/vendor/css/rtl/theme-default.css';
