@@ -1,11 +1,12 @@
-import { defineComponent, unref, withCtx, createVNode, useSSRContext, mergeProps, useAttrs, ref, computed, watch, onMounted, inject, toDisplayString, createBlock, createCommentVNode, openBlock, createSSRApp, h } from "vue";
-import { ssrRenderComponent, ssrRenderAttrs, ssrRenderSlot, ssrRenderAttr, ssrInterpolate, ssrGetDynamicModelProps, ssrRenderClass, ssrRenderStyle, ssrIncludeBooleanAttr, ssrRenderList } from "vue/server-renderer";
+import { defineComponent, unref, withCtx, createVNode, useSSRContext, mergeProps, useAttrs, ref, computed, watch, onMounted, inject, toDisplayString, createBlock, createCommentVNode, openBlock, withDirectives, vModelCheckbox, vModelText, renderSlot, createTextVNode, createSSRApp, h } from "vue";
+import { ssrRenderComponent, ssrRenderAttrs, ssrRenderSlot, ssrRenderAttr, ssrInterpolate, ssrGetDynamicModelProps, ssrRenderClass, ssrRenderStyle, ssrIncludeBooleanAttr, ssrRenderList, ssrLooseContain } from "vue/server-renderer";
 import { Head, router, useForm as useForm$1, Link, usePage, createInertiaApp } from "@inertiajs/vue3";
 import { trans, loadLanguageAsync, i18nVue } from "laravel-vue-i18n";
 import { route } from "ziggy-js";
 import Validator from "validatorjs";
 import { toast } from "vue3-toastify";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
+import debounce from "lodash/debounce.js";
 import { createStore } from "vuex";
 import axios from "axios";
 import createServer from "@inertiajs/vue3/server";
@@ -29,7 +30,7 @@ if (typeof document !== "undefined") {
     });
   });
 }
-const _sfc_main$e = /* @__PURE__ */ defineComponent({
+const _sfc_main$w = /* @__PURE__ */ defineComponent({
   __name: "About",
   __ssrInlineRender: true,
   setup(__props) {
@@ -51,15 +52,15 @@ const _sfc_main$e = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const _sfc_setup$e = _sfc_main$e.setup;
-_sfc_main$e.setup = (props, ctx) => {
+const _sfc_setup$w = _sfc_main$w.setup;
+_sfc_main$w.setup = (props, ctx) => {
   const ssrContext = useSSRContext();
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/pages/About.vue");
-  return _sfc_setup$e ? _sfc_setup$e(props, ctx) : void 0;
+  return _sfc_setup$w ? _sfc_setup$w(props, ctx) : void 0;
 };
 const __vite_glob_0_0$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  default: _sfc_main$e
+  default: _sfc_main$w
 }, Symbol.toStringTag, { value: "Module" }));
 const _export_sfc = (sfc, props) => {
   const target = sfc.__vccOpts || sfc;
@@ -68,20 +69,20 @@ const _export_sfc = (sfc, props) => {
   }
   return target;
 };
-const _sfc_main$d = {};
+const _sfc_main$v = {};
 function _sfc_ssrRender(_ctx, _push, _parent, _attrs) {
   _push(`<div${ssrRenderAttrs(mergeProps({ class: "authentication-wrapper authentication-cover" }, _attrs))}>`);
   ssrRenderSlot(_ctx.$slots, "default", {}, null, _push, _parent);
   _push(`</div>`);
 }
-const _sfc_setup$d = _sfc_main$d.setup;
-_sfc_main$d.setup = (props, ctx) => {
+const _sfc_setup$v = _sfc_main$v.setup;
+_sfc_main$v.setup = (props, ctx) => {
   const ssrContext = useSSRContext();
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/layouts/Guest.vue");
-  return _sfc_setup$d ? _sfc_setup$d(props, ctx) : void 0;
+  return _sfc_setup$v ? _sfc_setup$v(props, ctx) : void 0;
 };
-const Guest = /* @__PURE__ */ _export_sfc(_sfc_main$d, [["ssrRender", _sfc_ssrRender]]);
-const _sfc_main$c = /* @__PURE__ */ Object.assign({
+const Guest = /* @__PURE__ */ _export_sfc(_sfc_main$v, [["ssrRender", _sfc_ssrRender]]);
+const _sfc_main$u = /* @__PURE__ */ Object.assign({
   name: "BsInput",
   inheritAttrs: false
 }, {
@@ -215,13 +216,13 @@ const _sfc_main$c = /* @__PURE__ */ Object.assign({
     };
   }
 });
-const _sfc_setup$c = _sfc_main$c.setup;
-_sfc_main$c.setup = (props, ctx) => {
+const _sfc_setup$u = _sfc_main$u.setup;
+_sfc_main$u.setup = (props, ctx) => {
   const ssrContext = useSSRContext();
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/components/Form/BsInput.vue");
-  return _sfc_setup$c ? _sfc_setup$c(props, ctx) : void 0;
+  return _sfc_setup$u ? _sfc_setup$u(props, ctx) : void 0;
 };
-const _sfc_main$b = /* @__PURE__ */ Object.assign({
+const _sfc_main$t = /* @__PURE__ */ Object.assign({
   name: "BsCheckbox",
   inheritAttrs: false
 }, {
@@ -297,11 +298,11 @@ const _sfc_main$b = /* @__PURE__ */ Object.assign({
     };
   }
 });
-const _sfc_setup$b = _sfc_main$b.setup;
-_sfc_main$b.setup = (props, ctx) => {
+const _sfc_setup$t = _sfc_main$t.setup;
+_sfc_main$t.setup = (props, ctx) => {
   const ssrContext = useSSRContext();
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/components/Form/BsCheckbox.vue");
-  return _sfc_setup$b ? _sfc_setup$b(props, ctx) : void 0;
+  return _sfc_setup$t ? _sfc_setup$t(props, ctx) : void 0;
 };
 const ar = {
   accepted: "يجب قبول حقل :attribute.",
@@ -817,7 +818,7 @@ const __vite_glob_0_5$1 = "/build/assets/theme-default-b4iX8O4u.css";
 const __vite_glob_0_6$1 = "/build/assets/theme-raspberry-dark-Obso24AM.css";
 const __vite_glob_0_7$1 = "/build/assets/theme-raspberry-Ik-vYRDR.css";
 const __vite_glob_0_8$1 = "/build/assets/theme-semi-dark-dark-DJGN76ff.css";
-const __vite_glob_0_9 = "/build/assets/theme-semi-dark-CU0FnSij.css";
+const __vite_glob_0_9$1 = "/build/assets/theme-semi-dark-CU0FnSij.css";
 function useTheme() {
   const theme = ref("light");
   const pageLoaded = ref(false);
@@ -845,7 +846,7 @@ function useTheme() {
       "/resources/templates/sneat/assets/vendor/css/rtl/theme-raspberry-dark.css": __vite_glob_0_6$1,
       "/resources/templates/sneat/assets/vendor/css/rtl/theme-raspberry.css": __vite_glob_0_7$1,
       "/resources/templates/sneat/assets/vendor/css/rtl/theme-semi-dark-dark.css": __vite_glob_0_8$1,
-      "/resources/templates/sneat/assets/vendor/css/rtl/theme-semi-dark.css": __vite_glob_0_9
+      "/resources/templates/sneat/assets/vendor/css/rtl/theme-semi-dark.css": __vite_glob_0_9$1
     });
     const styles = resolved === "dark" ? [themeStyles["/resources/templates/sneat/assets/vendor/css/rtl/core-dark.css"], themeStyles["/resources/templates/sneat/assets/vendor/css/rtl/theme-default-dark.css"]] : [];
     for (const href of styles) {
@@ -867,7 +868,7 @@ function useTheme() {
   });
   return { theme, applyTheme, resolveMode, pageLoaded };
 }
-const _sfc_main$a = {
+const _sfc_main$s = {
   __name: "StyleSwitcher",
   __ssrInlineRender: true,
   setup(__props) {
@@ -893,14 +894,14 @@ const _sfc_main$a = {
     };
   }
 };
-const _sfc_setup$a = _sfc_main$a.setup;
-_sfc_main$a.setup = (props, ctx) => {
+const _sfc_setup$s = _sfc_main$s.setup;
+_sfc_main$s.setup = (props, ctx) => {
   const ssrContext = useSSRContext();
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/components/Guest/StyleSwitcher.vue");
-  return _sfc_setup$a ? _sfc_setup$a(props, ctx) : void 0;
+  return _sfc_setup$s ? _sfc_setup$s(props, ctx) : void 0;
 };
-const StyleSwitcher = /* @__PURE__ */ _export_sfc(_sfc_main$a, [["__scopeId", "data-v-57dc0ec7"]]);
-const _sfc_main$9 = /* @__PURE__ */ Object.assign({
+const StyleSwitcher = /* @__PURE__ */ _export_sfc(_sfc_main$s, [["__scopeId", "data-v-57dc0ec7"]]);
+const _sfc_main$r = /* @__PURE__ */ Object.assign({
   name: "ConfirmPassword",
   layout: Guest
 }, {
@@ -959,7 +960,7 @@ const _sfc_main$9 = /* @__PURE__ */ Object.assign({
         _: 1
       }, _parent));
       _push(`</div><h4 class="mb-2">${ssrInterpolate(_ctx.$t("auth.confirm_password.title", { app: __props.app.name }))}</h4><p class="mb-4">${ssrInterpolate(_ctx.$t("auth.confirm_password.subtitle"))}</p><form id="formAuthentication" class="mb-3" action="" method="POST">`);
-      _push(ssrRenderComponent(_sfc_main$c, {
+      _push(ssrRenderComponent(_sfc_main$u, {
         resource: "auth.confirm_password",
         type: "password",
         name: "password",
@@ -983,17 +984,17 @@ const _sfc_main$9 = /* @__PURE__ */ Object.assign({
     };
   }
 });
-const _sfc_setup$9 = _sfc_main$9.setup;
-_sfc_main$9.setup = (props, ctx) => {
+const _sfc_setup$r = _sfc_main$r.setup;
+_sfc_main$r.setup = (props, ctx) => {
   const ssrContext = useSSRContext();
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/pages/Auth/ConfirmPassword.vue");
-  return _sfc_setup$9 ? _sfc_setup$9(props, ctx) : void 0;
+  return _sfc_setup$r ? _sfc_setup$r(props, ctx) : void 0;
 };
 const __vite_glob_0_1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  default: _sfc_main$9
+  default: _sfc_main$r
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$8 = /* @__PURE__ */ Object.assign({
+const _sfc_main$q = /* @__PURE__ */ Object.assign({
   name: "ForgetPassword",
   layout: Guest
 }, {
@@ -1052,7 +1053,7 @@ const _sfc_main$8 = /* @__PURE__ */ Object.assign({
         _: 1
       }, _parent));
       _push(`</div><h4 class="mb-2">${ssrInterpolate(_ctx.$t("auth.forget_password.title", { app: __props.app.name }))}</h4><p class="mb-4">${ssrInterpolate(_ctx.$t("auth.forget_password.subtitle"))}</p><form id="formAuthentication" class="mb-3" action="" method="POST">`);
-      _push(ssrRenderComponent(_sfc_main$c, {
+      _push(ssrRenderComponent(_sfc_main$u, {
         resource: "auth.forget_password",
         type: "text",
         name: "email",
@@ -1092,17 +1093,17 @@ const _sfc_main$8 = /* @__PURE__ */ Object.assign({
     };
   }
 });
-const _sfc_setup$8 = _sfc_main$8.setup;
-_sfc_main$8.setup = (props, ctx) => {
+const _sfc_setup$q = _sfc_main$q.setup;
+_sfc_main$q.setup = (props, ctx) => {
   const ssrContext = useSSRContext();
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/pages/Auth/ForgetPassword.vue");
-  return _sfc_setup$8 ? _sfc_setup$8(props, ctx) : void 0;
+  return _sfc_setup$q ? _sfc_setup$q(props, ctx) : void 0;
 };
 const __vite_glob_0_2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  default: _sfc_main$8
+  default: _sfc_main$q
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$7 = /* @__PURE__ */ Object.assign({
+const _sfc_main$p = /* @__PURE__ */ Object.assign({
   name: "Login",
   layout: Guest
 }, {
@@ -1163,7 +1164,7 @@ const _sfc_main$7 = /* @__PURE__ */ Object.assign({
         _: 1
       }, _parent));
       _push(`</div><h4 class="mb-2">${ssrInterpolate(_ctx.$t("auth.login.title", { app: __props.app.name }))}</h4><p class="mb-4">${ssrInterpolate(_ctx.$t("auth.login.subtitle"))}</p><form id="formAuthentication" class="mb-3" action="" method="POST">`);
-      _push(ssrRenderComponent(_sfc_main$c, {
+      _push(ssrRenderComponent(_sfc_main$u, {
         resource: "auth.login",
         type: "text",
         name: "email",
@@ -1172,7 +1173,7 @@ const _sfc_main$7 = /* @__PURE__ */ Object.assign({
         autofocus: "",
         error: unref(form).errors.email
       }, null, _parent));
-      _push(ssrRenderComponent(_sfc_main$c, {
+      _push(ssrRenderComponent(_sfc_main$u, {
         resource: "auth.login",
         type: "password",
         name: "password",
@@ -1219,7 +1220,7 @@ const _sfc_main$7 = /* @__PURE__ */ Object.assign({
         }),
         _: 1
       }, _parent));
-      _push(ssrRenderComponent(_sfc_main$b, {
+      _push(ssrRenderComponent(_sfc_main$t, {
         resource: "auth.login",
         name: "remember",
         modelValue: unref(form).remember,
@@ -1263,15 +1264,15 @@ const _sfc_main$7 = /* @__PURE__ */ Object.assign({
     };
   }
 });
-const _sfc_setup$7 = _sfc_main$7.setup;
-_sfc_main$7.setup = (props, ctx) => {
+const _sfc_setup$p = _sfc_main$p.setup;
+_sfc_main$p.setup = (props, ctx) => {
   const ssrContext = useSSRContext();
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/pages/Auth/Login.vue");
-  return _sfc_setup$7 ? _sfc_setup$7(props, ctx) : void 0;
+  return _sfc_setup$p ? _sfc_setup$p(props, ctx) : void 0;
 };
 const __vite_glob_0_3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  default: _sfc_main$7
+  default: _sfc_main$p
 }, Symbol.toStringTag, { value: "Module" }));
 const countriesData = [
   {
@@ -3811,7 +3812,7 @@ class Countries {
   }
 }
 const $countries = new Countries();
-const _sfc_main$6 = /* @__PURE__ */ Object.assign({
+const _sfc_main$o = /* @__PURE__ */ Object.assign({
   name: "BsPhoneInput",
   inheritAttrs: false
 }, {
@@ -3982,14 +3983,14 @@ const _sfc_main$6 = /* @__PURE__ */ Object.assign({
     };
   }
 });
-const _sfc_setup$6 = _sfc_main$6.setup;
-_sfc_main$6.setup = (props, ctx) => {
+const _sfc_setup$o = _sfc_main$o.setup;
+_sfc_main$o.setup = (props, ctx) => {
   const ssrContext = useSSRContext();
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/components/Form/BsInputPhone.vue");
-  return _sfc_setup$6 ? _sfc_setup$6(props, ctx) : void 0;
+  return _sfc_setup$o ? _sfc_setup$o(props, ctx) : void 0;
 };
-const BsInputPhone = /* @__PURE__ */ _export_sfc(_sfc_main$6, [["__scopeId", "data-v-79cb4e0e"]]);
-const _sfc_main$5 = /* @__PURE__ */ Object.assign({
+const BsInputPhone = /* @__PURE__ */ _export_sfc(_sfc_main$o, [["__scopeId", "data-v-79cb4e0e"]]);
+const _sfc_main$n = /* @__PURE__ */ Object.assign({
   name: "Register",
   layout: Guest
 }, {
@@ -4052,7 +4053,7 @@ const _sfc_main$5 = /* @__PURE__ */ Object.assign({
         _: 1
       }, _parent));
       _push(`</div><h4 class="mb-2">${ssrInterpolate(unref(trans)("auth.register.title", { app: __props.app.name }))}</h4><p class="mb-4">${ssrInterpolate(unref(trans)("auth.register.subtitle"))}</p><form id="formAuthentication" class="mb-3" action="" method="POST">`);
-      _push(ssrRenderComponent(_sfc_main$c, {
+      _push(ssrRenderComponent(_sfc_main$u, {
         resource: "auth.register",
         type: "text",
         name: "name",
@@ -4061,7 +4062,7 @@ const _sfc_main$5 = /* @__PURE__ */ Object.assign({
         autofocus: "",
         error: unref(form).errors.name
       }, null, _parent));
-      _push(ssrRenderComponent(_sfc_main$c, {
+      _push(ssrRenderComponent(_sfc_main$u, {
         resource: "auth.register",
         type: "text",
         name: "email",
@@ -4077,7 +4078,7 @@ const _sfc_main$5 = /* @__PURE__ */ Object.assign({
         "onUpdate:modelValue": ($event) => unref(form).phone = $event,
         error: unref(form).errors.phone
       }, null, _parent));
-      _push(ssrRenderComponent(_sfc_main$c, {
+      _push(ssrRenderComponent(_sfc_main$u, {
         resource: "auth.register",
         type: "password",
         name: "password",
@@ -4085,7 +4086,7 @@ const _sfc_main$5 = /* @__PURE__ */ Object.assign({
         "onUpdate:modelValue": ($event) => unref(form).password = $event,
         error: unref(form).errors.password
       }, null, _parent));
-      _push(ssrRenderComponent(_sfc_main$c, {
+      _push(ssrRenderComponent(_sfc_main$u, {
         resource: "auth.register",
         type: "password",
         name: "password_confirmation",
@@ -4124,17 +4125,17 @@ const _sfc_main$5 = /* @__PURE__ */ Object.assign({
     };
   }
 });
-const _sfc_setup$5 = _sfc_main$5.setup;
-_sfc_main$5.setup = (props, ctx) => {
+const _sfc_setup$n = _sfc_main$n.setup;
+_sfc_main$n.setup = (props, ctx) => {
   const ssrContext = useSSRContext();
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/pages/Auth/Register.vue");
-  return _sfc_setup$5 ? _sfc_setup$5(props, ctx) : void 0;
+  return _sfc_setup$n ? _sfc_setup$n(props, ctx) : void 0;
 };
 const __vite_glob_0_4 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  default: _sfc_main$5
+  default: _sfc_main$n
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$4 = /* @__PURE__ */ Object.assign({
+const _sfc_main$m = /* @__PURE__ */ Object.assign({
   name: "ResetPassword",
   layout: Guest
 }, {
@@ -4197,7 +4198,7 @@ const _sfc_main$4 = /* @__PURE__ */ Object.assign({
         _: 1
       }, _parent));
       _push(`</div><h4 class="mb-2">${ssrInterpolate(_ctx.$t("auth.reset_password.title", { app: __props.app.name }))}</h4><p class="mb-4">${ssrInterpolate(_ctx.$t("auth.reset_password.subtitle"))}</p><form id="formAuthentication" class="mb-3" action="" method="POST">`);
-      _push(ssrRenderComponent(_sfc_main$c, {
+      _push(ssrRenderComponent(_sfc_main$u, {
         resource: "auth.reset_password",
         type: "text",
         name: "email",
@@ -4205,7 +4206,7 @@ const _sfc_main$4 = /* @__PURE__ */ Object.assign({
         "onUpdate:modelValue": ($event) => unref(form).email = $event,
         error: unref(form).errors.email
       }, null, _parent));
-      _push(ssrRenderComponent(_sfc_main$c, {
+      _push(ssrRenderComponent(_sfc_main$u, {
         resource: "auth.register",
         type: "password",
         name: "password",
@@ -4214,7 +4215,7 @@ const _sfc_main$4 = /* @__PURE__ */ Object.assign({
         autofocus: "",
         error: unref(form).errors.password
       }, null, _parent));
-      _push(ssrRenderComponent(_sfc_main$c, {
+      _push(ssrRenderComponent(_sfc_main$u, {
         resource: "auth.register",
         type: "password",
         name: "password_confirmation",
@@ -4253,17 +4254,17 @@ const _sfc_main$4 = /* @__PURE__ */ Object.assign({
     };
   }
 });
-const _sfc_setup$4 = _sfc_main$4.setup;
-_sfc_main$4.setup = (props, ctx) => {
+const _sfc_setup$m = _sfc_main$m.setup;
+_sfc_main$m.setup = (props, ctx) => {
   const ssrContext = useSSRContext();
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/pages/Auth/ResetPassword.vue");
-  return _sfc_setup$4 ? _sfc_setup$4(props, ctx) : void 0;
+  return _sfc_setup$m ? _sfc_setup$m(props, ctx) : void 0;
 };
 const __vite_glob_0_5 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  default: _sfc_main$4
+  default: _sfc_main$m
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$3 = /* @__PURE__ */ Object.assign({
+const _sfc_main$l = /* @__PURE__ */ Object.assign({
   name: "VerifyEmail",
   layout: Guest
 }, {
@@ -4349,17 +4350,50 @@ const _sfc_main$3 = /* @__PURE__ */ Object.assign({
     };
   }
 });
-const _sfc_setup$3 = _sfc_main$3.setup;
-_sfc_main$3.setup = (props, ctx) => {
+const _sfc_setup$l = _sfc_main$l.setup;
+_sfc_main$l.setup = (props, ctx) => {
   const ssrContext = useSSRContext();
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/pages/Auth/VerifyEmail.vue");
-  return _sfc_setup$3 ? _sfc_setup$3(props, ctx) : void 0;
+  return _sfc_setup$l ? _sfc_setup$l(props, ctx) : void 0;
 };
 const __vite_glob_0_6 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  default: _sfc_main$3
+  default: _sfc_main$l
 }, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$2 = /* @__PURE__ */ defineComponent({
+const _sfc_main$k = /* @__PURE__ */ defineComponent({
+  ...{ name: "BusinessRequestsIndex" },
+  __name: "Index",
+  __ssrInlineRender: true,
+  setup(__props) {
+    return (_ctx, _push, _parent, _attrs) => {
+      _push(`<!--[-->`);
+      _push(ssrRenderComponent(unref(Head), null, {
+        default: withCtx((_, _push2, _parent2, _scopeId) => {
+          if (_push2) {
+            _push2(`<title${_scopeId}>Business Request Page</title>`);
+          } else {
+            return [
+              createVNode("title", null, "Business Request Page")
+            ];
+          }
+        }),
+        _: 1
+      }, _parent));
+      _push(`<h1>Business Request Page</h1><!--]-->`);
+    };
+  }
+});
+const _sfc_setup$k = _sfc_main$k.setup;
+_sfc_main$k.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/pages/Dashboard/BusinessRequests/Index.vue");
+  return _sfc_setup$k ? _sfc_setup$k(props, ctx) : void 0;
+};
+const __vite_glob_0_7 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: _sfc_main$k
+}, Symbol.toStringTag, { value: "Module" }));
+const _sfc_main$j = /* @__PURE__ */ defineComponent({
   __name: "Home",
   __ssrInlineRender: true,
   setup(__props) {
@@ -4381,15 +4415,519 @@ const _sfc_main$2 = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const _sfc_setup$2 = _sfc_main$2.setup;
-_sfc_main$2.setup = (props, ctx) => {
+const _sfc_setup$j = _sfc_main$j.setup;
+_sfc_main$j.setup = (props, ctx) => {
   const ssrContext = useSSRContext();
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/pages/Dashboard/Home.vue");
-  return _sfc_setup$2 ? _sfc_setup$2(props, ctx) : void 0;
+  return _sfc_setup$j ? _sfc_setup$j(props, ctx) : void 0;
 };
-const __vite_glob_0_7 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_8 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  default: _sfc_main$2
+  default: _sfc_main$j
+}, Symbol.toStringTag, { value: "Module" }));
+const _sfc_main$i = /* @__PURE__ */ defineComponent({
+  ...{ name: "POIRequestsIndex" },
+  __name: "Index",
+  __ssrInlineRender: true,
+  setup(__props) {
+    return (_ctx, _push, _parent, _attrs) => {
+      _push(`<!--[-->`);
+      _push(ssrRenderComponent(unref(Head), null, {
+        default: withCtx((_, _push2, _parent2, _scopeId) => {
+          if (_push2) {
+            _push2(`<title${_scopeId}>POI Request Page</title>`);
+          } else {
+            return [
+              createVNode("title", null, "POI Request Page")
+            ];
+          }
+        }),
+        _: 1
+      }, _parent));
+      _push(`<h1>POI Request Page</h1><!--]-->`);
+    };
+  }
+});
+const _sfc_setup$i = _sfc_main$i.setup;
+_sfc_main$i.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/pages/Dashboard/PoiRequests/Index.vue");
+  return _sfc_setup$i ? _sfc_setup$i(props, ctx) : void 0;
+};
+const __vite_glob_0_9 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: _sfc_main$i
+}, Symbol.toStringTag, { value: "Module" }));
+const _sfc_main$h = /* @__PURE__ */ defineComponent({
+  ...{ name: "POIsIndex" },
+  __name: "Index",
+  __ssrInlineRender: true,
+  setup(__props) {
+    return (_ctx, _push, _parent, _attrs) => {
+      _push(`<!--[-->`);
+      _push(ssrRenderComponent(unref(Head), null, {
+        default: withCtx((_, _push2, _parent2, _scopeId) => {
+          if (_push2) {
+            _push2(`<title${_scopeId}>POIs Page</title>`);
+          } else {
+            return [
+              createVNode("title", null, "POIs Page")
+            ];
+          }
+        }),
+        _: 1
+      }, _parent));
+      _push(`<h1>POIs Page</h1><!--]-->`);
+    };
+  }
+});
+const _sfc_setup$h = _sfc_main$h.setup;
+_sfc_main$h.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/pages/Dashboard/Pois/Index.vue");
+  return _sfc_setup$h ? _sfc_setup$h(props, ctx) : void 0;
+};
+const __vite_glob_0_10 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: _sfc_main$h
+}, Symbol.toStringTag, { value: "Module" }));
+const breadcrumbs = ref([]);
+function useBreadcrumbs() {
+  function setBreadcrumbs(items) {
+    breadcrumbs.value = items;
+  }
+  return { breadcrumbs, setBreadcrumbs };
+}
+const _sfc_main$g = /* @__PURE__ */ Object.assign({ name: "FilterIcon" }, {
+  __name: "FilterIcon",
+  __ssrInlineRender: true,
+  setup(__props) {
+    return (_ctx, _push, _parent, _attrs) => {
+      _push(`<svg${ssrRenderAttrs(mergeProps(_ctx.$attrs, {
+        viewBox: "0 0 20 20",
+        fill: "none",
+        xmlns: "http://www.w3.org/2000/svg"
+      }, _attrs))}><path d="M5 10H15M2.5 5H17.5M7.5 15H12.5" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"></path></svg>`);
+    };
+  }
+});
+const _sfc_setup$g = _sfc_main$g.setup;
+_sfc_main$g.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/components/Svgs/FilterIcon.vue");
+  return _sfc_setup$g ? _sfc_setup$g(props, ctx) : void 0;
+};
+const _sfc_main$f = /* @__PURE__ */ Object.assign({ name: "FilterDropdown" }, {
+  __name: "FilterDropdown",
+  __ssrInlineRender: true,
+  props: {
+    submitButton: {
+      type: Boolean,
+      default: false
+    }
+  },
+  emits: ["apply"],
+  setup(__props, { emit: __emit }) {
+    return (_ctx, _push, _parent, _attrs) => {
+      _push(`<div${ssrRenderAttrs(mergeProps({ class: "dropdown" }, _attrs))} data-v-98a999ac><button class="btn btn-label-secondary dropdown-toggle" type="button" id="filterDropdown" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" data-v-98a999ac>`);
+      _push(ssrRenderComponent(_sfc_main$g, {
+        width: "20",
+        height: "20",
+        class: "me-2"
+      }, null, _parent));
+      _push(` ${ssrInterpolate(_ctx.$t("actions.filter"))}</button><div class="dropdown-menu p-0" style="${ssrRenderStyle({ "min-width": "250px", "z-index": "999999" })}" aria-labelledby="filterDropdown" data-v-98a999ac><div style="${ssrRenderStyle({ "max-height": "400px" })}" class="custom-scroll overflow-auto p-3" data-v-98a999ac>`);
+      ssrRenderSlot(_ctx.$slots, "default", {}, null, _push, _parent);
+      _push(`</div>`);
+      if (__props.submitButton) {
+        _push(`<div class="p-3 pt-0" data-v-98a999ac><hr class="dropdown-divider" data-v-98a999ac><button class="btn btn-sm btn-secondary w-100" data-v-98a999ac>${ssrInterpolate(_ctx.$t("actions.apply_filter"))}</button></div>`);
+      } else {
+        _push(`<!---->`);
+      }
+      _push(`</div></div>`);
+    };
+  }
+});
+const _sfc_setup$f = _sfc_main$f.setup;
+_sfc_main$f.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/components/Tables/FilterDropdown.vue");
+  return _sfc_setup$f ? _sfc_setup$f(props, ctx) : void 0;
+};
+const FilterDropdown = /* @__PURE__ */ _export_sfc(_sfc_main$f, [["__scopeId", "data-v-98a999ac"]]);
+const _sfc_main$e = /* @__PURE__ */ Object.assign({ name: "EditIcon" }, {
+  __name: "EditIcon",
+  __ssrInlineRender: true,
+  setup(__props) {
+    return (_ctx, _push, _parent, _attrs) => {
+      _push(`<svg${ssrRenderAttrs(mergeProps(_ctx.$attrs, {
+        xmlns: "http://www.w3.org/2000/svg",
+        fill: "none",
+        viewBox: "0 0 24 24",
+        "stroke-width": "1.5",
+        stroke: "currentColor"
+      }, _attrs))}><path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"></path></svg>`);
+    };
+  }
+});
+const _sfc_setup$e = _sfc_main$e.setup;
+_sfc_main$e.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/components/Svgs/EditIcon.vue");
+  return _sfc_setup$e ? _sfc_setup$e(props, ctx) : void 0;
+};
+const _sfc_main$d = /* @__PURE__ */ Object.assign({ name: "DeleteIcon" }, {
+  __name: "DeleteIcon",
+  __ssrInlineRender: true,
+  setup(__props) {
+    return (_ctx, _push, _parent, _attrs) => {
+      _push(`<svg${ssrRenderAttrs(mergeProps(_ctx.$attrs, {
+        viewBox: "0 0 24 24",
+        fill: "none",
+        xmlns: "http://www.w3.org/2000/svg"
+      }, _attrs))}><path d="M19.5 5.5L18.8803 15.5251C18.7219 18.0864 18.6428 19.3671 18.0008 20.2879C17.6833 20.7431 17.2747 21.1273 16.8007 21.416C15.8421 22 14.559 22 11.9927 22C9.42312 22 8.1383 22 7.17905 21.4149C6.7048 21.1257 6.296 20.7408 5.97868 20.2848C5.33688 19.3626 5.25945 18.0801 5.10461 15.5152L4.5 5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path><path d="M9 11.7349H15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path><path d="M10.5 15.6543H13.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path><path d="M3 5.5H21M16.0555 5.5L15.3729 4.09173C14.9194 3.15626 14.6926 2.68852 14.3015 2.39681C14.2148 2.3321 14.1229 2.27454 14.0268 2.2247C13.5937 2 13.0739 2 12.0343 2C10.9686 2 10.4358 2 9.99549 2.23412C9.89791 2.28601 9.80479 2.3459 9.7171 2.41317C9.32145 2.7167 9.10044 3.20155 8.65842 4.17126L8.05273 5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg>`);
+    };
+  }
+});
+const _sfc_setup$d = _sfc_main$d.setup;
+_sfc_main$d.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/components/Svgs/DeleteIcon.vue");
+  return _sfc_setup$d ? _sfc_setup$d(props, ctx) : void 0;
+};
+const _sfc_main$c = /* @__PURE__ */ Object.assign({ name: "UserTypeBadge" }, {
+  __name: "TypeBadge",
+  __ssrInlineRender: true,
+  props: ["type"],
+  setup(__props) {
+    return (_ctx, _push, _parent, _attrs) => {
+      _push(`<span${ssrRenderAttrs(mergeProps({
+        class: ["badge", {
+          "bg-label-primary": __props.type === "ADMIN",
+          "bg-label-secondary": __props.type === "USER",
+          "bg-label-warning": __props.type === "APP_USER"
+        }]
+      }, _attrs))}><span class="${ssrRenderClass([{
+        "text-bg-primary": __props.type === "ADMIN",
+        "text-bg-secondary": __props.type === "USER",
+        "text-bg-warning": __props.type === "APP_USER"
+      }, "badge badge-dot me-1"])}"></span> ${ssrInterpolate(_ctx.$t("users.types." + __props.type))}</span>`);
+    };
+  }
+});
+const _sfc_setup$c = _sfc_main$c.setup;
+_sfc_main$c.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/components/User/TypeBadge.vue");
+  return _sfc_setup$c ? _sfc_setup$c(props, ctx) : void 0;
+};
+const _sfc_main$b = {
+  __name: "Pagination",
+  __ssrInlineRender: true,
+  props: {
+    data: {
+      type: Object,
+      required: true
+    }
+  },
+  setup(__props) {
+    const props = __props;
+    const isFullPagination = computed(() => props.data.links && Array.isArray(props.data.links));
+    const infoText = computed(() => {
+      if (!props.data.total) return "";
+      const from = props.data.from ?? 0;
+      const to = props.data.to ?? 0;
+      const total = props.data.total ?? 0;
+      return trans("actions.pagination_showing", { from, to, total });
+    });
+    return (_ctx, _push, _parent, _attrs) => {
+      _push(`<div${ssrRenderAttrs(mergeProps({ class: "row mx-3 justify-content-between" }, _attrs))}><div class="d-md-flex justify-content-between align-items-center dt-layout-start col-md-auto me-auto mt-0"><div class="dt-info" aria-live="polite" role="status">${ssrInterpolate(infoText.value)}</div></div><div class="d-md-flex align-items-center dt-layout-end col-md-auto ms-auto d-flex gap-md-4 justify-content-md-between justify-content-center gap-4 flex-wrap mt-0"><div class="dt-paging"><nav aria-label="pagination"><ul class="pagination mb-0">`);
+      if (isFullPagination.value) {
+        _push(`<!--[-->`);
+        ssrRenderList(__props.data.links, (link, i) => {
+          _push(`<li class="${ssrRenderClass([{ active: link.active, disabled: link.url === null }, "dt-paging-button page-item"])}">`);
+          if (link.url) {
+            _push(ssrRenderComponent(unref(Link), {
+              class: "page-link",
+              href: link.url
+            }, null, _parent));
+          } else {
+            _push(`<button class="page-link" type="button" disabled>${link.label ?? ""}</button>`);
+          }
+          _push(`</li>`);
+        });
+        _push(`<!--]-->`);
+      } else {
+        _push(`<li class="dt-paging-button page-item active"><button class="page-link" type="button">${ssrInterpolate(__props.data.current_page)}</button></li>`);
+      }
+      _push(`</ul></nav></div></div></div>`);
+    };
+  }
+};
+const _sfc_setup$b = _sfc_main$b.setup;
+_sfc_main$b.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/components/Tables/Pagination.vue");
+  return _sfc_setup$b ? _sfc_setup$b(props, ctx) : void 0;
+};
+const _sfc_main$a = /* @__PURE__ */ Object.assign({ name: "EyeIcon" }, {
+  __name: "EyeIcon",
+  __ssrInlineRender: true,
+  setup(__props) {
+    return (_ctx, _push, _parent, _attrs) => {
+      _push(`<svg${ssrRenderAttrs(mergeProps(_ctx.$attrs, {
+        xmlns: "http://www.w3.org/2000/svg",
+        fill: "none",
+        viewBox: "0 0 24 24",
+        "stroke-width": "1.5",
+        stroke: "currentColor"
+      }, _attrs))}><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"></path></svg>`);
+    };
+  }
+});
+const _sfc_setup$a = _sfc_main$a.setup;
+_sfc_main$a.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/components/Svgs/EyeIcon.vue");
+  return _sfc_setup$a ? _sfc_setup$a(props, ctx) : void 0;
+};
+const _sfc_main$9 = /* @__PURE__ */ Object.assign({ name: "UsersIndex" }, {
+  __name: "Index",
+  __ssrInlineRender: true,
+  props: ["app", "users", "query"],
+  setup(__props) {
+    const props = __props;
+    const filter = ref({
+      type: props.query?.type || [],
+      perPage: props.query?.perPage || void 0,
+      q: props.query?.q || ""
+    });
+    const updateQuery = debounce((value) => {
+      router.get(
+        route("dashboard.users.index"),
+        value,
+        { preserveState: true, replace: true }
+      );
+    }, 200);
+    watch(filter, (value) => {
+      updateQuery(value);
+    }, { deep: true });
+    const selectedItems = ref([]);
+    const applyFilters = () => {
+      console.log(filter.value);
+    };
+    const { setBreadcrumbs } = useBreadcrumbs();
+    onMounted(() => {
+      console.log(router.params);
+      setBreadcrumbs([
+        { label: trans("sidebar.analytics"), href: "/" },
+        { label: trans("users.plural") }
+      ]);
+    });
+    return (_ctx, _push, _parent, _attrs) => {
+      _push(`<!--[-->`);
+      _push(ssrRenderComponent(unref(Head), null, {
+        default: withCtx((_, _push2, _parent2, _scopeId) => {
+          if (_push2) {
+            _push2(`<title${_scopeId}>${ssrInterpolate(_ctx.$t("users.plural"))} | ${ssrInterpolate(__props.app.name)}</title>`);
+          } else {
+            return [
+              createVNode("title", null, toDisplayString(_ctx.$t("users.plural")) + " | " + toDisplayString(__props.app.name), 1)
+            ];
+          }
+        }),
+        _: 1
+      }, _parent));
+      _push(`<div class="card"><div class="card-header border-bottom"><div class="d-flex justify-content-between align-items-center"><h5 class="card-title">${ssrInterpolate(_ctx.$t("users.tracking"))} <small class="text-muted d-block mt-2">${ssrInterpolate(_ctx.$t("users.tracking_note"))}</small></h5><a href="#" class="btn btn-primary"><svg width="20" height="20" class="me-1" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.99935 4.16797V15.8346M4.16602 10.0013H15.8327" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"></path></svg> ${ssrInterpolate(_ctx.$t("users.actions.create"))}</a></div></div><div class="table-responsive"><table class="table"><thead><tr><td colspan="100"><div class="row d-flex justify-content-between align-items-center"><div class="col-8"><button class="btn btn-label-danger"${ssrIncludeBooleanAttr(selectedItems.value.length === 0) ? " disabled" : ""}>`);
+      _push(ssrRenderComponent(_sfc_main$d, {
+        width: "18",
+        height: "18",
+        class: "me-2"
+      }, null, _parent));
+      _push(` ${ssrInterpolate(_ctx.$t("users.actions.delete_selected"))}</button></div><div class="col-4 d-flex align-items-center justify-content-between gap-2"><div class="input-group input-group-merge"><span class="input-group-text" id="basic-addon-search31"><i class="icon-base bx bx-search"></i></span><input type="text" class="form-control"${ssrRenderAttr("value", filter.value.q)}${ssrRenderAttr("placeholder", _ctx.$t("users.search"))}></div>`);
+      _push(ssrRenderComponent(FilterDropdown, { onApply: applyFilters }, {
+        default: withCtx((_, _push2, _parent2, _scopeId) => {
+          if (_push2) {
+            _push2(`<h6 class="dropdown-header px-0 mb-2"${_scopeId}>${ssrInterpolate(_ctx.$t("users.attributes.type"))}</h6><div class="form-check"${_scopeId}><input class="form-check-input" type="checkbox" value="APP_USER" id="APP_USER"${ssrIncludeBooleanAttr(Array.isArray(filter.value.type) ? ssrLooseContain(filter.value.type, "APP_USER") : filter.value.type) ? " checked" : ""}${_scopeId}><label class="form-check-label" for="APP_USER"${_scopeId}>${ssrInterpolate(_ctx.$t("users.types.APP_USER"))}</label></div><div class="form-check"${_scopeId}><input class="form-check-input" type="checkbox" value="USER" id="USER"${ssrIncludeBooleanAttr(Array.isArray(filter.value.type) ? ssrLooseContain(filter.value.type, "USER") : filter.value.type) ? " checked" : ""}${_scopeId}><label class="form-check-label" for="USER"${_scopeId}>${ssrInterpolate(_ctx.$t("users.types.USER"))}</label></div><div class="form-check"${_scopeId}><input class="form-check-input" type="checkbox" value="ADMIN" id="ADMIN"${ssrIncludeBooleanAttr(Array.isArray(filter.value.type) ? ssrLooseContain(filter.value.type, "ADMIN") : filter.value.type) ? " checked" : ""}${_scopeId}><label class="form-check-label" for="ADMIN"${_scopeId}>${ssrInterpolate(_ctx.$t("users.types.ADMIN"))}</label></div><hr class="dropdown-divider"${_scopeId}><h6 class="dropdown-header px-0 mb-2"${_scopeId}>${ssrInterpolate(_ctx.$t("users.perPage"))}</h6><input class="form-control" type="number" min="1"${ssrRenderAttr("value", filter.value.perPage)}${_scopeId}><hr class="dropdown-divider"${_scopeId}><h6 class="dropdown-header px-0 mb-2"${_scopeId}>${ssrInterpolate(_ctx.$t("users.attributes.email"))}</h6><input class="form-control" type="text" min="1"${ssrRenderAttr("value", filter.value.email)}${_scopeId}>`);
+          } else {
+            return [
+              createVNode("h6", { class: "dropdown-header px-0 mb-2" }, toDisplayString(_ctx.$t("users.attributes.type")), 1),
+              createVNode("div", { class: "form-check" }, [
+                withDirectives(createVNode("input", {
+                  class: "form-check-input",
+                  type: "checkbox",
+                  value: "APP_USER",
+                  id: "APP_USER",
+                  "onUpdate:modelValue": ($event) => filter.value.type = $event
+                }, null, 8, ["onUpdate:modelValue"]), [
+                  [vModelCheckbox, filter.value.type]
+                ]),
+                createVNode("label", {
+                  class: "form-check-label",
+                  for: "APP_USER"
+                }, toDisplayString(_ctx.$t("users.types.APP_USER")), 1)
+              ]),
+              createVNode("div", { class: "form-check" }, [
+                withDirectives(createVNode("input", {
+                  class: "form-check-input",
+                  type: "checkbox",
+                  value: "USER",
+                  id: "USER",
+                  "onUpdate:modelValue": ($event) => filter.value.type = $event
+                }, null, 8, ["onUpdate:modelValue"]), [
+                  [vModelCheckbox, filter.value.type]
+                ]),
+                createVNode("label", {
+                  class: "form-check-label",
+                  for: "USER"
+                }, toDisplayString(_ctx.$t("users.types.USER")), 1)
+              ]),
+              createVNode("div", { class: "form-check" }, [
+                withDirectives(createVNode("input", {
+                  class: "form-check-input",
+                  type: "checkbox",
+                  value: "ADMIN",
+                  id: "ADMIN",
+                  "onUpdate:modelValue": ($event) => filter.value.type = $event
+                }, null, 8, ["onUpdate:modelValue"]), [
+                  [vModelCheckbox, filter.value.type]
+                ]),
+                createVNode("label", {
+                  class: "form-check-label",
+                  for: "ADMIN"
+                }, toDisplayString(_ctx.$t("users.types.ADMIN")), 1)
+              ]),
+              createVNode("hr", { class: "dropdown-divider" }),
+              createVNode("h6", { class: "dropdown-header px-0 mb-2" }, toDisplayString(_ctx.$t("users.perPage")), 1),
+              withDirectives(createVNode("input", {
+                class: "form-control",
+                type: "number",
+                min: "1",
+                "onUpdate:modelValue": ($event) => filter.value.perPage = $event
+              }, null, 8, ["onUpdate:modelValue"]), [
+                [vModelText, filter.value.perPage]
+              ]),
+              createVNode("hr", { class: "dropdown-divider" }),
+              createVNode("h6", { class: "dropdown-header px-0 mb-2" }, toDisplayString(_ctx.$t("users.attributes.email")), 1),
+              withDirectives(createVNode("input", {
+                class: "form-control",
+                type: "text",
+                min: "1",
+                "onUpdate:modelValue": ($event) => filter.value.email = $event
+              }, null, 8, ["onUpdate:modelValue"]), [
+                [vModelText, filter.value.email]
+              ])
+            ];
+          }
+        }),
+        _: 1
+      }, _parent));
+      _push(`</div></div></td></tr><tr class="table-active"><td style="${ssrRenderStyle({ "width": "40px" })}"><div class="form-check"><input class="form-check-input" type="checkbox" id="selectAll"></div></td><th>${ssrInterpolate(_ctx.$t("users.attributes.name"))}</th><th>${ssrInterpolate(_ctx.$t("users.attributes.phone"))}</th><th>${ssrInterpolate(_ctx.$t("users.attributes.type"))}</th><th>${ssrInterpolate(_ctx.$t("users.attributes.last_active"))}</th><th>${ssrInterpolate(_ctx.$t("users.attributes.created_at"))}</th><th>${ssrInterpolate(_ctx.$t("users.attributes.actions"))}</th></tr></thead><tbody><!--[-->`);
+      ssrRenderList(__props.users.data, (user) => {
+        _push(`<tr class="${ssrRenderClass({ "bg-label-primary": selectedItems.value.includes(user.id) })}"><td><div class="form-check"><input class="form-check-input" multiple name="items[]"${ssrIncludeBooleanAttr(Array.isArray(selectedItems.value) ? ssrLooseContain(selectedItems.value, user.id) : selectedItems.value) ? " checked" : ""} type="checkbox"${ssrRenderAttr("value", user.id)}></div></td><td><div class="d-flex justify-content-start align-items-center user-name"><div class="avatar-wrapper"><div class="avatar avatar-sm me-4"><img${ssrRenderAttr("src", user.avatar)}${ssrRenderAttr("alt", user.name)} class="rounded-circle"></div></div><div class="d-flex flex-column">`);
+        _push(ssrRenderComponent(unref(Link), {
+          href: unref(route)("dashboard.users.show", user),
+          class: "text-heading text-truncate"
+        }, {
+          default: withCtx((_, _push2, _parent2, _scopeId) => {
+            if (_push2) {
+              _push2(`<span class="fw-medium"${_scopeId}>${ssrInterpolate(user.name)}</span>`);
+            } else {
+              return [
+                createVNode("span", { class: "fw-medium" }, toDisplayString(user.name), 1)
+              ];
+            }
+          }),
+          _: 2
+        }, _parent));
+        _push(`<small>${ssrInterpolate(user.email)}</small></div></div></td><td>${ssrInterpolate(user.phone)}</td><td>`);
+        _push(ssrRenderComponent(_sfc_main$c, {
+          type: user.type
+        }, null, _parent));
+        _push(`</td><td>3 min ago</td><td>Oct 10, 2024 ,10AM</td><td><div class="d-flex gap-3">`);
+        _push(ssrRenderComponent(unref(Link), {
+          href: unref(route)("dashboard.users.show", user),
+          class: "text-muted"
+        }, {
+          default: withCtx((_, _push2, _parent2, _scopeId) => {
+            if (_push2) {
+              _push2(ssrRenderComponent(_sfc_main$a, {
+                width: "20",
+                height: "20"
+              }, null, _parent2, _scopeId));
+            } else {
+              return [
+                createVNode(_sfc_main$a, {
+                  width: "20",
+                  height: "20"
+                })
+              ];
+            }
+          }),
+          _: 2
+        }, _parent));
+        _push(ssrRenderComponent(unref(Link), {
+          href: unref(route)("dashboard.users.edit", user),
+          class: "text-muted"
+        }, {
+          default: withCtx((_, _push2, _parent2, _scopeId) => {
+            if (_push2) {
+              _push2(ssrRenderComponent(_sfc_main$e, {
+                width: "20",
+                height: "20"
+              }, null, _parent2, _scopeId));
+            } else {
+              return [
+                createVNode(_sfc_main$e, {
+                  width: "20",
+                  height: "20"
+                })
+              ];
+            }
+          }),
+          _: 2
+        }, _parent));
+        _push(ssrRenderComponent(unref(Link), {
+          href: unref(route)("dashboard.users.show", user),
+          class: "text-danger"
+        }, {
+          default: withCtx((_, _push2, _parent2, _scopeId) => {
+            if (_push2) {
+              _push2(ssrRenderComponent(_sfc_main$d, {
+                width: "20",
+                height: "20"
+              }, null, _parent2, _scopeId));
+            } else {
+              return [
+                createVNode(_sfc_main$d, {
+                  width: "20",
+                  height: "20"
+                })
+              ];
+            }
+          }),
+          _: 2
+        }, _parent));
+        _push(`</div></td></tr>`);
+      });
+      _push(`<!--]--></tbody></table></div><div class="card-footer">`);
+      if (__props.users) {
+        _push(ssrRenderComponent(_sfc_main$b, { data: __props.users }, null, _parent));
+      } else {
+        _push(`<!---->`);
+      }
+      _push(`</div><div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddUser" aria-labelledby="offcanvasAddUserLabel"><div class="offcanvas-header"><h5 id="offcanvasAddUserLabel" class="offcanvas-title">Add User</h5><button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button></div><div class="offcanvas-body mx-0 flex-grow-0"><form class="add-new-user pt-0" id="addNewUserForm" onsubmit="return false"><div class="mb-3"><label class="form-label" for="add-user-fullname">Full Name</label><input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name="userFullname" aria-label="John Doe"></div><div class="mb-3"><label class="form-label" for="add-user-email">Email</label><input type="text" id="add-user-email" class="form-control" placeholder="john.doe@example.com" aria-label="john.doe@example.com" name="userEmail"></div><div class="mb-3"><label class="form-label" for="add-user-contact">Contact</label><input type="text" id="add-user-contact" class="form-control phone-mask" placeholder="+1 (609) 988-44-11" aria-label="john.doe@example.com" name="userContact"></div><div class="mb-3"><label class="form-label" for="add-user-company">Company</label><input type="text" id="add-user-company" class="form-control" placeholder="Web Developer" aria-label="jdoe1" name="companyName"></div><div class="mb-3"><label class="form-label" for="country">Country</label><select id="country" class="select2 form-select"><option value="">Select</option><option value="Australia">Australia</option><option value="Bangladesh">Bangladesh</option><option value="Belarus">Belarus</option><option value="Brazil">Brazil</option><option value="Canada">Canada</option><option value="China">China</option><option value="France">France</option><option value="Germany">Germany</option><option value="India">India</option><option value="Indonesia">Indonesia</option><option value="Israel">Israel</option><option value="Italy">Italy</option><option value="Japan">Japan</option><option value="Korea">Korea, Republic of</option><option value="Mexico">Mexico</option><option value="Philippines">Philippines</option><option value="Russia">Russian Federation</option><option value="South Africa">South Africa</option><option value="Thailand">Thailand</option><option value="Turkey">Turkey</option><option value="Ukraine">Ukraine</option><option value="United Arab Emirates">United Arab Emirates</option><option value="United Kingdom">United Kingdom</option><option value="United States">United States</option></select></div><div class="mb-3"><label class="form-label" for="user-role">User Role</label><select id="user-role" class="form-select"><option value="subscriber">Subscriber</option><option value="editor">Editor</option><option value="maintainer">Maintainer</option><option value="author">Author</option><option value="admin">Admin</option></select></div><div class="mb-4"><label class="form-label" for="user-plan">Select Plan</label><select id="user-plan" class="form-select"><option value="basic">Basic</option><option value="enterprise">Enterprise</option><option value="company">Company</option><option value="team">Team</option></select></div><button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit"> Submit </button><button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas"> Cancel </button></form></div></div></div><!--]-->`);
+    };
+  }
+});
+const _sfc_setup$9 = _sfc_main$9.setup;
+_sfc_main$9.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/pages/Dashboard/Users/Index.vue");
+  return _sfc_setup$9 ? _sfc_setup$9(props, ctx) : void 0;
+};
+const __vite_glob_0_11 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: _sfc_main$9
 }, Symbol.toStringTag, { value: "Module" }));
 function useAuth() {
   const page = usePage();
@@ -4404,7 +4942,7 @@ function useAuth() {
     logout
   };
 }
-const _sfc_main$1 = /* @__PURE__ */ defineComponent({
+const _sfc_main$8 = /* @__PURE__ */ defineComponent({
   __name: "Test",
   __ssrInlineRender: true,
   props: ["event"],
@@ -4415,21 +4953,94 @@ const _sfc_main$1 = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const _sfc_setup$1 = _sfc_main$1.setup;
-_sfc_main$1.setup = (props, ctx) => {
+const _sfc_setup$8 = _sfc_main$8.setup;
+_sfc_main$8.setup = (props, ctx) => {
   const ssrContext = useSSRContext();
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/pages/Test.vue");
-  return _sfc_setup$1 ? _sfc_setup$1(props, ctx) : void 0;
+  return _sfc_setup$8 ? _sfc_setup$8(props, ctx) : void 0;
 };
-const __vite_glob_0_8 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_12 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  default: _sfc_main$1
+  default: _sfc_main$8
 }, Symbol.toStringTag, { value: "Module" }));
 const php_ar = {
+  "actions.filter": "تصفية",
+  "actions.apply_filter": "تطبيق التصفية",
   "actions.search": "بحث ...",
+  "actions.pagination_showing": "عرض :from إلى :to من أصل :total نتائج",
   "actions.mode.light": "فاتح",
   "actions.mode.dark": "داكن",
   "actions.mode.system": "حسب النظام",
+  "admins.plural": "المسؤولون",
+  "admins.singular": "مسؤول",
+  "admins.tracking": "متابعة المسؤولين",
+  "admins.tracking_note": "تتبع المسؤولين داخل التطبيق في مكان واحد",
+  "admins.all": "الكل",
+  "admins.recently": "أضيف حديثًا",
+  "admins.search": "بحث",
+  "admins.empty": "لا يوجد مسؤولون",
+  "admins.select": "اختر مسؤولًا",
+  "admins.trashed": "المسؤولون المحذوفون",
+  "admins.perPage": "عدد النتائج في كل صفحة",
+  "admins.my_profile": "ملفي الشخصي",
+  "admins.profile": "الملف الشخصي",
+  "admins.edit_profile": "تعديل الملف الشخصي",
+  "admins.about": "حول",
+  "admins.contacts": "جهات الاتصال",
+  "admins.tabs.details": "تفاصيل الملف الشخصي",
+  "admins.tabs.password": "تغيير كلمة المرور",
+  "admins.types.APP_USER": "مستخدم تطبيق",
+  "admins.types.USER": "مستخدم",
+  "admins.types.ADMIN": "مدير",
+  "admins.actions.list": "عرض المسؤولين",
+  "admins.actions.show": "عرض المسؤول",
+  "admins.actions.create": "اضافة مسؤول جديد",
+  "admins.actions.new": "جديد",
+  "admins.actions.edit": "تعديل المسؤول",
+  "admins.actions.delete": "حذف المسؤول",
+  "admins.actions.restore": "استعادة",
+  "admins.actions.forceDelete": "حذف نهائي",
+  "admins.actions.save": "حفظ",
+  "admins.actions.filter": "تصفية",
+  "admins.actions.delete-account": "حذف الحساب",
+  "admins.actions.avatar.upload": "رفع صورة",
+  "admins.actions.avatar.reset": "إعادة تعيين",
+  "admins.messages.created": "تم إنشاء المسؤول بنجاح.",
+  "admins.messages.updated": "تم تحديث المسؤول بنجاح.",
+  "admins.messages.profile-updated": "تم تحديث ملفك الشخصي بنجاح.",
+  "admins.messages.deleted": "تم حذف المسؤول بنجاح.",
+  "admins.messages.restored": "تم استعادة المسؤول بنجاح.",
+  "admins.attributes.name": "الاسم",
+  "admins.attributes.phone": "الهاتف",
+  "admins.attributes.email": "البريد الإلكتروني",
+  "admins.attributes.created_at": "تاريخ الانضمام",
+  "admins.attributes.password": "كلمة المرور",
+  "admins.attributes.password_confirmation": "تأكيد كلمة المرور",
+  "admins.attributes.current_password": "كلمة المرور الحالية",
+  "admins.attributes.new_password": "كلمة المرور الجديدة",
+  "admins.attributes.type": "نوع المستخدم",
+  "admins.attributes.role": "الدور",
+  "admins.attributes.last_active": "اخر نشاط",
+  "admins.attributes.language": "اللغة",
+  "admins.attributes.avatar": "الصورة الشخصية",
+  "admins.attributes.actions": "الإجراءات",
+  "admins.notes.avatar": "الصيغ المسموح بها: JPG، JPEG، GIF، PNG.",
+  "admins.delete-account.confirm-title": "هل أنت متأكد من رغبتك في حذف حسابك؟",
+  "admins.delete-account.confirm-info": "بمجرد حذف حسابك، سيتم حذف جميع موارده وبياناته بشكل دائم. يرجى إدخال كلمة المرور لتأكيد رغبتك في حذف الحساب نهائيًا.",
+  "admins.delete-account.confirm-check": "أؤكد تعطيل حسابي",
+  "admins.delete-account.confirm": "تعطيل الحساب",
+  "admins.dialogs.delete.title": "تحذير!",
+  "admins.dialogs.delete.info": "هل أنت متأكد من رغبتك في حذف المسؤول؟",
+  "admins.dialogs.delete.confirm": "حذف",
+  "admins.dialogs.delete.cancel": "إلغاء",
+  "admins.dialogs.restore.title": "تحذير!",
+  "admins.dialogs.restore.info": "هل أنت متأكد من رغبتك في استعادة المسؤول؟",
+  "admins.dialogs.restore.confirm": "استعادة",
+  "admins.dialogs.restore.cancel": "إلغاء",
+  "admins.dialogs.forceDelete.title": "تحذير!",
+  "admins.dialogs.forceDelete.info": "هل أنت متأكد من رغبتك في الحذف النهائي للمسؤول؟",
+  "admins.dialogs.forceDelete.confirm": "حذف نهائي",
+  "admins.dialogs.forceDelete.cancel": "إلغاء",
   "auth.failed": "بيانات الاعتماد هذه غير متطابقة مع سجلاتنا.",
   "auth.password": "كلمة المرور التي تم إدخالها غير صحيحة.",
   "auth.throttle": "عدد محاولات تسجيل الدخول كبير جداً. الرجاء المحاولة مرة أخرى خلال :seconds ثانية.",
@@ -4534,8 +5145,18 @@ const php_ar = {
   "settings.notes.LOGO": "الشعار الرئيسي لموقعك (يفضل بصيغة PNG)",
   "settings.notes.FAVICON": "أيقونة الموقع في المتصفح (32×32px)",
   "settings.notes.MAIL_PORT": "أدخل رقم منفذ SMTP صالح بين (1 - 65535)",
+  "sidebar.analytics": "Analytics",
+  "sidebar.services": "Services",
+  "sidebar.pois": "POIs",
+  "sidebar.poi_requests": "POI Requests",
+  "sidebar.business_requests": "Business Requests",
   "users.plural": "المستخدمون",
   "users.singular": "مستخدم",
+  "users.tracking": "متابعة المستخدمين",
+  "users.tracking_note": "تتبع المستخدمين داخل التطبيق في مكان واحد",
+  "users.all": "الكل",
+  "users.recently": "أضيف حديثًا",
+  "users.search": "بحث",
   "users.empty": "لا يوجد مستخدمون",
   "users.select": "اختر مستخدمًا",
   "users.trashed": "المستخدمون المحذوفون",
@@ -4547,14 +5168,16 @@ const php_ar = {
   "users.contacts": "جهات الاتصال",
   "users.tabs.details": "تفاصيل الملف الشخصي",
   "users.tabs.password": "تغيير كلمة المرور",
+  "users.types.APP_USER": "مستخدم تطبيق",
   "users.types.USER": "مستخدم",
   "users.types.ADMIN": "مدير",
   "users.actions.list": "عرض المستخدمين",
   "users.actions.show": "عرض المستخدم",
-  "users.actions.create": "إنشاء",
+  "users.actions.create": "إضافة مستخدم جديد",
   "users.actions.new": "جديد",
   "users.actions.edit": "تعديل المستخدم",
   "users.actions.delete": "حذف المستخدم",
+  "users.actions.delete_selected": "حذف المستخدمين المحددين",
   "users.actions.restore": "استعادة",
   "users.actions.forceDelete": "حذف نهائي",
   "users.actions.save": "حفظ",
@@ -4577,8 +5200,10 @@ const php_ar = {
   "users.attributes.new_password": "كلمة المرور الجديدة",
   "users.attributes.type": "نوع المستخدم",
   "users.attributes.role": "الدور",
+  "users.attributes.last_active": "آخر نشاط",
   "users.attributes.language": "اللغة",
   "users.attributes.avatar": "الصورة الشخصية",
+  "users.attributes.actions": "الإجراءات",
   "users.notes.avatar": "الصيغ المسموح بها: JPG، JPEG، GIF، PNG.",
   "users.delete-account.confirm-title": "هل أنت متأكد من رغبتك في حذف حسابك؟",
   "users.delete-account.confirm-info": "بمجرد حذف حسابك، سيتم حذف جميع موارده وبياناته بشكل دائم. يرجى إدخال كلمة المرور لتأكيد رغبتك في حذف الحساب نهائيًا.",
@@ -4881,10 +5506,83 @@ const php_en = {
   "validation.ulid": "The :attribute field must be a valid ULID.",
   "validation.uuid": "The :attribute field must be a valid UUID.",
   "validation.custom.attribute-name.rule-name": "custom-message",
+  "actions.filter": "Filter",
+  "actions.apply_filter": "Apply Filter",
   "actions.search": "Search ...",
+  "actions.pagination_showing": "Showing :from to :to of :total entries",
   "actions.mode.light": "Light",
   "actions.mode.dark": "Dark",
   "actions.mode.system": "System",
+  "admins.plural": "Admins",
+  "admins.singular": "Admin",
+  "admins.tracking": "Tracking Admins",
+  "admins.tracking_note": "Keep track Admins inside the app in one place",
+  "admins.all": "All",
+  "admins.recently": "Recently Added",
+  "admins.search": "Search",
+  "admins.empty": "There are no admins",
+  "admins.select": "Select Admin",
+  "admins.trashed": "Trashed Admins",
+  "admins.perPage": "Count Results Per Page",
+  "admins.my_profile": "My Profile",
+  "admins.profile": "Profile",
+  "admins.edit_profile": "Edit Profile",
+  "admins.about": "About",
+  "admins.contacts": "Contacts",
+  "admins.tabs.details": "Profile Details",
+  "admins.tabs.password": "Change Password",
+  "admins.types.APP_USER": "App User",
+  "admins.types.USER": "User",
+  "admins.types.ADMIN": "User",
+  "admins.actions.list": "List Admins",
+  "admins.actions.show": "Show Admin",
+  "admins.actions.create": "Add New Admin",
+  "admins.actions.new": "New",
+  "admins.actions.edit": "Edit Admin",
+  "admins.actions.delete": "Delete Admin",
+  "admins.actions.restore": "Restore",
+  "admins.actions.forceDelete": "Force Delete",
+  "admins.actions.save": "Save",
+  "admins.actions.filter": "Filter",
+  "admins.actions.delete-account": "Delete Account",
+  "admins.actions.avatar.upload": "Upload Picture",
+  "admins.actions.avatar.reset": "Reset",
+  "admins.messages.created": "The admin has been created successfully.",
+  "admins.messages.updated": "The admin has been updated successfully.",
+  "admins.messages.profile-updated": "Your profile has been updated successfully.",
+  "admins.messages.deleted": "The admin has been deleted successfully.",
+  "admins.messages.restored": "The admin has been restored successfully.",
+  "admins.attributes.name": "Name",
+  "admins.attributes.phone": "Phone",
+  "admins.attributes.email": "Email",
+  "admins.attributes.created_at": "Date Joined",
+  "admins.attributes.password": "Password",
+  "admins.attributes.password_confirmation": "Confirm Password",
+  "admins.attributes.current_password": "Current Password",
+  "admins.attributes.new_password": "New Password",
+  "admins.attributes.type": "Admin Type",
+  "admins.attributes.role": "Role",
+  "admins.attributes.last_active": "Last Active",
+  "admins.attributes.language": "Language",
+  "admins.attributes.avatar": "Profile Picture",
+  "admins.attributes.actions": "Actions",
+  "admins.notes.avatar": "Allowed JPG, JPEG, GIF or PNG.",
+  "admins.delete-account.confirm-title": "Are you sure you want to delete your account?",
+  "admins.delete-account.confirm-info": "Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.",
+  "admins.delete-account.confirm-check": "I confirm my account deactivation",
+  "admins.delete-account.confirm": "Deactivate Account",
+  "admins.dialogs.delete.title": "Warning !",
+  "admins.dialogs.delete.info": "Are you sure you want to delete the admin ?",
+  "admins.dialogs.delete.confirm": "Delete",
+  "admins.dialogs.delete.cancel": "Cancel",
+  "admins.dialogs.restore.title": "Warning !",
+  "admins.dialogs.restore.info": "Are you sure you want to restore the admin ?",
+  "admins.dialogs.restore.confirm": "Restore",
+  "admins.dialogs.restore.cancel": "Cancel",
+  "admins.dialogs.forceDelete.title": "Warning !",
+  "admins.dialogs.forceDelete.info": "Are you sure you want to force delete the admin ?",
+  "admins.dialogs.forceDelete.confirm": "Force",
+  "admins.dialogs.forceDelete.cancel": "Cancel",
   "auth.logout": "Log Out",
   "auth.register.page_title": "Register",
   "auth.register.title": "Adventure starts here 🚀",
@@ -4979,8 +5677,21 @@ const php_en = {
   "settings.notes.LOGO": "Main logo for your site (PNG recommended)",
   "settings.notes.FAVICON": "Site icon for browser tab (32×32px)",
   "settings.notes.MAIL_PORT": "Enter a valid SMTP port number between (1 - 65535)",
+  "sidebar.overview": "Overview",
+  "sidebar.analytics": "Analytics",
+  "sidebar.app_users": "App Users",
+  "sidebar.app_admins": "App Admins",
+  "sidebar.services": "Services",
+  "sidebar.pois": "POIs",
+  "sidebar.poi_requests": "POI Requests",
+  "sidebar.business_requests": "Business Requests",
   "users.plural": "Users",
   "users.singular": "User",
+  "users.tracking": "Tracking Users",
+  "users.tracking_note": "Keep track of users inside the app in one place",
+  "users.all": "All",
+  "users.recently": "Recently Added",
+  "users.search": "Search",
   "users.empty": "There are no users",
   "users.select": "Select User",
   "users.trashed": "Trashed Users",
@@ -4992,14 +5703,16 @@ const php_en = {
   "users.contacts": "Contacts",
   "users.tabs.details": "Profile Details",
   "users.tabs.password": "Change Password",
+  "users.types.APP_USER": "App User",
   "users.types.USER": "User",
   "users.types.ADMIN": "Admin",
   "users.actions.list": "List Users",
   "users.actions.show": "Show User",
-  "users.actions.create": "Create",
+  "users.actions.create": "Add New User",
   "users.actions.new": "New",
   "users.actions.edit": "Edit User",
   "users.actions.delete": "Delete User",
+  "users.actions.delete_selected": "Delete Selected Users",
   "users.actions.restore": "Restore",
   "users.actions.forceDelete": "Force Delete",
   "users.actions.save": "Save",
@@ -5015,31 +5728,33 @@ const php_en = {
   "users.attributes.name": "Name",
   "users.attributes.phone": "Phone",
   "users.attributes.email": "Email",
-  "users.attributes.created_at": "Joined",
+  "users.attributes.created_at": "Date Joined",
   "users.attributes.password": "Password",
   "users.attributes.password_confirmation": "Confirm Password",
   "users.attributes.current_password": "Current Password",
   "users.attributes.new_password": "New Password",
   "users.attributes.type": "User Type",
   "users.attributes.role": "Role",
+  "users.attributes.last_active": "Last Active",
   "users.attributes.language": "Language",
   "users.attributes.avatar": "Profile Picture",
+  "users.attributes.actions": "Actions",
   "users.notes.avatar": "Allowed JPG, JPEG, GIF or PNG.",
   "users.delete-account.confirm-title": "Are you sure you want to delete your account?",
   "users.delete-account.confirm-info": "Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.",
   "users.delete-account.confirm-check": "I confirm my account deactivation",
   "users.delete-account.confirm": "Deactivate Account",
-  "users.dialogs.delete.title": "Warning !",
-  "users.dialogs.delete.info": "Are you sure you want to delete the user ?",
+  "users.dialogs.delete.title": "Warning!",
+  "users.dialogs.delete.info": "Are you sure you want to delete the user?",
   "users.dialogs.delete.confirm": "Delete",
   "users.dialogs.delete.cancel": "Cancel",
-  "users.dialogs.restore.title": "Warning !",
-  "users.dialogs.restore.info": "Are you sure you want to restore the user ?",
+  "users.dialogs.restore.title": "Warning!",
+  "users.dialogs.restore.info": "Are you sure you want to restore the user?",
   "users.dialogs.restore.confirm": "Restore",
   "users.dialogs.restore.cancel": "Cancel",
-  "users.dialogs.forceDelete.title": "Warning !",
-  "users.dialogs.forceDelete.info": "Are you sure you want to force delete the user ?",
-  "users.dialogs.forceDelete.confirm": "Force",
+  "users.dialogs.forceDelete.title": "Warning!",
+  "users.dialogs.forceDelete.info": "Are you sure you want to permanently delete the user?",
+  "users.dialogs.forceDelete.confirm": "Force Delete",
   "users.dialogs.forceDelete.cancel": "Cancel"
 };
 const __vite_glob_1_1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
@@ -5140,6 +5855,323 @@ const Auth = {
     });
   }
 };
+const _sfc_main$7 = /* @__PURE__ */ Object.assign({ name: "SidebarHead" }, {
+  __name: "SidebarHead",
+  __ssrInlineRender: true,
+  setup(__props) {
+    return (_ctx, _push, _parent, _attrs) => {
+      _push(`<li${ssrRenderAttrs(mergeProps({ class: "menu-header small text-uppercase" }, _attrs))}><span class="menu-header-text">`);
+      ssrRenderSlot(_ctx.$slots, "default", {}, null, _push, _parent);
+      _push(`</span></li>`);
+    };
+  }
+});
+const _sfc_setup$7 = _sfc_main$7.setup;
+_sfc_main$7.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/components/Dashboard/SidebarHead.vue");
+  return _sfc_setup$7 ? _sfc_setup$7(props, ctx) : void 0;
+};
+const _sfc_main$6 = /* @__PURE__ */ Object.assign({ name: "SidebarLink" }, {
+  __name: "SidebarLink",
+  __ssrInlineRender: true,
+  props: {
+    type: {
+      type: String,
+      required: false,
+      default: "link"
+    },
+    href: {
+      type: String,
+      required: false,
+      default: "#"
+    },
+    label: {
+      type: String,
+      required: true
+    },
+    iconClass: {
+      type: String,
+      required: false
+    },
+    active: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    badge: {
+      type: Number,
+      required: false,
+      default: 0
+    }
+  },
+  setup(__props) {
+    return (_ctx, _push, _parent, _attrs) => {
+      _push(`<li${ssrRenderAttrs(mergeProps({
+        class: ["menu-item", { "active open": __props.active && __props.type === "dropdown", active: __props.active && __props.type === "link" }]
+      }, _attrs))}>`);
+      _push(ssrRenderComponent(unref(Link), {
+        href: __props.href,
+        class: ["menu-link", { "menu-toggle": __props.type === "dropdown" }]
+      }, {
+        default: withCtx((_, _push2, _parent2, _scopeId) => {
+          if (_push2) {
+            if (__props.iconClass) {
+              _push2(`<i class="${ssrRenderClass([__props.iconClass, "menu-icon tf-icons"])}"${_scopeId}></i>`);
+            } else {
+              _push2(`<!---->`);
+            }
+            ssrRenderSlot(_ctx.$slots, "svg", {}, null, _push2, _parent2, _scopeId);
+            _push2(`<div class="text-truncate"${_scopeId}>${ssrInterpolate(__props.label)}</div>`);
+            if (__props.badge > 0) {
+              _push2(`<span${ssrRenderAttr("title", __props.badge > 99 ? __props.badge : "")} class="badge bg-label-danger ms-auto"${_scopeId}>${ssrInterpolate(__props.badge > 99 ? "+99" : __props.badge)}</span>`);
+            } else {
+              _push2(`<!---->`);
+            }
+          } else {
+            return [
+              __props.iconClass ? (openBlock(), createBlock("i", {
+                key: 0,
+                class: ["menu-icon tf-icons", __props.iconClass]
+              }, null, 2)) : createCommentVNode("", true),
+              renderSlot(_ctx.$slots, "svg"),
+              createVNode("div", { class: "text-truncate" }, toDisplayString(__props.label), 1),
+              __props.badge > 0 ? (openBlock(), createBlock("span", {
+                key: 1,
+                title: __props.badge > 99 ? __props.badge : "",
+                class: "badge bg-label-danger ms-auto"
+              }, toDisplayString(__props.badge > 99 ? "+99" : __props.badge), 9, ["title"])) : createCommentVNode("", true)
+            ];
+          }
+        }),
+        _: 3
+      }, _parent));
+      _push(`<ul class="menu-sub">`);
+      ssrRenderSlot(_ctx.$slots, "default", {}, null, _push, _parent);
+      _push(`</ul></li>`);
+    };
+  }
+});
+const _sfc_setup$6 = _sfc_main$6.setup;
+_sfc_main$6.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/components/Dashboard/SidebarLink.vue");
+  return _sfc_setup$6 ? _sfc_setup$6(props, ctx) : void 0;
+};
+const _sfc_main$5 = /* @__PURE__ */ Object.assign({ name: "UserGroupIcon" }, {
+  __name: "UserGroupIcon",
+  __ssrInlineRender: true,
+  setup(__props) {
+    return (_ctx, _push, _parent, _attrs) => {
+      _push(`<svg${ssrRenderAttrs(mergeProps(_ctx.$attrs, {
+        viewBox: "0 0 24 24",
+        fill: "none",
+        xmlns: "http://www.w3.org/2000/svg"
+      }, _attrs))}><path d="M20.774 18C21.5233 18 22.1193 17.5285 22.6545 16.8691C23.7499 15.5194 21.9513 14.4408 21.2654 13.9126C20.568 13.3756 19.7894 13.0714 19 13M18 11C19.3807 11 20.5 9.88071 20.5 8.5C20.5 7.11929 19.3807 6 18 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path><path d="M3.22596 18C2.47666 18 1.88067 17.5285 1.34555 16.8691C0.250089 15.5194 2.04867 14.4408 2.73465 13.9126C3.43197 13.3756 4.21058 13.0714 5 13M5.5 11C4.11929 11 3 9.88071 3 8.5C3 7.11929 4.11929 6 5.5 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path><path d="M8.0838 15.1112C7.06203 15.743 4.38299 17.0331 6.0147 18.6474C6.81178 19.436 7.69952 20 8.81563 20H15.1844C16.3005 20 17.1882 19.436 17.9853 18.6474C19.617 17.0331 16.938 15.743 15.9162 15.1112C13.5201 13.6296 10.4799 13.6296 8.0838 15.1112Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M15.5 7.5C15.5 9.433 13.933 11 12 11C10.067 11 8.5 9.433 8.5 7.5C8.5 5.567 10.067 4 12 4C13.933 4 15.5 5.567 15.5 7.5Z" stroke="currentColor" stroke-width="1.5"></path></svg>`);
+    };
+  }
+});
+const _sfc_setup$5 = _sfc_main$5.setup;
+_sfc_main$5.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/components/Svgs/UserGroupIcon.vue");
+  return _sfc_setup$5 ? _sfc_setup$5(props, ctx) : void 0;
+};
+const _sfc_main$4 = /* @__PURE__ */ Object.assign({ name: "PoisIcon" }, {
+  __name: "PoisIcon",
+  __ssrInlineRender: true,
+  setup(__props) {
+    return (_ctx, _push, _parent, _attrs) => {
+      _push(`<svg${ssrRenderAttrs(mergeProps(_ctx.$attrs, {
+        viewBox: "0 0 21 21",
+        fill: "none",
+        xmlns: "http://www.w3.org/2000/svg"
+      }, _attrs))}><path fill-rule="evenodd" clip-rule="evenodd" d="M10.2764 2.6149L13.0789 4.0173C13.2749 4.11539 13.3949 4.17411 13.4787 4.21103L13.4896 4.21094C13.6 4.21094 13.7037 4.23956 13.7937 4.28979C13.8849 4.29533 14.0209 4.29672 14.2574 4.29672L16.0339 4.29672C16.7818 4.29669 17.4072 4.29667 17.904 4.36538C18.4304 4.43819 18.9041 4.59857 19.2829 4.9882C19.6593 5.37536 19.812 5.85535 19.8816 6.38835C19.948 6.89583 19.9479 7.53599 19.9479 8.30789V9.0026C19.9479 9.34778 19.6681 9.6276 19.3229 9.6276C18.9777 9.6276 18.6979 9.34778 18.6979 9.0026V8.35051C18.6979 7.52515 18.6967 6.96727 18.6422 6.55035C18.5898 6.14965 18.4984 5.97449 18.3866 5.85952C18.2773 5.74701 18.114 5.65633 17.7328 5.6036C17.3316 5.54812 16.7934 5.54672 15.9896 5.54672L14.1146 5.54673V8.58594C14.1146 8.93111 13.8348 9.21094 13.4896 9.21094C13.1444 9.21094 12.8646 8.93111 12.8646 8.58594V5.30495C12.7703 5.26083 12.6721 5.21158 12.566 5.15846L9.74312 3.74581C9.15321 3.45061 8.74868 3.24888 8.4153 3.11943C8.36838 3.10121 8.32379 3.08481 8.28125 3.0701L8.28125 14.2684C8.7005 14.3437 9.08486 14.5042 9.4219 14.6701C9.60754 14.7614 9.78827 14.8593 9.95574 14.9504L9.98083 14.964C10.1422 15.0518 10.2904 15.1324 10.4359 15.2052C10.7446 15.3597 10.8696 15.7351 10.7152 16.0438C10.5607 16.3525 10.1852 16.4775 9.87656 16.323C9.71138 16.2404 9.54585 16.1504 9.38955 16.0653L9.35867 16.0486C9.18963 15.9567 9.02978 15.8703 8.86996 15.7916C8.54777 15.6331 8.26267 15.5251 7.99187 15.4879C7.37199 15.4027 6.86595 15.6982 6.08851 16.1521L6.04165 16.1794C5.52587 16.4806 5.0972 16.7308 4.7422 16.8921C4.38323 17.0552 3.99291 17.1797 3.58077 17.1057C3.1353 17.0257 2.73623 16.785 2.45363 16.4322C2.19485 16.1091 2.10887 15.7094 2.06987 15.3108C2.03123 14.9158 2.03124 14.4105 2.03125 13.7987V6.88946C2.03124 6.42695 2.03123 6.03616 2.06243 5.71249C2.09554 5.3691 2.16711 5.05259 2.33872 4.74942C2.51086 4.44532 2.74501 4.22287 3.02207 4.02151C3.28178 3.83278 3.6136 3.63907 4.00367 3.41135L5.0775 2.78443C5.61668 2.46963 6.05835 2.21177 6.44244 2.03324C6.84414 1.84652 7.22406 1.72603 7.64617 1.71225C8.06836 1.69847 8.45513 1.79396 8.86777 1.9542C9.26221 2.10736 9.71898 2.33594 10.2764 2.6149ZM6.96932 3.16677C6.99043 3.15696 7.01106 3.14757 7.03125 3.13858L7.03125 14.3264C6.47105 14.4756 5.98624 14.7615 5.57585 15.0034C5.52998 15.0305 5.48504 15.0569 5.44103 15.0826C4.88805 15.4055 4.51482 15.6225 4.22512 15.7541C3.93261 15.887 3.83148 15.8808 3.80174 15.8754C3.65913 15.8498 3.52629 15.7719 3.42931 15.6508C3.40287 15.6178 3.34625 15.5194 3.31393 15.1891C3.28197 14.8623 3.28125 14.4188 3.28125 13.7657V6.91821C3.28125 6.41931 3.28192 6.08908 3.30666 5.83245C3.33015 5.58887 3.37177 5.46193 3.42653 5.36519C3.48076 5.26938 3.56566 5.1717 3.75694 5.03269C3.95995 4.88515 4.23695 4.72259 4.65935 4.47599L5.68257 3.87861C6.25305 3.54555 6.64446 3.31777 6.96932 3.16677Z" fill="currentColor"></path><path d="M15.5729 13.5859C15.1127 13.5859 14.7396 13.959 14.7396 14.4193C14.7396 14.8795 15.1127 15.2526 15.5729 15.2526H15.5804C16.0406 15.2526 16.4137 14.8795 16.4137 14.4193C16.4137 13.959 16.0406 13.5859 15.5804 13.5859H15.5729Z" fill="currentColor"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M11.5341 12.665C12.2226 11.0555 13.8608 10.0443 15.5729 10.0443C17.2851 10.0443 18.9233 11.0555 19.6118 12.665C20.2551 14.1691 19.899 15.4601 19.1904 16.5334C18.6141 17.4064 17.7709 18.1829 17.0441 18.8521C16.9163 18.9697 16.7922 19.0841 16.6737 19.195C16.3752 19.4745 15.9802 19.6276 15.5729 19.6276C15.1657 19.6276 14.7707 19.4745 14.4722 19.1951L14.4709 19.1938C14.3459 19.0761 14.2145 18.9546 14.0791 18.8295C13.3596 18.1645 12.5273 17.3953 11.9569 16.5332C11.2474 15.4608 10.89 14.1709 11.5341 12.665ZM15.5729 11.2943C14.3331 11.2943 13.1643 12.0323 12.6834 13.1566C12.2462 14.1787 12.4568 15.0234 12.9994 15.8434C13.4785 16.5677 14.1765 17.2145 14.8975 17.8827C15.0403 18.0151 15.184 18.1483 15.3271 18.2831C15.39 18.3417 15.4778 18.3776 15.5729 18.3776C15.6683 18.3776 15.7563 18.3415 15.8193 18.2826C15.9532 18.1572 16.0878 18.033 16.2216 17.9094C16.9528 17.2342 17.6628 16.5786 18.1472 15.8448C18.6893 15.0237 18.8991 14.1773 18.4625 13.1566C17.9816 12.0323 16.8128 11.2943 15.5729 11.2943Z" fill="currentColor"></path></svg>`);
+    };
+  }
+});
+const _sfc_setup$4 = _sfc_main$4.setup;
+_sfc_main$4.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/components/Svgs/PoisIcon.vue");
+  return _sfc_setup$4 ? _sfc_setup$4(props, ctx) : void 0;
+};
+const _sfc_main$3 = /* @__PURE__ */ Object.assign({ name: "PoiRequestsIcon" }, {
+  __name: "PoiRequestsIcon",
+  __ssrInlineRender: true,
+  setup(__props) {
+    return (_ctx, _push, _parent, _attrs) => {
+      _push(`<svg${ssrRenderAttrs(mergeProps(_ctx.$attrs, {
+        viewBox: "0 0 21 21",
+        fill: "none",
+        xmlns: "http://www.w3.org/2000/svg"
+      }, _attrs))}><path fill-rule="evenodd" clip-rule="evenodd" d="M3.08044 17.1389C3.16628 17.1539 3.25045 17.1614 3.33545 17.1614L3.33459 17.1597C3.91376 17.1597 4.5121 16.8097 5.57043 16.1906L5.67794 16.1272L5.68311 16.1242C6.32008 15.7513 6.87045 15.4291 7.49044 15.5147C7.9396 15.5764 8.41962 15.8381 8.88379 16.0914L8.91505 16.1085C9.06523 16.1907 9.21955 16.2751 9.37459 16.3522C9.68293 16.5072 10.0588 16.3822 10.2138 16.0739C10.3688 15.7647 10.2438 15.3897 9.93547 15.2347C9.79597 15.165 9.65418 15.0877 9.50514 15.0065L9.4821 14.9939C8.97731 14.7188 8.40854 14.4088 7.78044 14.2954V3.06877C8.12198 3.18721 8.56503 3.40646 9.24292 3.7464L12.0188 5.13891C12.1511 5.20535 12.2637 5.26116 12.3638 5.30801V9.85305C12.3638 10.198 12.6438 10.478 12.9888 10.478C13.3338 10.478 13.6138 10.198 13.6138 9.85305V5.55194C13.6591 5.55216 13.7068 5.55224 13.7571 5.55224H15.4896C16.9404 5.55224 17.5937 5.56474 17.8862 5.86641C18.1979 6.18641 18.1979 6.95974 18.1979 8.36307V10.7414C18.1979 11.0864 18.4779 11.3664 18.8229 11.3664C19.1679 11.3664 19.4479 11.0864 19.4479 10.7414V8.36307C19.4479 6.63328 19.4479 5.6797 18.783 4.99558C18.1105 4.30225 17.1796 4.30224 15.4896 4.30224H13.7571C13.3443 4.30224 12.9518 4.20891 12.5796 4.02224L9.8029 2.62974C8.59123 2.02224 7.92209 1.68724 7.14543 1.71224C6.37232 1.73721 5.72968 2.11288 4.5652 2.79362L3.52629 3.40141L3.5204 3.40487C2.63495 3.92435 2.14644 4.21095 1.83879 4.75641C1.53129 5.30058 1.53125 5.87891 1.53125 6.92891V13.7914C1.53125 15.2181 1.53125 15.9347 1.95292 16.4639C2.23625 16.8189 2.63628 17.0581 3.08044 17.1389ZM6.53044 3.13866C6.19404 3.28829 5.77593 3.53254 5.1921 3.8739L4.16044 4.47724C3.38461 4.9314 3.0646 5.12474 2.92794 5.36891C2.7871 5.61808 2.78125 6.00307 2.78125 6.92724V13.7897C2.78125 14.7422 2.78127 15.4956 2.92961 15.6814C3.02377 15.7997 3.15708 15.8797 3.30208 15.9064C3.51571 15.9445 4.13497 15.5819 4.92194 15.1211L4.93709 15.1122L5.04626 15.0489C5.4951 14.7857 5.98046 14.5013 6.53044 14.3533V3.13866Z" fill="currentColor"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M18.3428 19.4439C18.4644 19.5647 18.6236 19.6247 18.7819 19.6247V19.6239C18.9427 19.6239 19.1036 19.5614 19.2261 19.438C19.4686 19.1922 19.4669 18.7964 19.2211 18.5539L18.0936 17.4397C18.5094 16.8539 18.7545 16.138 18.7545 15.3655C18.7545 13.3847 17.1436 11.773 15.1628 11.773C13.1819 11.773 11.5703 13.3847 11.5703 15.3655C11.5703 17.3464 13.1819 18.958 15.1628 18.958C15.9211 18.958 16.6252 18.7222 17.2052 18.3197L18.3428 19.4439ZM12.8203 15.3664C12.8203 14.0747 13.8711 13.0239 15.1628 13.0239C16.4536 13.0239 17.5045 14.0747 17.5045 15.3664C17.5045 16.658 16.4544 17.7089 15.1628 17.7089C13.8711 17.7089 12.8203 16.658 12.8203 15.3664Z" fill="currentColor"></path></svg>`);
+    };
+  }
+});
+const _sfc_setup$3 = _sfc_main$3.setup;
+_sfc_main$3.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/components/Svgs/PoiRequestsIcon.vue");
+  return _sfc_setup$3 ? _sfc_setup$3(props, ctx) : void 0;
+};
+const _sfc_main$2 = /* @__PURE__ */ Object.assign({ name: "PoiRequestsIcon" }, {
+  __name: "BusinessRequestsIcon",
+  __ssrInlineRender: true,
+  setup(__props) {
+    return (_ctx, _push, _parent, _attrs) => {
+      _push(`<svg${ssrRenderAttrs(mergeProps(_ctx.$attrs, {
+        viewBox: "0 0 21 21",
+        fill: "none",
+        xmlns: "http://www.w3.org/2000/svg"
+      }, _attrs))}><path d="M14.4479 9.83594C14.4479 9.49076 14.7277 9.21094 15.0729 9.21094H15.9062C16.2514 9.21094 16.5312 9.49076 16.5312 9.83594C16.5312 10.1811 16.2514 10.4609 15.9062 10.4609H15.0729C14.7277 10.4609 14.4479 10.1811 14.4479 9.83594Z" fill="currentColor"></path><path d="M14.4479 13.1693C14.4479 12.8241 14.7277 12.5443 15.0729 12.5443H15.9062C16.2514 12.5443 16.5312 12.8241 16.5312 13.1693C16.5312 13.5144 16.2514 13.7943 15.9062 13.7943H15.0729C14.7277 13.7943 14.4479 13.5144 14.4479 13.1693Z" fill="currentColor"></path><path d="M5.07292 5.8776C4.72774 5.8776 4.44792 6.15743 4.44792 6.5026C4.44792 6.84778 4.72774 7.1276 5.07292 7.1276H5.90625C6.25143 7.1276 6.53125 6.84778 6.53125 6.5026C6.53125 6.15743 6.25143 5.8776 5.90625 5.8776H5.07292Z" fill="currentColor"></path><path d="M8.40625 5.8776C8.06107 5.8776 7.78125 6.15743 7.78125 6.5026C7.78125 6.84778 8.06107 7.1276 8.40625 7.1276H9.23958C9.58476 7.1276 9.86458 6.84778 9.86458 6.5026C9.86458 6.15743 9.58476 5.8776 9.23958 5.8776H8.40625Z" fill="currentColor"></path><path d="M5.07292 9.21094C4.72774 9.21094 4.44792 9.49076 4.44792 9.83594C4.44792 10.1811 4.72774 10.4609 5.07292 10.4609H5.90625C6.25143 10.4609 6.53125 10.1811 6.53125 9.83594C6.53125 9.49076 6.25143 9.21094 5.90625 9.21094H5.07292Z" fill="currentColor"></path><path d="M8.40625 9.21094C8.06107 9.21094 7.78125 9.49076 7.78125 9.83594C7.78125 10.1811 8.06107 10.4609 8.40625 10.4609H9.23958C9.58476 10.4609 9.86458 10.1811 9.86458 9.83594C9.86458 9.49076 9.58476 9.21094 9.23958 9.21094H8.40625Z" fill="currentColor"></path><path d="M5.07292 12.5443C4.72774 12.5443 4.44792 12.8241 4.44792 13.1693C4.44792 13.5144 4.72774 13.7943 5.07292 13.7943H5.90625C6.25143 13.7943 6.53125 13.5144 6.53125 13.1693C6.53125 12.8241 6.25143 12.5443 5.90625 12.5443H5.07292Z" fill="currentColor"></path><path d="M8.40625 12.5443C8.06107 12.5443 7.78125 12.8241 7.78125 13.1693C7.78125 13.5144 8.06107 13.7943 8.40625 13.7943H9.23958C9.58476 13.7943 9.86458 13.5144 9.86458 13.1693C9.86458 12.8241 9.58476 12.5443 9.23958 12.5443H8.40625Z" fill="currentColor"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M7.20198 1.71094H7.11052C5.97087 1.71092 5.05226 1.71091 4.32979 1.80804C3.5797 1.90889 2.94814 2.12463 2.44654 2.62623C1.94495 3.12783 1.7292 3.75939 1.62835 4.50948C1.53122 5.23195 1.53123 6.15054 1.53125 7.2902V14.0483C1.53123 15.188 1.53122 16.1066 1.62835 16.8291C1.7292 17.5792 1.94495 18.2107 2.44654 18.7123C2.94814 19.2139 3.5797 19.4297 4.32979 19.5305C5.05227 19.6276 5.97087 19.6276 7.11053 19.6276L15.5329 19.6276C16.2816 19.6276 16.906 19.6277 17.4016 19.561C17.9248 19.4907 18.3971 19.336 18.7767 18.9564C19.1563 18.5768 19.311 18.1045 19.3813 17.5813C19.448 17.0857 19.4479 16.4614 19.4479 15.7126V10.6259C19.4479 9.87722 19.448 9.25285 19.3813 8.75721C19.311 8.23405 19.1563 7.76171 18.7767 7.38215C18.3971 7.0026 17.9248 6.84787 17.4016 6.77753C16.906 6.71089 16.2817 6.71091 15.5329 6.71094L12.7807 6.71094C12.7783 5.83442 12.7643 5.10526 12.6841 4.50948C12.5833 3.75939 12.3676 3.12783 11.866 2.62623C11.3644 2.12463 10.7328 1.90889 9.98271 1.80804C9.26024 1.71091 8.34163 1.71092 7.20198 1.71094ZM12.7813 7.96094V18.3776H15.4896C16.2929 18.3776 16.8326 18.3763 17.2351 18.3222C17.6196 18.2705 17.7842 18.1811 17.8928 18.0725C18.0014 17.9639 18.0908 17.7993 18.1425 17.4148C18.1966 17.0122 18.1979 16.4726 18.1979 15.6693V10.6693C18.1979 9.86593 18.1966 9.3263 18.1425 8.92377C18.0908 8.53922 18.0014 8.37463 17.8928 8.26604C17.7842 8.15744 17.6196 8.06809 17.2351 8.01639C16.8326 7.96227 16.2929 7.96094 15.4896 7.96094H12.7813ZM11.5313 7.29093C11.5312 6.11878 11.5289 5.29757 11.4453 4.67604C11.3631 4.06456 11.2127 3.74075 10.9821 3.51011C10.7514 3.27948 10.4276 3.12911 9.81615 3.04689C9.18669 2.96227 8.35243 2.96094 7.15625 2.96094C5.96007 2.96094 5.12581 2.96227 4.49635 3.04689C3.88487 3.12911 3.56106 3.27948 3.33043 3.51011C3.09979 3.74075 2.94942 4.06456 2.86721 4.67604C2.78258 5.3055 2.78125 6.13976 2.78125 7.33594V14.0026C2.78125 15.1988 2.78258 16.033 2.86721 16.6625C2.94942 17.274 3.09979 17.5978 3.33043 17.8284C3.56106 18.0591 3.88487 18.2094 4.49635 18.2917C5.12581 18.3763 5.96007 18.3776 7.15625 18.3776H11.5313V7.33594C11.5313 7.32088 11.5313 7.30588 11.5313 7.29093Z" fill="currentColor"></path></svg>`);
+    };
+  }
+});
+const _sfc_setup$2 = _sfc_main$2.setup;
+_sfc_main$2.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/components/Svgs/BusinessRequestsIcon.vue");
+  return _sfc_setup$2 ? _sfc_setup$2(props, ctx) : void 0;
+};
+const _sfc_main$1 = /* @__PURE__ */ defineComponent({
+  ...{ name: "SidebarItems" },
+  __name: "SidebarItems",
+  __ssrInlineRender: true,
+  setup(__props) {
+    const page = usePage();
+    return (_ctx, _push, _parent, _attrs) => {
+      _push(`<ul${ssrRenderAttrs(mergeProps({ class: "menu-inner py-1" }, _attrs))}>`);
+      _push(ssrRenderComponent(_sfc_main$7, null, {
+        default: withCtx((_, _push2, _parent2, _scopeId) => {
+          if (_push2) {
+            _push2(`${ssrInterpolate(_ctx.$t("sidebar.overview"))}`);
+          } else {
+            return [
+              createTextVNode(toDisplayString(_ctx.$t("sidebar.overview")), 1)
+            ];
+          }
+        }),
+        _: 1
+      }, _parent));
+      _push(ssrRenderComponent(_sfc_main$6, {
+        label: _ctx.$t("users.plural"),
+        href: unref(route)("dashboard.users.index"),
+        active: ["Dashboard/Users/Index"].includes(unref(page).component)
+      }, {
+        svg: withCtx((_, _push2, _parent2, _scopeId) => {
+          if (_push2) {
+            _push2(ssrRenderComponent(_sfc_main$5, {
+              width: "20",
+              height: "20",
+              class: "me-2"
+            }, null, _parent2, _scopeId));
+          } else {
+            return [
+              createVNode(_sfc_main$5, {
+                width: "20",
+                height: "20",
+                class: "me-2"
+              })
+            ];
+          }
+        }),
+        _: 1
+      }, _parent));
+      _push(ssrRenderComponent(_sfc_main$7, null, {
+        default: withCtx((_, _push2, _parent2, _scopeId) => {
+          if (_push2) {
+            _push2(`${ssrInterpolate(_ctx.$t("sidebar.services"))}`);
+          } else {
+            return [
+              createTextVNode(toDisplayString(_ctx.$t("sidebar.services")), 1)
+            ];
+          }
+        }),
+        _: 1
+      }, _parent));
+      _push(ssrRenderComponent(_sfc_main$6, {
+        label: _ctx.$t("sidebar.pois"),
+        href: unref(route)("dashboard.pois.index"),
+        active: ["Dashboard/Pois/Index"].includes(unref(page).component)
+      }, {
+        svg: withCtx((_, _push2, _parent2, _scopeId) => {
+          if (_push2) {
+            _push2(ssrRenderComponent(_sfc_main$4, {
+              width: "20",
+              height: "20",
+              class: "me-2"
+            }, null, _parent2, _scopeId));
+          } else {
+            return [
+              createVNode(_sfc_main$4, {
+                width: "20",
+                height: "20",
+                class: "me-2"
+              })
+            ];
+          }
+        }),
+        _: 1
+      }, _parent));
+      _push(ssrRenderComponent(_sfc_main$6, {
+        label: _ctx.$t("sidebar.poi_requests"),
+        href: unref(route)("dashboard.poi_requests.index"),
+        active: ["Dashboard/PoiRequests/Index"].includes(unref(page).component)
+      }, {
+        svg: withCtx((_, _push2, _parent2, _scopeId) => {
+          if (_push2) {
+            _push2(ssrRenderComponent(_sfc_main$3, {
+              width: "20",
+              height: "20",
+              class: "me-2"
+            }, null, _parent2, _scopeId));
+          } else {
+            return [
+              createVNode(_sfc_main$3, {
+                width: "20",
+                height: "20",
+                class: "me-2"
+              })
+            ];
+          }
+        }),
+        _: 1
+      }, _parent));
+      _push(ssrRenderComponent(_sfc_main$6, {
+        label: _ctx.$t("sidebar.business_requests"),
+        href: unref(route)("dashboard.business_requests.index"),
+        active: ["Dashboard/BusinessRequests/Index"].includes(unref(page).component)
+      }, {
+        svg: withCtx((_, _push2, _parent2, _scopeId) => {
+          if (_push2) {
+            _push2(ssrRenderComponent(_sfc_main$2, {
+              width: "20",
+              height: "20",
+              class: "me-2"
+            }, null, _parent2, _scopeId));
+          } else {
+            return [
+              createVNode(_sfc_main$2, {
+                width: "20",
+                height: "20",
+                class: "me-2"
+              })
+            ];
+          }
+        }),
+        _: 1
+      }, _parent));
+      _push(`</ul>`);
+    };
+  }
+});
+const _sfc_setup$1 = _sfc_main$1.setup;
+_sfc_main$1.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/components/Dashboard/SidebarItems.vue");
+  return _sfc_setup$1 ? _sfc_setup$1(props, ctx) : void 0;
+};
 const _sfc_main = {
   __name: "App",
   __ssrInlineRender: true,
@@ -5147,9 +6179,12 @@ const _sfc_main = {
     useAuth();
     const locales2 = inject("$locales");
     const { theme, pageLoaded } = useTheme();
+    const { breadcrumbs: breadcrumbs2 } = useBreadcrumbs();
     return (_ctx, _push, _parent, _attrs) => {
       if (unref(pageLoaded)) {
-        _push(`<div${ssrRenderAttrs(mergeProps({ class: "layout-wrapper layout-content-navbar" }, _attrs))}><div class="layout-container"><aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme"><div class="app-brand demo"><a href="/" class="app-brand-link"><span class="app-brand-logo demo"><img src="http://aroundme4.test/storage/1/logo.png" class="mw-100" style="${ssrRenderStyle({ "height": "35px" })}" alt=""></span></a><a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto"><i class="bx bx-chevron-left bx-sm align-middle"></i></a></div><div class="menu-inner-shadow"></div><ul class="menu-inner py-1"><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-home-circle"></i><div class="text-truncate" data-i18n="Dashboards">Dashboards</div><span class="badge badge-center rounded-pill bg-danger ms-auto">5</span></a><ul class="menu-sub"><li class="menu-item"><a href="dashboards-analytics.html" class="menu-link"><div class="text-truncate" data-i18n="Analytics">Analytics</div></a></li><li class="menu-item"><a href="dashboards-crm.html" class="menu-link"><div class="text-truncate" data-i18n="CRM">CRM</div></a></li><li class="menu-item"><a href="app-ecommerce-dashboard.html" class="menu-link"><div class="text-truncate" data-i18n="eCommerce">eCommerce</div></a></li><li class="menu-item"><a href="app-logistics-dashboard.html" class="menu-link"><div class="text-truncate" data-i18n="Logistics">Logistics</div></a></li><li class="menu-item"><a href="app-academy-dashboard.html" class="menu-link"><div class="text-truncate" data-i18n="Academy">Academy</div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-layout"></i><div class="text-truncate" data-i18n="Layouts">Layouts</div></a><ul class="menu-sub"><li class="menu-item"><a href="layouts-collapsed-menu.html" class="menu-link"><div class="text-truncate" data-i18n="Collapsed menu"> Collapsed menu </div></a></li><li class="menu-item"><a href="layouts-content-navbar.html" class="menu-link"><div class="text-truncate" data-i18n="Content navbar"> Content navbar </div></a></li><li class="menu-item"><a href="layouts-content-navbar-with-sidebar.html" class="menu-link"><div class="text-truncate" data-i18n="Content nav + Sidebar"> Content nav + Sidebar </div></a></li><li class="menu-item"><a href="/horizontal-menu-template" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Horizontal"> Horizontal </div></a></li><li class="menu-item"><a href="layouts-without-menu.html" class="menu-link"><div class="text-truncate" data-i18n="Without menu"> Without menu </div></a></li><li class="menu-item"><a href="layouts-without-navbar.html" class="menu-link"><div class="text-truncate" data-i18n="Without navbar"> Without navbar </div></a></li><li class="menu-item"><a href="layouts-fluid.html" class="menu-link"><div class="text-truncate" data-i18n="Fluid">Fluid</div></a></li><li class="menu-item"><a href="layouts-container.html" class="menu-link"><div class="text-truncate" data-i18n="Container">Container</div></a></li><li class="menu-item"><a href="layouts-blank.html" class="menu-link"><div class="text-truncate" data-i18n="Blank">Blank</div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-store"></i><div class="text-truncate" data-i18n="Front Pages">Front Pages</div></a><ul class="menu-sub"><li class="menu-item"><a href="/front-pages/landing-page.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Landing">Landing</div></a></li><li class="menu-item"><a href="/front-pages/pricing-page.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Pricing">Pricing</div></a></li><li class="menu-item"><a href="/front-pages/payment-page.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Payment">Payment</div></a></li><li class="menu-item"><a href="/front-pages/checkout-page.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Checkout">Checkout</div></a></li><li class="menu-item"><a href="/front-pages/help-center-landing.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Help Center"> Help Center </div></a></li></ul></li><li class="menu-header small text-uppercase"><span class="menu-header-text" data-i18n="Apps &amp; Pages"> Apps &amp; Pages </span></li><li class="menu-item"><a href="app-email.html" class="menu-link"><i class="menu-icon tf-icons bx bx-envelope"></i><div class="text-truncate" data-i18n="Email">Email</div></a></li><li class="menu-item"><a href="app-chat.html" class="menu-link"><i class="menu-icon tf-icons bx bx-chat"></i><div class="text-truncate" data-i18n="Chat">Chat</div></a></li><li class="menu-item"><a href="app-calendar.html" class="menu-link"><i class="menu-icon tf-icons bx bx-calendar"></i><div class="text-truncate" data-i18n="Calendar">Calendar</div></a></li><li class="menu-item"><a href="app-kanban.html" class="menu-link"><i class="menu-icon tf-icons bx bx-grid"></i><div class="text-truncate" data-i18n="Kanban">Kanban</div></a></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-cart-alt"></i><div class="text-truncate" data-i18n="eCommerce">eCommerce</div></a><ul class="menu-sub"><li class="menu-item"><a href="app-ecommerce-dashboard.html" class="menu-link"><div class="text-truncate" data-i18n="Dashboard">Dashboard</div></a></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Products">Products</div></a><ul class="menu-sub"><li class="menu-item"><a href="app-ecommerce-product-list.html" class="menu-link"><div class="text-truncate" data-i18n="Product List"> Product List </div></a></li><li class="menu-item"><a href="app-ecommerce-product-add.html" class="menu-link"><div class="text-truncate" data-i18n="Add Product"> Add Product </div></a></li><li class="menu-item"><a href="app-ecommerce-category-list.html" class="menu-link"><div class="text-truncate" data-i18n="Category List"> Category List </div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Order">Order</div></a><ul class="menu-sub"><li class="menu-item"><a href="app-ecommerce-order-list.html" class="menu-link"><div class="text-truncate" data-i18n="Order List"> Order List </div></a></li><li class="menu-item"><a href="app-ecommerce-order-details.html" class="menu-link"><div class="text-truncate" data-i18n="Order Details"> Order Details </div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Customer">Customer</div></a><ul class="menu-sub"><li class="menu-item"><a href="app-ecommerce-customer-all.html" class="menu-link"><div class="text-truncate" data-i18n="All Customers"> All Customers </div></a></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Customer Details"> Customer Details </div></a><ul class="menu-sub"><li class="menu-item"><a href="app-ecommerce-customer-details-overview.html" class="menu-link"><div class="text-truncate" data-i18n="Overview"> Overview </div></a></li><li class="menu-item"><a href="app-ecommerce-customer-details-security.html" class="menu-link"><div class="text-truncate" data-i18n="Security"> Security </div></a></li><li class="menu-item"><a href="app-ecommerce-customer-details-billing.html" class="menu-link"><div class="text-truncate" data-i18n="Address &amp; Billing"> Address &amp; Billing </div></a></li><li class="menu-item"><a href="app-ecommerce-customer-details-notifications.html" class="menu-link"><div class="text-truncate" data-i18n="Notifications"> Notifications </div></a></li></ul></li></ul></li><li class="menu-item"><a href="app-ecommerce-manage-reviews.html" class="menu-link"><div class="text-truncate" data-i18n="Manage Reviews"> Manage Reviews </div></a></li><li class="menu-item"><a href="app-ecommerce-referral.html" class="menu-link"><div class="text-truncate" data-i18n="Referrals">Referrals</div></a></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Settings">Settings</div></a><ul class="menu-sub"><li class="menu-item"><a href="app-ecommerce-settings-detail.html" class="menu-link"><div class="text-truncate" data-i18n="Store details"> Store details </div></a></li><li class="menu-item"><a href="app-ecommerce-settings-payments.html" class="menu-link"><div class="text-truncate" data-i18n="Payments"> Payments </div></a></li><li class="menu-item"><a href="app-ecommerce-settings-checkout.html" class="menu-link"><div class="text-truncate" data-i18n="Checkout"> Checkout </div></a></li><li class="menu-item"><a href="app-ecommerce-settings-shipping.html" class="menu-link"><div class="text-truncate" data-i18n="Shipping &amp; Delivery"> Shipping &amp; Delivery </div></a></li><li class="menu-item"><a href="app-ecommerce-settings-locations.html" class="menu-link"><div class="text-truncate" data-i18n="Locations"> Locations </div></a></li><li class="menu-item"><a href="app-ecommerce-settings-notifications.html" class="menu-link"><div class="text-truncate" data-i18n="Notifications"> Notifications </div></a></li></ul></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-book-open"></i><div class="text-truncate" data-i18n="Academy">Academy</div></a><ul class="menu-sub"><li class="menu-item"><a href="app-academy-dashboard.html" class="menu-link"><div class="text-truncate" data-i18n="Dashboard">Dashboard</div></a></li><li class="menu-item"><a href="app-academy-course.html" class="menu-link"><div class="text-truncate" data-i18n="My Course">My Course</div></a></li><li class="menu-item"><a href="app-academy-course-details.html" class="menu-link"><div class="text-truncate" data-i18n="Course Details"> Course Details </div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-car"></i><div class="text-truncate" data-i18n="Logistics">Logistics</div></a><ul class="menu-sub"><li class="menu-item"><a href="app-logistics-dashboard.html" class="menu-link"><div class="text-truncate" data-i18n="Dashboard">Dashboard</div></a></li><li class="menu-item"><a href="app-logistics-fleet.html" class="menu-link"><div class="text-truncate" data-i18n="Fleet">Fleet</div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-food-menu"></i><div class="text-truncate" data-i18n="Invoice">Invoice</div><span class="badge badge-center rounded-pill bg-success ms-auto"> 4 </span></a><ul class="menu-sub"><li class="menu-item"><a href="app-invoice-list.html" class="menu-link"><div class="text-truncate" data-i18n="List">List</div></a></li><li class="menu-item"><a href="app-invoice-preview.html" class="menu-link"><div class="text-truncate" data-i18n="Preview">Preview</div></a></li><li class="menu-item"><a href="app-invoice-edit.html" class="menu-link"><div class="text-truncate" data-i18n="Edit">Edit</div></a></li><li class="menu-item"><a href="app-invoice-add.html" class="menu-link"><div class="text-truncate" data-i18n="Add">Add</div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-user"></i><div class="text-truncate" data-i18n="Users">Users</div></a><ul class="menu-sub"><li class="menu-item"><a href="app-user-list.html" class="menu-link"><div class="text-truncate" data-i18n="List">List</div></a></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="View">View</div></a><ul class="menu-sub"><li class="menu-item"><a href="app-user-view-account.html" class="menu-link"><div class="text-truncate" data-i18n="Account"> Account </div></a></li><li class="menu-item"><a href="app-user-view-security.html" class="menu-link"><div class="text-truncate" data-i18n="Security"> Security </div></a></li><li class="menu-item"><a href="app-user-view-billing.html" class="menu-link"><div class="text-truncate" data-i18n="Billing &amp; Plans"> Billing &amp; Plans </div></a></li><li class="menu-item"><a href="app-user-view-notifications.html" class="menu-link"><div class="text-truncate" data-i18n="Notifications"> Notifications </div></a></li><li class="menu-item"><a href="app-user-view-connections.html" class="menu-link"><div class="text-truncate" data-i18n="Connections"> Connections </div></a></li></ul></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-check-shield"></i><div class="text-truncate" data-i18n="Roles &amp; Permissions"> Roles &amp; Permissions </div></a><ul class="menu-sub"><li class="menu-item"><a href="app-access-roles.html" class="menu-link"><div class="text-truncate" data-i18n="Roles">Roles</div></a></li><li class="menu-item"><a href="app-access-permission.html" class="menu-link"><div class="text-truncate" data-i18n="Permission"> Permission </div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-dock-top"></i><div class="text-truncate" data-i18n="Pages">Pages</div></a><ul class="menu-sub"><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="User Profile"> User Profile </div></a><ul class="menu-sub"><li class="menu-item"><a href="pages-profile-user.html" class="menu-link"><div class="text-truncate" data-i18n="Profile"> Profile </div></a></li><li class="menu-item"><a href="pages-profile-teams.html" class="menu-link"><div class="text-truncate" data-i18n="Teams">Teams</div></a></li><li class="menu-item"><a href="pages-profile-projects.html" class="menu-link"><div class="text-truncate" data-i18n="Projects"> Projects </div></a></li><li class="menu-item"><a href="pages-profile-connections.html" class="menu-link"><div class="text-truncate" data-i18n="Connections"> Connections </div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Account Settings"> Account Settings </div></a><ul class="menu-sub"><li class="menu-item"><a href="pages-account-settings-account.html" class="menu-link"><div class="text-truncate" data-i18n="Account"> Account </div></a></li><li class="menu-item"><a href="pages-account-settings-security.html" class="menu-link"><div class="text-truncate" data-i18n="Security"> Security </div></a></li><li class="menu-item"><a href="pages-account-settings-billing.html" class="menu-link"><div class="text-truncate" data-i18n="Billing &amp; Plans"> Billing &amp; Plans </div></a></li><li class="menu-item"><a href="pages-account-settings-notifications.html" class="menu-link"><div class="text-truncate" data-i18n="Notifications"> Notifications </div></a></li><li class="menu-item"><a href="pages-account-settings-connections.html" class="menu-link"><div class="text-truncate" data-i18n="Connections"> Connections </div></a></li></ul></li><li class="menu-item"><a href="pages-faq.html" class="menu-link"><div class="text-truncate" data-i18n="FAQ">FAQ</div></a></li><li class="menu-item"><a href="pages-pricing.html" class="menu-link"><div class="text-truncate" data-i18n="Pricing">Pricing</div></a></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Misc">Misc</div></a><ul class="menu-sub"><li class="menu-item"><a href="pages-misc-error.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Error">Error</div></a></li><li class="menu-item"><a href="pages-misc-under-maintenance.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Under Maintenance"> Under Maintenance </div></a></li><li class="menu-item"><a href="pages-misc-comingsoon.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Coming Soon"> Coming Soon </div></a></li><li class="menu-item"><a href="pages-misc-not-authorized.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Not Authorized"> Not Authorized </div></a></li></ul></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-lock-open-alt"></i><div class="text-truncate" data-i18n="Authentications"> Authentications </div></a><ul class="menu-sub"><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Login">Login</div></a><ul class="menu-sub"><li class="menu-item"><a href="auth-login-basic.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Basic">Basic</div></a></li><li class="menu-item"><a href="auth-login-cover.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Cover">Cover</div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Register">Register</div></a><ul class="menu-sub"><li class="menu-item"><a href="auth-register-basic.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Basic">Basic</div></a></li><li class="menu-item"><a href="auth-register-cover.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Cover">Cover</div></a></li><li class="menu-item"><a href="auth-register-multisteps.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Multi-steps"> Multi-steps </div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Verify Email"> Verify Email </div></a><ul class="menu-sub"><li class="menu-item"><a href="auth-verify-email-basic.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Basic">Basic</div></a></li><li class="menu-item"><a href="auth-verify-email-cover.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Cover">Cover</div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Reset Password"> Reset Password </div></a><ul class="menu-sub"><li class="menu-item"><a href="auth-reset-password-basic.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Basic">Basic</div></a></li><li class="menu-item"><a href="auth-reset-password-cover.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Cover">Cover</div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Forgot Password"> Forgot Password </div></a><ul class="menu-sub"><li class="menu-item"><a href="auth-forgot-password-basic.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Basic">Basic</div></a></li><li class="menu-item"><a href="auth-forgot-password-cover.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Cover">Cover</div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Two Steps">Two Steps</div></a><ul class="menu-sub"><li class="menu-item"><a href="auth-two-steps-basic.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Basic">Basic</div></a></li><li class="menu-item"><a href="auth-two-steps-cover.html" class="menu-link" target="_blank"><div class="text-truncate" data-i18n="Cover">Cover</div></a></li></ul></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-spreadsheet"></i><div class="text-truncate" data-i18n="Wizard Examples"> Wizard Examples </div></a><ul class="menu-sub"><li class="menu-item"><a href="wizard-ex-checkout.html" class="menu-link"><div class="text-truncate" data-i18n="Checkout">Checkout</div></a></li><li class="menu-item"><a href="wizard-ex-property-listing.html" class="menu-link"><div class="text-truncate" data-i18n="Property Listing"> Property Listing </div></a></li><li class="menu-item"><a href="wizard-ex-create-deal.html" class="menu-link"><div class="text-truncate" data-i18n="Create Deal"> Create Deal </div></a></li></ul></li><li class="menu-item"><a href="modal-examples.html" class="menu-link"><i class="menu-icon tf-icons bx bx-window-open"></i><div class="text-truncate" data-i18n="Modal Examples"> Modal Examples </div></a></li><li class="menu-header small text-uppercase"><span class="menu-header-text" data-i18n="Components">Components</span></li><li class="menu-item active open"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-collection"></i><div class="text-truncate" data-i18n="Cards">Cards</div><span class="badge badge-center rounded-pill bg-danger ms-auto">6</span></a><ul class="menu-sub"><li class="menu-item active"><a href="cards-basic.html" class="menu-link"><div class="text-truncate" data-i18n="Basic">Basic</div></a></li><li class="menu-item"><a href="cards-advance.html" class="menu-link"><div class="text-truncate" data-i18n="Advance">Advance</div></a></li><li class="menu-item"><a href="cards-statistics.html" class="menu-link"><div class="text-truncate" data-i18n="Statistics"> Statistics </div></a></li><li class="menu-item"><a href="cards-analytics.html" class="menu-link"><div class="text-truncate" data-i18n="Analytics">Analytics</div></a></li><li class="menu-item"><a href="cards-gamifications.html" class="menu-link"><div class="text-truncate" data-i18n="Gamifications"> Gamifications </div></a></li><li class="menu-item"><a href="cards-actions.html" class="menu-link"><div class="text-truncate" data-i18n="Actions">Actions</div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0)" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-box"></i><div class="text-truncate" data-i18n="User interface"> User interface </div></a><ul class="menu-sub"><li class="menu-item"><a href="ui-accordion.html" class="menu-link"><div class="text-truncate" data-i18n="Accordion">Accordion</div></a></li><li class="menu-item"><a href="ui-alerts.html" class="menu-link"><div class="text-truncate" data-i18n="Alerts">Alerts</div></a></li><li class="menu-item"><a href="ui-badges.html" class="menu-link"><div class="text-truncate" data-i18n="Badges">Badges</div></a></li><li class="menu-item"><a href="ui-buttons.html" class="menu-link"><div class="text-truncate" data-i18n="Buttons">Buttons</div></a></li><li class="menu-item"><a href="ui-carousel.html" class="menu-link"><div class="text-truncate" data-i18n="Carousel">Carousel</div></a></li><li class="menu-item"><a href="ui-collapse.html" class="menu-link"><div class="text-truncate" data-i18n="Collapse">Collapse</div></a></li><li class="menu-item"><a href="ui-dropdowns.html" class="menu-link"><div class="text-truncate" data-i18n="Dropdowns">Dropdowns</div></a></li><li class="menu-item"><a href="ui-footer.html" class="menu-link"><div class="text-truncate" data-i18n="Footer">Footer</div></a></li><li class="menu-item"><a href="ui-list-groups.html" class="menu-link"><div class="text-truncate" data-i18n="List Groups"> List groups </div></a></li><li class="menu-item"><a href="ui-modals.html" class="menu-link"><div class="text-truncate" data-i18n="Modals">Modals</div></a></li><li class="menu-item"><a href="ui-navbar.html" class="menu-link"><div class="text-truncate" data-i18n="Navbar">Navbar</div></a></li><li class="menu-item"><a href="ui-offcanvas.html" class="menu-link"><div class="text-truncate" data-i18n="Offcanvas">Offcanvas</div></a></li><li class="menu-item"><a href="ui-pagination-breadcrumbs.html" class="menu-link"><div class="text-truncate" data-i18n="Pagination &amp; Breadcrumbs"> Pagination &amp; Breadcrumbs </div></a></li><li class="menu-item"><a href="ui-progress.html" class="menu-link"><div class="text-truncate" data-i18n="Progress">Progress</div></a></li><li class="menu-item"><a href="ui-spinners.html" class="menu-link"><div class="text-truncate" data-i18n="Spinners">Spinners</div></a></li><li class="menu-item"><a href="ui-tabs-pills.html" class="menu-link"><div class="text-truncate" data-i18n="Tabs &amp; Pills"> Tabs &amp; Pills </div></a></li><li class="menu-item"><a href="ui-toasts.html" class="menu-link"><div class="text-truncate" data-i18n="Toasts">Toasts</div></a></li><li class="menu-item"><a href="ui-tooltips-popovers.html" class="menu-link"><div class="text-truncate" data-i18n="Tooltips &amp; Popovers"> Tooltips &amp; Popovers </div></a></li><li class="menu-item"><a href="ui-typography.html" class="menu-link"><div class="text-truncate" data-i18n="Typography"> Typography </div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0)" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-copy"></i><div class="text-truncate" data-i18n="Extended UI">Extended UI</div></a><ul class="menu-sub"><li class="menu-item"><a href="extended-ui-avatar.html" class="menu-link"><div class="text-truncate" data-i18n="Avatar">Avatar</div></a></li><li class="menu-item"><a href="extended-ui-blockui.html" class="menu-link"><div class="text-truncate" data-i18n="BlockUI">BlockUI</div></a></li><li class="menu-item"><a href="extended-ui-drag-and-drop.html" class="menu-link"><div class="text-truncate" data-i18n="Drag &amp; Drop"> Drag &amp; Drop </div></a></li><li class="menu-item"><a href="extended-ui-media-player.html" class="menu-link"><div class="text-truncate" data-i18n="Media Player"> Media Player </div></a></li><li class="menu-item"><a href="extended-ui-perfect-scrollbar.html" class="menu-link"><div class="text-truncate" data-i18n="Perfect Scrollbar"> Perfect Scrollbar </div></a></li><li class="menu-item"><a href="extended-ui-star-ratings.html" class="menu-link"><div class="text-truncate" data-i18n="Star Ratings"> Star Ratings </div></a></li><li class="menu-item"><a href="extended-ui-sweetalert2.html" class="menu-link"><div class="text-truncate" data-i18n="SweetAlert2"> SweetAlert2 </div></a></li><li class="menu-item"><a href="extended-ui-text-divider.html" class="menu-link"><div class="text-truncate" data-i18n="Text Divider"> Text Divider </div></a></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><div class="text-truncate" data-i18n="Timeline">Timeline</div></a><ul class="menu-sub"><li class="menu-item"><a href="extended-ui-timeline-basic.html" class="menu-link"><div class="text-truncate" data-i18n="Basic">Basic</div></a></li><li class="menu-item"><a href="extended-ui-timeline-fullscreen.html" class="menu-link"><div class="text-truncate" data-i18n="Fullscreen"> Fullscreen </div></a></li></ul></li><li class="menu-item"><a href="extended-ui-tour.html" class="menu-link"><div class="text-truncate" data-i18n="Tour">Tour</div></a></li><li class="menu-item"><a href="extended-ui-treeview.html" class="menu-link"><div class="text-truncate" data-i18n="Treeview">Treeview</div></a></li><li class="menu-item"><a href="extended-ui-misc.html" class="menu-link"><div class="text-truncate" data-i18n="Miscellaneous"> Miscellaneous </div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0)" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-crown"></i><div class="text-truncate" data-i18n="Icons">Icons</div></a><ul class="menu-sub"><li class="menu-item"><a href="icons-boxicons.html" class="menu-link"><div class="text-truncate" data-i18n="Boxicons">Boxicons</div></a></li><li class="menu-item"><a href="icons-font-awesome.html" class="menu-link"><div class="text-truncate" data-i18n="Fontawesome"> Fontawesome </div></a></li></ul></li><li class="menu-header small text-uppercase"><span class="menu-header-text" data-i18n="Forms &amp; Tables"> Forms &amp; Tables </span></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-detail"></i><div class="text-truncate" data-i18n="Form Elements">Form Elements</div></a><ul class="menu-sub"><li class="menu-item"><a href="forms-basic-inputs.html" class="menu-link"><div class="text-truncate" data-i18n="Basic Inputs"> Basic Inputs </div></a></li><li class="menu-item"><a href="forms-input-groups.html" class="menu-link"><div class="text-truncate" data-i18n="Input groups"> Input groups </div></a></li><li class="menu-item"><a href="forms-custom-options.html" class="menu-link"><div class="text-truncate" data-i18n="Custom Options"> Custom Options </div></a></li><li class="menu-item"><a href="forms-editors.html" class="menu-link"><div class="text-truncate" data-i18n="Editors">Editors</div></a></li><li class="menu-item"><a href="forms-file-upload.html" class="menu-link"><div class="text-truncate" data-i18n="File Upload"> File Upload </div></a></li><li class="menu-item"><a href="forms-pickers.html" class="menu-link"><div class="text-truncate" data-i18n="Pickers">Pickers</div></a></li><li class="menu-item"><a href="forms-selects.html" class="menu-link"><div class="text-truncate" data-i18n="Select &amp; Tags"> Select &amp; Tags </div></a></li><li class="menu-item"><a href="forms-sliders.html" class="menu-link"><div class="text-truncate" data-i18n="Sliders">Sliders</div></a></li><li class="menu-item"><a href="forms-switches.html" class="menu-link"><div class="text-truncate" data-i18n="Switches">Switches</div></a></li><li class="menu-item"><a href="forms-extras.html" class="menu-link"><div class="text-truncate" data-i18n="Extras">Extras</div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-detail"></i><div class="text-truncate" data-i18n="Form Layouts">Form Layouts</div></a><ul class="menu-sub"><li class="menu-item"><a href="form-layouts-vertical.html" class="menu-link"><div class="text-truncate" data-i18n="Vertical Form"> Vertical Form </div></a></li><li class="menu-item"><a href="form-layouts-horizontal.html" class="menu-link"><div class="text-truncate" data-i18n="Horizontal Form"> Horizontal Form </div></a></li><li class="menu-item"><a href="form-layouts-sticky.html" class="menu-link"><div class="text-truncate" data-i18n="Sticky Actions"> Sticky Actions </div></a></li></ul></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-carousel"></i><div class="text-truncate" data-i18n="Form Wizard">Form Wizard</div></a><ul class="menu-sub"><li class="menu-item"><a href="form-wizard-numbered.html" class="menu-link"><div class="text-truncate" data-i18n="Numbered">Numbered</div></a></li><li class="menu-item"><a href="form-wizard-icons.html" class="menu-link"><div class="text-truncate" data-i18n="Icons">Icons</div></a></li></ul></li><li class="menu-item"><a href="form-validation.html" class="menu-link"><i class="menu-icon tf-icons bx bx-list-check"></i><div class="text-truncate" data-i18n="Form Validation"> Form Validation </div></a></li><li class="menu-item"><a href="tables-basic.html" class="menu-link"><i class="menu-icon tf-icons bx bx-table"></i><div class="text-truncate" data-i18n="Tables">Tables</div></a></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-grid"></i><div class="text-truncate" data-i18n="Datatables">Datatables</div></a><ul class="menu-sub"><li class="menu-item"><a href="tables-datatables-basic.html" class="menu-link"><div class="text-truncate" data-i18n="Basic">Basic</div></a></li><li class="menu-item"><a href="tables-datatables-advanced.html" class="menu-link"><div class="text-truncate" data-i18n="Advanced">Advanced</div></a></li><li class="menu-item"><a href="tables-datatables-extensions.html" class="menu-link"><div class="text-truncate" data-i18n="Extensions"> Extensions </div></a></li></ul></li><li class="menu-header small text-uppercase"><span class="menu-header-text" data-i18n="Charts &amp; Maps"> Charts &amp; Maps </span></li><li class="menu-item"><a href="javascript:void(0);" class="menu-link menu-toggle"><i class="menu-icon tf-icons bx bx-chart"></i><div class="text-truncate" data-i18n="Charts">Charts</div></a><ul class="menu-sub"><li class="menu-item"><a href="charts-apex.html" class="menu-link"><div class="text-truncate" data-i18n="Apex Charts"> Apex Charts </div></a></li><li class="menu-item"><a href="charts-chartjs.html" class="menu-link"><div class="text-truncate" data-i18n="ChartJS">ChartJS</div></a></li></ul></li><li class="menu-item"><a href="maps-leaflet.html" class="menu-link"><i class="menu-icon tf-icons bx bx-map-alt"></i><div class="text-truncate" data-i18n="Leaflet Maps">Leaflet Maps</div></a></li><li class="menu-header small text-uppercase"><span class="menu-header-text" data-i18n="Misc">Misc</span></li><li class="menu-item"><a href="https://themeselection.com/support/" target="_blank" class="menu-link"><i class="menu-icon tf-icons bx bx-support"></i><div class="text-truncate" data-i18n="Support">Support</div></a></li><li class="menu-item"><a href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/" target="_blank" class="menu-link"><i class="menu-icon tf-icons bx bx-file"></i><div class="text-truncate" data-i18n="Documentation">Documentation</div></a></li></ul></aside><div class="layout-page"><nav class="layout-navbar container-fluid navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar"><div class="layout-menu-toggle navbar-nav align-items-xl-center me-xl-0 d-xl-none me-3"><a class="nav-item nav-link me-xl-4 px-0" href="javascript:void(0)"><i class="bx bx-menu bx-sm"></i></a></div><div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse"><ul class="navbar-nav align-items-center ms-auto flex-row"><li class="nav-item dropdown-language dropdown me-2 me-xl-0"><a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown"><i class="bx bx-globe bx-sm"></i></a><ul class="dropdown-menu dropdown-menu-end"><!--[-->`);
+        _push(`<div${ssrRenderAttrs(mergeProps({ class: "layout-wrapper layout-content-navbar" }, _attrs))}><div class="layout-container"><aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme"><div class="app-brand demo"><a href="/" class="app-brand-link"><span class="app-brand-logo demo"><img src="http://aroundme4.test/storage/1/logo.png" class="mw-100" style="${ssrRenderStyle({ "height": "35px" })}" alt=""></span></a><a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto"><i class="bx bx-chevron-left bx-sm align-middle"></i></a></div><div class="menu-inner-shadow"></div>`);
+        _push(ssrRenderComponent(_sfc_main$1, null, null, _parent));
+        _push(`</aside><div class="layout-page"><nav class="layout-navbar container-fluid navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar"><div class="layout-menu-toggle navbar-nav align-items-xl-center me-xl-0 d-xl-none me-3"><a class="nav-item nav-link me-xl-4 px-0" href="javascript:void(0)"><i class="bx bx-menu bx-sm"></i></a></div><div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse"><ul class="navbar-nav align-items-center ms-auto flex-row"><li class="nav-item dropdown-language dropdown me-2 me-xl-0"><a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown"><i class="bx bx-globe bx-sm"></i></a><ul class="dropdown-menu dropdown-menu-end"><!--[-->`);
         ssrRenderList(unref(locales2).get(), (locale) => {
           _push(`<li><a class="${ssrRenderClass([{ active: unref(locales2).current().getCode() === locale.getCode() }, "dropdown-item"])}"${ssrRenderAttr("href", unref(route)("locale.change", locale.getCode()))}><span class="me-1 align-middle">${locale.getSvgFlag(20, 20) ?? ""}</span><span class="align-middle">${ssrInterpolate(locale.getName())}</span></a></li>`);
         });
@@ -5169,7 +6204,36 @@ const _sfc_main = {
         } else {
           _push(`<!---->`);
         }
-        _push(`</a><ul class="dropdown-menu dropdown-menu-end dropdown-styles"><li><a class="${ssrRenderClass([{ active: unref(theme) === "light" }, "dropdown-item"])}" href="javascript:void(0);"><span class="align-middle"><i class="bx bx-sun me-2"></i>${ssrInterpolate(_ctx.$t("actions.mode.light"))}</span></a></li><li><a class="${ssrRenderClass([{ active: unref(theme) === "dark" }, "dropdown-item"])}" href="javascript:void(0);"><span class="align-middle"><i class="bx bx-moon me-2"></i>${ssrInterpolate(_ctx.$t("actions.mode.dark"))}</span></a></li><li><a class="${ssrRenderClass([{ active: unref(theme) === "system" }, "dropdown-item"])}" href="javascript:void(0);"><span class="align-middle"><i class="bx bx-desktop me-2"></i>${ssrInterpolate(_ctx.$t("actions.mode.system"))}</span></a></li></ul></li><li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1"><a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"><i class="bx bx-bell bx-sm"></i><span class="badge bg-danger rounded-pill badge-notifications"> 5 </span></a><ul class="dropdown-menu dropdown-menu-end py-0"><li class="dropdown-menu-header border-bottom"><div class="dropdown-header d-flex align-items-center py-3"><h5 class="text-body mb-0 me-auto">Notification</h5><a href="javascript:void(0)" class="dropdown-notifications-all text-body" data-bs-toggle="tooltip" data-bs-placement="top" title="Mark all as read"><i class="bx fs-4 bx-envelope-open"></i></a></div></li><li class="dropdown-notifications-list scrollable-container"><ul class="list-group list-group-flush"><li class="list-group-item list-group-item-action dropdown-notifications-item"><div class="d-flex"><div class="flex-shrink-0 me-3"><div class="avatar"><img src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle"></div></div><div class="flex-grow-1"><h6 class="mb-1"> Congratulation Lettie 🎉 </h6><p class="mb-0"> Won the monthly best seller gold badge </p><small class="text-muted">1h ago</small></div><div class="flex-shrink-0 dropdown-notifications-actions"><a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a><a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a></div></div></li><li class="list-group-item list-group-item-action dropdown-notifications-item"><div class="d-flex"><div class="flex-shrink-0 me-3"><div class="avatar"><span class="avatar-initial rounded-circle bg-label-danger"> CF </span></div></div><div class="flex-grow-1"><h6 class="mb-1">Charles Franklin</h6><p class="mb-0">Accepted your connection</p><small class="text-muted">12hr ago</small></div><div class="flex-shrink-0 dropdown-notifications-actions"><a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a><a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a></div></div></li><li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read"><div class="d-flex"><div class="flex-shrink-0 me-3"><div class="avatar"><img src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/2.png" alt class="w-px-40 h-auto rounded-circle"></div></div><div class="flex-grow-1"><h6 class="mb-1">New Message ✉️</h6><p class="mb-0"> You have new message from Natalie </p><small class="text-muted">1h ago</small></div><div class="flex-shrink-0 dropdown-notifications-actions"><a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a><a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a></div></div></li><li class="list-group-item list-group-item-action dropdown-notifications-item"><div class="d-flex"><div class="flex-shrink-0 me-3"><div class="avatar"><span class="avatar-initial rounded-circle bg-label-success"><i class="bx bx-cart"></i></span></div></div><div class="flex-grow-1"><h6 class="mb-1"> Whoo! You have new order 🛒 </h6><p class="mb-0"> ACME Inc. made new order $1,154 </p><small class="text-muted">1 day ago</small></div><div class="flex-shrink-0 dropdown-notifications-actions"><a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a><a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a></div></div></li><li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read"><div class="d-flex"><div class="flex-shrink-0 me-3"><div class="avatar"><img src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/9.png" alt class="w-px-40 h-auto rounded-circle"></div></div><div class="flex-grow-1"><h6 class="mb-1"> Application has been approved 🚀 </h6><p class="mb-0"> Your ABC project application has been approved. </p><small class="text-muted">2 days ago</small></div><div class="flex-shrink-0 dropdown-notifications-actions"><a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a><a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a></div></div></li><li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read"><div class="d-flex"><div class="flex-shrink-0 me-3"><div class="avatar"><span class="avatar-initial rounded-circle bg-label-success"><i class="bx bx-pie-chart-alt"></i></span></div></div><div class="flex-grow-1"><h6 class="mb-1"> Monthly report is generated </h6><p class="mb-0"> July monthly financial report is generated </p><small class="text-muted">3 days ago</small></div><div class="flex-shrink-0 dropdown-notifications-actions"><a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a><a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a></div></div></li><li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read"><div class="d-flex"><div class="flex-shrink-0 me-3"><div class="avatar"><img src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/5.png" alt class="w-px-40 h-auto rounded-circle"></div></div><div class="flex-grow-1"><h6 class="mb-1"> Send connection request </h6><p class="mb-0"> Peter sent you connection request </p><small class="text-muted">4 days ago</small></div><div class="flex-shrink-0 dropdown-notifications-actions"><a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a><a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a></div></div></li><li class="list-group-item list-group-item-action dropdown-notifications-item"><div class="d-flex"><div class="flex-shrink-0 me-3"><div class="avatar"><img src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/6.png" alt class="w-px-40 h-auto rounded-circle"></div></div><div class="flex-grow-1"><h6 class="mb-1">New message from Jane</h6><p class="mb-0"> Your have new message from Jane </p><small class="text-muted">5 days ago</small></div><div class="flex-shrink-0 dropdown-notifications-actions"><a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a><a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a></div></div></li><li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read"><div class="d-flex"><div class="flex-shrink-0 me-3"><div class="avatar"><span class="avatar-initial rounded-circle bg-label-warning"><i class="bx bx-error"></i></span></div></div><div class="flex-grow-1"><h6 class="mb-1">CPU is running high</h6><p class="mb-0"> CPU Utilization Percent is currently at 88.63%, </p><small class="text-muted">5 days ago</small></div><div class="flex-shrink-0 dropdown-notifications-actions"><a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a><a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a></div></div></li></ul></li><li class="dropdown-menu-footer border-top p-3"><button class="btn btn-primary text-uppercase w-100"> view all notifications </button></li></ul></li><li class="nav-item navbar-dropdown dropdown-user dropdown"><a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown"><div class="avatar avatar-online"><img src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle"></div></a><ul class="dropdown-menu dropdown-menu-end"><li><a class="dropdown-item" href="pages-account-settings-account.html"><div class="d-flex"><div class="flex-shrink-0 me-3"><div class="avatar avatar-online"><img src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle"></div></div><div class="flex-grow-1"><span class="fw-medium d-block">John Doe</span><small class="text-muted">Admin</small></div></div></a></li><li><div class="dropdown-divider"></div></li><li><a class="dropdown-item" href="pages-profile-user.html"><i class="bx bx-user me-2"></i><span class="align-middle">My Profile</span></a></li><li><a class="dropdown-item" href="pages-account-settings-account.html"><i class="bx bx-cog me-2"></i><span class="align-middle">Settings</span></a></li><li><a class="dropdown-item" href="pages-account-settings-billing.html"><span class="d-flex align-items-center align-middle"><i class="flex-shrink-0 bx bx-credit-card me-2"></i><span class="flex-grow-1 align-middle"> Billing </span><span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20"> 4 </span></span></a></li><li><div class="dropdown-divider"></div></li><li><a class="dropdown-item" href="pages-faq.html"><i class="bx bx-help-circle me-2"></i><span class="align-middle">FAQ</span></a></li><li><a class="dropdown-item" href="pages-pricing.html"><i class="bx bx-dollar me-2"></i><span class="align-middle">Pricing</span></a></li><li><div class="dropdown-divider"></div></li><li><a class="dropdown-item" href="#"><i class="bx bx-power-off me-2"></i><span class="align-middle">${ssrInterpolate(_ctx.$t("auth.logout"))}</span></a></li></ul></li></ul></div></nav><div class="content-wrapper"><div class="container-fluid flex-grow-1 container-p-y"><div class="h4 mb-4 py-3"><span class="text-muted fw-light">UI Elements /</span> Cards Basic </div>`);
+        _push(`</a><ul class="dropdown-menu dropdown-menu-end dropdown-styles"><li><a class="${ssrRenderClass([{ active: unref(theme) === "light" }, "dropdown-item"])}" href="javascript:void(0);"><span class="align-middle"><i class="bx bx-sun me-2"></i>${ssrInterpolate(_ctx.$t("actions.mode.light"))}</span></a></li><li><a class="${ssrRenderClass([{ active: unref(theme) === "dark" }, "dropdown-item"])}" href="javascript:void(0);"><span class="align-middle"><i class="bx bx-moon me-2"></i>${ssrInterpolate(_ctx.$t("actions.mode.dark"))}</span></a></li><li><a class="${ssrRenderClass([{ active: unref(theme) === "system" }, "dropdown-item"])}" href="javascript:void(0);"><span class="align-middle"><i class="bx bx-desktop me-2"></i>${ssrInterpolate(_ctx.$t("actions.mode.system"))}</span></a></li></ul></li><li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1"><a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"><i class="bx bx-bell bx-sm"></i><span class="badge bg-danger rounded-pill badge-notifications"> 5 </span></a><ul class="dropdown-menu dropdown-menu-end py-0"><li class="dropdown-menu-header border-bottom"><div class="dropdown-header d-flex align-items-center py-3"><h5 class="text-body mb-0 me-auto">Notification</h5><a href="javascript:void(0)" class="dropdown-notifications-all text-body" data-bs-toggle="tooltip" data-bs-placement="top" title="Mark all as read"><i class="bx fs-4 bx-envelope-open"></i></a></div></li><li class="dropdown-notifications-list scrollable-container"><ul class="list-group list-group-flush"><li class="list-group-item list-group-item-action dropdown-notifications-item"><div class="d-flex"><div class="flex-shrink-0 me-3"><div class="avatar"><img src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle"></div></div><div class="flex-grow-1"><h6 class="mb-1"> Congratulation Lettie 🎉 </h6><p class="mb-0"> Won the monthly best seller gold badge </p><small class="text-muted">1h ago</small></div><div class="flex-shrink-0 dropdown-notifications-actions"><a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a><a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a></div></div></li><li class="list-group-item list-group-item-action dropdown-notifications-item"><div class="d-flex"><div class="flex-shrink-0 me-3"><div class="avatar"><span class="avatar-initial rounded-circle bg-label-danger"> CF </span></div></div><div class="flex-grow-1"><h6 class="mb-1">Charles Franklin</h6><p class="mb-0">Accepted your connection</p><small class="text-muted">12hr ago</small></div><div class="flex-shrink-0 dropdown-notifications-actions"><a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a><a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a></div></div></li><li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read"><div class="d-flex"><div class="flex-shrink-0 me-3"><div class="avatar"><img src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/2.png" alt class="w-px-40 h-auto rounded-circle"></div></div><div class="flex-grow-1"><h6 class="mb-1">New Message ✉️</h6><p class="mb-0"> You have new message from Natalie </p><small class="text-muted">1h ago</small></div><div class="flex-shrink-0 dropdown-notifications-actions"><a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a><a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a></div></div></li><li class="list-group-item list-group-item-action dropdown-notifications-item"><div class="d-flex"><div class="flex-shrink-0 me-3"><div class="avatar"><span class="avatar-initial rounded-circle bg-label-success"><i class="bx bx-cart"></i></span></div></div><div class="flex-grow-1"><h6 class="mb-1"> Whoo! You have new order 🛒 </h6><p class="mb-0"> ACME Inc. made new order $1,154 </p><small class="text-muted">1 day ago</small></div><div class="flex-shrink-0 dropdown-notifications-actions"><a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a><a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a></div></div></li><li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read"><div class="d-flex"><div class="flex-shrink-0 me-3"><div class="avatar"><img src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/9.png" alt class="w-px-40 h-auto rounded-circle"></div></div><div class="flex-grow-1"><h6 class="mb-1"> Application has been approved 🚀 </h6><p class="mb-0"> Your ABC project application has been approved. </p><small class="text-muted">2 days ago</small></div><div class="flex-shrink-0 dropdown-notifications-actions"><a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a><a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a></div></div></li><li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read"><div class="d-flex"><div class="flex-shrink-0 me-3"><div class="avatar"><span class="avatar-initial rounded-circle bg-label-success"><i class="bx bx-pie-chart-alt"></i></span></div></div><div class="flex-grow-1"><h6 class="mb-1"> Monthly report is generated </h6><p class="mb-0"> July monthly financial report is generated </p><small class="text-muted">3 days ago</small></div><div class="flex-shrink-0 dropdown-notifications-actions"><a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a><a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a></div></div></li><li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read"><div class="d-flex"><div class="flex-shrink-0 me-3"><div class="avatar"><img src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/5.png" alt class="w-px-40 h-auto rounded-circle"></div></div><div class="flex-grow-1"><h6 class="mb-1"> Send connection request </h6><p class="mb-0"> Peter sent you connection request </p><small class="text-muted">4 days ago</small></div><div class="flex-shrink-0 dropdown-notifications-actions"><a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a><a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a></div></div></li><li class="list-group-item list-group-item-action dropdown-notifications-item"><div class="d-flex"><div class="flex-shrink-0 me-3"><div class="avatar"><img src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/6.png" alt class="w-px-40 h-auto rounded-circle"></div></div><div class="flex-grow-1"><h6 class="mb-1">New message from Jane</h6><p class="mb-0"> Your have new message from Jane </p><small class="text-muted">5 days ago</small></div><div class="flex-shrink-0 dropdown-notifications-actions"><a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a><a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a></div></div></li><li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read"><div class="d-flex"><div class="flex-shrink-0 me-3"><div class="avatar"><span class="avatar-initial rounded-circle bg-label-warning"><i class="bx bx-error"></i></span></div></div><div class="flex-grow-1"><h6 class="mb-1">CPU is running high</h6><p class="mb-0"> CPU Utilization Percent is currently at 88.63%, </p><small class="text-muted">5 days ago</small></div><div class="flex-shrink-0 dropdown-notifications-actions"><a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a><a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a></div></div></li></ul></li><li class="dropdown-menu-footer border-top p-3"><button class="btn btn-primary text-uppercase w-100"> view all notifications </button></li></ul></li><li class="nav-item navbar-dropdown dropdown-user dropdown"><a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown"><div class="avatar avatar-online"><img src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle"></div></a><ul class="dropdown-menu dropdown-menu-end"><li><a class="dropdown-item" href="pages-account-settings-account.html"><div class="d-flex"><div class="flex-shrink-0 me-3"><div class="avatar avatar-online"><img src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle"></div></div><div class="flex-grow-1"><span class="fw-medium d-block">John Doe</span><small class="text-muted">Admin</small></div></div></a></li><li><div class="dropdown-divider"></div></li><li><a class="dropdown-item" href="pages-profile-user.html"><i class="bx bx-user me-2"></i><span class="align-middle">My Profile</span></a></li><li><a class="dropdown-item" href="pages-account-settings-account.html"><i class="bx bx-cog me-2"></i><span class="align-middle">Settings</span></a></li><li><a class="dropdown-item" href="pages-account-settings-billing.html"><span class="d-flex align-items-center align-middle"><i class="flex-shrink-0 bx bx-credit-card me-2"></i><span class="flex-grow-1 align-middle"> Billing </span><span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20"> 4 </span></span></a></li><li><div class="dropdown-divider"></div></li><li><a class="dropdown-item" href="pages-faq.html"><i class="bx bx-help-circle me-2"></i><span class="align-middle">FAQ</span></a></li><li><a class="dropdown-item" href="pages-pricing.html"><i class="bx bx-dollar me-2"></i><span class="align-middle">Pricing</span></a></li><li><div class="dropdown-divider"></div></li><li><a class="dropdown-item" href="#"><i class="bx bx-power-off me-2"></i><span class="align-middle">${ssrInterpolate(_ctx.$t("auth.logout"))}</span></a></li></ul></li></ul></div></nav><div class="content-wrapper"><div class="container-fluid flex-grow-1 container-p-y"><div class="h4 mb-4 py-3"><!--[-->`);
+        ssrRenderList(unref(breadcrumbs2), (crumb, i) => {
+          _push(`<!--[-->`);
+          if (crumb.href) {
+            _push(ssrRenderComponent(unref(Link), {
+              href: crumb.href,
+              class: "text-muted fw-light"
+            }, {
+              default: withCtx((_, _push2, _parent2, _scopeId) => {
+                if (_push2) {
+                  _push2(`${ssrInterpolate(crumb.label)}`);
+                } else {
+                  return [
+                    createTextVNode(toDisplayString(crumb.label), 1)
+                  ];
+                }
+              }),
+              _: 2
+            }, _parent));
+          } else {
+            _push(`<span class="${ssrRenderClass([i === unref(breadcrumbs2).length - 1 ? "text-purple-500" : "", "text-muted fw-light"])}">${ssrInterpolate(crumb.label)}</span>`);
+          }
+          if (i < unref(breadcrumbs2).length - 1) {
+            _push(`<span class="mx-1 text-muted fw-light">/</span>`);
+          } else {
+            _push(`<!---->`);
+          }
+          _push(`<!--]-->`);
+        });
+        _push(`<!--]--></div>`);
         ssrRenderSlot(_ctx.$slots, "default", {}, null, _push, _parent);
         _push(`</div><footer class="content-footer footer bg-footer-theme"><div class="container-fluid d-flex justify-content-between flex-md-row flex-column flex-wrap py-2"><div class="mb-md-0 mb-2">Laravel v12.32.5 (PHP v8.3.22)</div></div></footer><div class="content-backdrop fade"></div></div></div></div><div class="layout-overlay layout-menu-toggle"></div><div class="drag-target"></div></div>`);
       } else {
@@ -5189,7 +6253,7 @@ createServer(
     page,
     render: renderToString,
     resolve: (name) => {
-      const pages = /* @__PURE__ */ Object.assign({ "../pages/About.vue": __vite_glob_0_0$1, "../pages/Auth/ConfirmPassword.vue": __vite_glob_0_1, "../pages/Auth/ForgetPassword.vue": __vite_glob_0_2, "../pages/Auth/Login.vue": __vite_glob_0_3, "../pages/Auth/Register.vue": __vite_glob_0_4, "../pages/Auth/ResetPassword.vue": __vite_glob_0_5, "../pages/Auth/VerifyEmail.vue": __vite_glob_0_6, "../pages/Dashboard/Home.vue": __vite_glob_0_7, "../pages/Test.vue": __vite_glob_0_8 });
+      const pages = /* @__PURE__ */ Object.assign({ "../pages/About.vue": __vite_glob_0_0$1, "../pages/Auth/ConfirmPassword.vue": __vite_glob_0_1, "../pages/Auth/ForgetPassword.vue": __vite_glob_0_2, "../pages/Auth/Login.vue": __vite_glob_0_3, "../pages/Auth/Register.vue": __vite_glob_0_4, "../pages/Auth/ResetPassword.vue": __vite_glob_0_5, "../pages/Auth/VerifyEmail.vue": __vite_glob_0_6, "../pages/Dashboard/BusinessRequests/Index.vue": __vite_glob_0_7, "../pages/Dashboard/Home.vue": __vite_glob_0_8, "../pages/Dashboard/PoiRequests/Index.vue": __vite_glob_0_9, "../pages/Dashboard/Pois/Index.vue": __vite_glob_0_10, "../pages/Dashboard/Users/Index.vue": __vite_glob_0_11, "../pages/Test.vue": __vite_glob_0_12 });
       const page2 = pages[`../pages/${name}.vue`];
       if (page2 && page2.default && page2.default.layout === void 0) {
         page2.default.layout = _sfc_main;

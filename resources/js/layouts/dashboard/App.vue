@@ -710,8 +710,13 @@
 
                     <div class="container-fluid flex-grow-1 container-p-y">
                         <div class="h4 mb-4 py-3">
-                            <span class="text-muted fw-light">UI Elements /</span>
-                            Cards Basic
+                            <template v-for="(crumb, i) in breadcrumbs" :key="i">
+                                <Link v-if="crumb.href" :href="crumb.href" class="text-muted fw-light">
+                                    {{ crumb.label }}
+                                </Link>
+                                <span v-else class="text-muted fw-light" :class="i === breadcrumbs.length - 1 ? 'text-purple-500' : ''">{{ crumb.label }}</span>
+                                <span v-if="i < breadcrumbs.length - 1" class="mx-1 text-muted fw-light">/</span>
+                            </template>
                         </div>
 
                         <slot></slot>
@@ -749,11 +754,14 @@
     import { inject } from 'vue';
     import { useTheme } from '@/composables/useTheme'
     import SidebarItems from '@/components/Dashboard/SidebarItems.vue';
+    import { useBreadcrumbs } from '@/composables/useBreadcrumbs'
+    import { Link } from '@inertiajs/vue3';
 
     const { logout } = useAuth();
     const locales = inject('$locales');
     const {theme, applyTheme, pageLoaded } = useTheme();
 
+    const { breadcrumbs } = useBreadcrumbs()
 
     const setLocale = locale => {
         locales.setLocale(locale.getCode())

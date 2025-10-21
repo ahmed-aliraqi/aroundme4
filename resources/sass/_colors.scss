@@ -1,103 +1,142 @@
-@import 'bootstrap/scss/functions';
-@import 'bootstrap/scss/variables';
+/*!
+ * SCSS Color Palette Plugin (with dark mode via [data-mode="dark"])
+ * Generates color utility classes with automatic shade variations
+ * Version: 1.1.1
+ */
 
-$custom-colors: (
-    // Reds
-    'red-50': #fef2f2,
-    'red-100': #fee2e2,
-    'red-200': #fecaca,
-    'red-300': #fca5a5,
-    'red-400': #f87171,
-    'red-500': #ef4444,
-    'red-600': #dc2626,
-    'red-700': #b91c1c,
-    'red-800': #991b1b,
-    'red-900': #7f1d1d,
+@use 'sass:color';
+@use 'sass:math';
 
-    // Greens
-    'green-50': #f0fdf4,
-    'green-100': #dcfce7,
-    'green-200': #bbf7d0,
-    'green-300': #86efac,
-    'green-400': #4ade80,
-    'green-500': #22c55e,
-    'green-600': #16a34a,
-    'green-700': #15803d,
-    'green-800': #166534,
-    'green-900': #14532d,
-
-    // Blues
-    'blue-50': #eff6ff,
-    'blue-100': #dbeafe,
-    'blue-200': #bfdbfe,
-    'blue-300': #93c5fd,
-    'blue-400': #60a5fa,
-    'blue-500': #3b82f6,
-    'blue-600': #2563eb,
-    'blue-700': #1d4ed8,
-    'blue-800': #1e40af,
-    'blue-900': #1e3a8a,
-
-    // Yellows
-    'yellow-50': #fefce8,
-    'yellow-100': #fef9c3,
-    'yellow-200': #fef08a,
-    'yellow-300': #fde047,
-    'yellow-400': #facc15,
-    'yellow-500': #eab308,
-    'yellow-600': #ca8a04,
-    'yellow-700': #a16207,
-    'yellow-800': #854d0e,
-    'yellow-900': #713f12,
-
-    // Grays
-    'gray-50': #f9fafb,
-    'gray-100': #f3f4f6,
-    'gray-200': #e5e7eb,
-    'gray-300': #d1d5db,
-    'gray-400': #9ca3af,
-    'gray-500': #6b7280,
-    'gray-600': #4b5563,
-    'gray-700': #374151,
-    'gray-800': #1f2937,
-    'gray-900': #111827,
-
-    // Additional colors
-    'indigo': #6366f1,
-    'purple': #a855f7,
-    'pink': #ec4899,
-    'fuchsia': #d946ef,
-    'rose': #f43f5e,
-    'amber': #f59e0b,
-    'orange': #f97316,
-    'deep-orange': #ff5722,
-    'cyan': #06b6d4,
-    'teal': #14b8a6,
-    'lime': #84cc16,
-    'sky': #0ea5e9,
-    'violet': #8b5cf6,
-    'emerald': #10b981,
-    'neutral': #737373,
-    'zinc': #71717a,
-    'slate': #64748b,
-    'stone': #78716c,
-    'brown': #795548,
-    'blue-gray': #607d8b,
-
-    // Black/White
-    'black': #000,
-    'white': #fff
+// Default shade percentages
+$color-shade-percentages: (
+    25: 95%,
+    50: 90%,
+    100: 80%,
+    200: 70%,
+    300: 60%,
+    400: 50%,
+    500: 0%,
+    600: -10%,
+    700: -20%,
+    800: -30%,
+    900: -40%
 );
 
-$theme-colors: map-merge($theme-colors, $custom-colors);
+// Default color palette
+$color-palette: (
+    // Basic
+    'black': #000000,
+    'white': #ffffff,
 
-// 3. Merge with Bootstrap's theme colors
-$theme-colors: map-merge($theme-colors, $custom-colors);
+    // Gray scale / neutrals
+    'slate': #64748b,
+    'gray': #6b7280,
+    'zinc': #71717a,
+    'neutral': #737373,
+    'stone': #78716c,
 
-// 4. Continue Bootstrap requirements before utilities
-@import 'bootstrap/scss/maps';
-@import 'bootstrap/scss/mixins';
-@import 'bootstrap/scss/utilities';
+    // Reds / Pinks / Roses
+    'red': #ef4444,
+    'rose': #f43f5e,
+    'pink': #ec4899,
+    'fuchsia': #d946ef,
+    'purple': #8b5cf6,
+    'violet': #8b5cf6,
 
-// 5. Load only the utility API (generates the classes like bg-*, text-*)
-@import 'bootstrap/scss/utilities/api';
+    // Blues / Indigo / Cyan / Sky
+    'blue': #3b82f6,
+    'indigo': #6366f1,
+    'cyan': #06b6d4,
+    'sky': #0ea5e9,
+
+    // Greens / Teals / Emerald / Lime
+    'green': #22c55e,
+    'emerald': #10b981,
+    'teal': #14b8a6,
+    'lime': #84cc16,
+
+    // Yellows / Ambers / Oranges / Gold
+    'yellow': #f59e0b,
+    'amber': #f59e0b,
+    'orange': #f97316,
+    'gold': #eab308,
+
+    // Browns / Earthy
+    'brown': #a16207,
+);
+
+
+// Helper for !important
+@function importance() {
+    @return ' !important';
+}
+
+// Mixin to generate color utility classes
+@mixin generate-color($base-color, $name, $prefix: '') {
+    @each $key, $percent in $color-shade-percentages {
+        $color: if(
+                $percent >= 0,
+                color.mix(white, $base-color, $percent),
+                color.mix(black, $base-color, math.abs($percent))
+        );
+
+        // Background
+        .#{$prefix}bg-#{$name}-#{$key} {
+            background-color: $color#{importance()};
+        }
+
+        // Text
+        .#{$prefix}text-#{$name}-#{$key} {
+            color: $color#{importance()};
+        }
+
+        // Border / Outline
+        .#{$prefix}border-#{$name}-#{$key} {
+            border-color: $color#{importance()};
+        }
+        .#{$prefix}outline-#{$name}-#{$key} {
+            outline-color: $color#{importance()};
+        }
+
+        // SVG
+        .#{$prefix}fill-#{$name}-#{$key} {
+            fill: $color#{importance()};
+        }
+        .#{$prefix}stroke-#{$name}-#{$key} {
+            stroke: $color#{importance()};
+        }
+
+        // UI / layout
+        .#{$prefix}text-decoration-#{$name}-#{$key} {
+            text-decoration-color: $color#{importance()};
+        }
+        .#{$prefix}caret-#{$name}-#{$key} {
+            caret-color: $color#{importance()};
+        }
+        .#{$prefix}emphasis-#{$name}-#{$key} {
+            text-emphasis-color: $color#{importance()};
+        }
+        .#{$prefix}accent-#{$name}-#{$key} {
+            accent-color: $color#{importance()};
+        }
+        .#{$prefix}column-rule-#{$name}-#{$key} {
+            column-rule-color: $color#{importance()};
+        }
+
+        // Shadow
+        .#{$prefix}shadow-#{$name}-#{$key} {
+            box-shadow: 0 0 0 0 $color#{importance()};
+        }
+    }
+}
+
+// Generate normal and dark-prefixed classes
+@each $name, $color in $color-palette {
+    // Normal variants
+    @include generate-color($color, $name);
+
+    // Dark variants (only active when [data-mode="dark"] is on <html>)
+    html[data-mode='dark'] {
+        @include generate-color($color, $name, 'dark\\:');
+    }
+}

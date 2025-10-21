@@ -4,6 +4,7 @@ namespace App\Http\Filters;
 
 use AhmedAliraqi\LaravelFilterable\BaseFilter;
 use App\Enums\UserType;
+use Illuminate\Database\Eloquent\Builder;
 
 class UserFilter extends BaseFilter
 {
@@ -11,12 +12,24 @@ class UserFilter extends BaseFilter
      * Registered filters to operate upon.
      */
     protected array $filters = [
+        'q',
         'name',
         'email',
         'phone',
         'type',
     ];
 
+    /**
+     * Filter the query using the given value.
+     */
+    public function q(?string $value): void
+    {
+        $this->builder->where(function (Builder $builder) use ($value) {
+            $builder->where('name', 'like', '%' . $value . '%');
+            $builder->orWhere('email', 'like', '%' . $value . '%');
+            $builder->orWhere('phone', 'like', '%' . $value . '%');
+        });
+    }
     /**
      * Filter the query by the given name.
      */
@@ -44,9 +57,12 @@ class UserFilter extends BaseFilter
     /**
      * Filter the query by the given type.
      */
-    public function type(?string $value): void
+    public function type(string|array $value = ''): void
     {
-        if (in_array($value, array_map(fn (UserType $type) => $type->value, UserType::cases()))) {
+        if (is_array($value)) {
+            $this->builder->whereIn('type', $value);
+        }
+        if (is_string($value) && in_array($value, array_map(fn (UserType $type) => $type->value, UserType::cases()))) {
             $this->builder->where('type', $value);
         }
     }

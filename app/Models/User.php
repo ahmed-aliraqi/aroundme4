@@ -52,6 +52,15 @@ class User extends Authenticatable implements HasLocalePreference, HasMedia, Mus
     ];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'avatar'
+    ];
+
+    /**
      * The filter class used for filtering queries on this model.
      *
      * @var class-string<\App\Http\Filters\UserFilter>
@@ -100,6 +109,11 @@ class User extends Authenticatable implements HasLocalePreference, HasMedia, Mus
     public function getAvatar(): string
     {
         return $this->getFirstMediaUrl('avatars');
+    }
+
+    public function getAvatarAttribute(): string
+    {
+        return $this->getAvatar();
     }
 
     public function canAccessDashboard(): bool

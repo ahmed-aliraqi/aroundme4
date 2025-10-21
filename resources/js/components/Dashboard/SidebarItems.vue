@@ -1,7 +1,7 @@
 <script setup lang="ts">
     import SidebarHead from '@/components/Dashboard/SidebarHead.vue';
     import SidebarLink from '@/components/Dashboard/SidebarLink.vue';
-    import AnalyticsIcon from '@/components/Svgs/AnalyticsIcon.vue';
+    import UserGroupIcon from '@/components/Svgs/UserGroupIcon.vue';
     import PoisIcon from '@/components/Svgs/PoisIcon.vue';
     import PoiRequestsIcon from '@/components/Svgs/PoiRequestsIcon.vue';
     import BusinessRequestsIcon from '@/components/Svgs/BusinessRequestsIcon.vue';
@@ -17,12 +17,12 @@
         <SidebarHead>{{ $t('sidebar.overview') }}</SidebarHead>
 
         <SidebarLink
-            :label="$t('sidebar.analytics')"
-            :href="route('dashboard.analytics.index')"
-            :active="['Dashboard/Analytics/Index'].includes(page.component)"
+            :label="$t('users.plural')"
+            :href="route('dashboard.users.index')"
+            :active="['Dashboard/Users/Index'].includes(page.component)"
         >
             <template #svg>
-                <AnalyticsIcon width="20" height="20" class="me-2"></AnalyticsIcon>
+                <UserGroupIcon width="20" height="20" class="me-2"></UserGroupIcon>
             </template>
         </SidebarLink>
         <SidebarHead>{{ $t('sidebar.services') }}</SidebarHead>

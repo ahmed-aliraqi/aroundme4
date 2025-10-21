@@ -41,7 +41,7 @@ const props = defineProps({
             <i v-if="iconClass" class="menu-icon tf-icons" :class="iconClass"></i>
             <slot name="svg"></slot>
             <div class="text-truncate">{{ label }}</div>
-            <span v-if="badge > 0" class="badge badge-center rounded-pill bg-danger ms-auto">{{ badge }}</span>
+            <span v-if="badge > 0" :title="badge > 99 ? badge : ''" class="badge bg-label-danger ms-auto">{{ badge > 99 ? '+99' : badge }}</span>
         </Link>
         <ul class="menu-sub">
             <slot></slot>
