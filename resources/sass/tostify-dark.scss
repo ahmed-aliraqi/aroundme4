@@ -1,0 +1,25 @@
+html[data-mode='dark'] {
+    --toastify-color-light: #1e1e2f;
+    --toastify-color-dark: #121212;
+    --toastify-toast-background: #1e1e2f;
+    --toastify-text-color-light: #f1f1f1;
+    --toastify-text-color-dark: #fff;
+    --toastify-color-progress-light: #6366f1;
+    --toastify-color-progress-dark: #bb86fc;
+    --toastify-spinner-color: #888;
+    --toastify-spinner-color-empty-area: #2e2e2e;
+}
+
+html[data-mode='dark'] .Toastify__toast {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+html[data-mode='dark'] .Toastify__close-button {
+    color: #ccc !important;
+}
+
+html[data-mode='dark'] .Toastify__close-button:hover {
+    color: #fff !important;
+    opacity: 1 !important;
+}

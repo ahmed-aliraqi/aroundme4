@@ -50,6 +50,7 @@ return [
         'profile-updated' => 'Your profile has been updated successfully.',
         'deleted' => 'The user has been deleted successfully.',
         'restored' => 'The user has been restored successfully.',
+        'cannot-delete' => 'You cannot delete your own account.',
     ],
     'attributes' => [
         'name' => 'Name',
@@ -80,6 +81,12 @@ return [
         'delete' => [
             'title' => 'Warning!',
             'info' => 'Are you sure you want to delete the user?',
+            'confirm' => 'Delete',
+            'cancel' => 'Cancel',
+        ],
+        'delete_selected' => [
+            'title' => 'Warning!',
+            'info' => '{1}Are you sure you want to delete the user?|{*}Are you sure you want to delete :count users?',
             'confirm' => 'Delete',
             'cancel' => 'Cancel',
         ],

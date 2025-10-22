@@ -1,5 +1,5 @@
 <script setup>
-    import { Head, Link, router, usePage } from '@inertiajs/vue3';
+    import { Head, Link } from '@inertiajs/vue3';
     import { useBreadcrumbs } from '@/composables/useBreadcrumbs';
     import { onMounted, ref, watch } from 'vue';
     import { trans } from 'laravel-vue-i18n';
@@ -10,49 +10,29 @@
     import UserTypeBadge from '@/components/User/TypeBadge.vue';
     import Pagination from '@/components/Tables/Pagination.vue';
     import EyeIcon from '@/components/Svgs/EyeIcon.vue';
-    import debounce from 'lodash/debounce';
+    import { useCrud } from '@/composables/useCrud.js';
+    import { useFilters } from '@/composables/useFilters.js';
 
     defineOptions({ name: 'UsersIndex' });
 
-    const props = defineProps(['app', 'users', 'query']);
+    const props = defineProps(['auth', 'app', 'users', 'query']);
 
-    const filter = ref({
-        type: props.query?.type || [],
-        perPage: props.query?.perPage || undefined,
-        q: props.query?.q || ''
+    const { filter } = useFilters(props.query, 'dashboard.users.index');
+    const {
+        items,
+        selected,
+        selectAll,
+        deleteSelected,
+        deleteItem,
+    } = useCrud({
+        items: ref(props.users),
+        resourceUrl: '/dashboard/users',
+        resourceName: 'users',
     });
-
-    const updateQuery = debounce((value) => {
-        router.get(
-            route('dashboard.users.index'),
-            value,
-            { preserveState: true, replace: true }
-        );
-    }, 200);
-
-    // Watch search and call debounced function
-    watch(filter, (value) => {
-        updateQuery(value);
-    }, {deep: true});
-
-    const selectAll = (checked) => {
-        if (checked) {
-            selectedItems.value = props.users.data.map((user) => user.id);
-        } else {
-            selectedItems.value = [];
-        }
-    };
-
-    const selectedItems = ref([]);
-
-    const applyFilters = () => {
-        console.log(filter.value);
-    };
 
     const { setBreadcrumbs } = useBreadcrumbs();
 
     onMounted(() => {
-        console.log(router.params);
         setBreadcrumbs([
             { label: trans('sidebar.analytics'), href: '/' },
             { label: trans('users.plural') },
@@ -70,7 +50,7 @@
         <div class="card-header border-bottom">
             <div class="d-flex justify-content-between align-items-center">
                 <h5 class="card-title">
-                    {{ $t('users.tracking') }}
+                    {{ $t('users.tracking') }} ({{ users.total }})
                     <small class="text-muted d-block mt-2">{{ $t('users.tracking_note') }}</small>
                 </h5>
 
@@ -105,7 +85,8 @@
                                 <div class="col-8">
                                     <button
                                         class="btn btn-label-danger"
-                                        :disabled="selectedItems.length === 0"
+                                        :disabled="selected.length === 0"
+                                        @click.prevent="deleteSelected"
                                     >
                                         <DeleteIcon
                                             width="18"
@@ -130,7 +111,7 @@
                                         />
                                     </div>
 
-                                    <FilterDropdown @apply="applyFilters">
+                                    <FilterDropdown>
                                         <h6 class="dropdown-header px-0 mb-2">
                                             {{ $t('users.attributes.type') }}
                                         </h6>
@@ -219,8 +200,8 @@
                 </thead>
                 <tbody>
                     <tr
-                        v-for="user in users.data"
-                        :class="{ 'bg-label-primary': selectedItems.includes(user.id) }"
+                        v-for="user in items.data"
+                        :class="{ 'bg-label-primary': selected.includes(user.id) }"
                     >
                         <td>
                             <div class="form-check">
@@ -228,7 +209,7 @@
                                     class="form-check-input"
                                     multiple
                                     name="items[]"
-                                    v-model="selectedItems"
+                                    v-model="selected"
                                     type="checkbox"
                                     :value="user.id"
                                 />
@@ -276,12 +257,13 @@
                                 >
                                     <EditIcon width="20" height="20"></EditIcon>
                                 </Link>
-                                <Link
-                                    :href="route('dashboard.users.show', user)"
+                                <a
+                                    href="#"
                                     class="text-danger"
+                                    @click.prevent="deleteItem(user.id)"
                                 >
                                     <DeleteIcon width="20" height="20"></DeleteIcon>
-                                </Link>
+                                </a>
                             </div>
                         </td>
                     </tr>

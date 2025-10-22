@@ -7,6 +7,7 @@ import Axios from '@/plugins/axios.js';
 import Auth from '@/plugins/auth.js';
 import AppLayout from '@/layouts/dashboard/App.vue';
 import { Locale, Locales } from '@/plugins/locales';
+import SweetAlert from '@/plugins/sweetalert.js';
 
 
 import { createInertiaApp } from '@inertiajs/vue3'
@@ -35,6 +36,7 @@ const App = createInertiaApp({
             })
             .use(Vuex)
             .use(Auth)
+            .use(SweetAlert)
             .provide('$locale', Locale)
             .provide('$locales', Locales)
             .provide('$axios', Axios)

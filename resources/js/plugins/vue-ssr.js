@@ -8,6 +8,7 @@ import { createInertiaApp } from '@inertiajs/vue3';
 import createServer from '@inertiajs/vue3/server';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, h } from 'vue';
+import SweetAlert from '@/plugins/sweetalert.js';
 
 
 createServer((page) =>
@@ -39,6 +40,7 @@ createServer((page) =>
                 })
                 .use(Vuex)
                 .use(Auth)
+                .use(SweetAlert)
                 .provide('$locale', Locale)
                 .provide('$axios', Axios)
         },

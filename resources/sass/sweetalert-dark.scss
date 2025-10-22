@@ -1,0 +1,60 @@
+html[data-mode='dark'] .swal2-popup {
+    background: #1e1e2f !important;
+    color: #f1f1f1 !important;
+}
+
+html[data-mode='dark'] .swal2-title {
+    color: #fff !important;
+}
+
+html[data-mode='dark'] .swal2-html-container {
+    color: #ddd !important;
+}
+
+html[data-mode='dark'] .swal2-actions button.swal2-styled {
+    background-color: #3b3b4f !important;
+    color: #fff !important;
+    border: 1px solid #555 !important;
+}
+
+html[data-mode='dark'] .swal2-actions button.swal2-confirm {
+    background-color: #6366f1 !important;
+}
+
+html[data-mode='dark'] .swal2-actions button.swal2-cancel {
+    background-color: #4b5563 !important;
+}
+
+html[data-mode='dark'] .swal2-validation-message {
+    background: #2a2a3b !important;
+    color: #f87171 !important;
+}
+
+html[data-mode='dark'] .swal2-icon {
+    border-color: #666 !important;
+}
+
+html[data-mode='dark'] .swal2-icon.swal2-success {
+    color: #22c55e !important;
+    border-color: #22c55e !important;
+}
+
+html[data-mode='dark'] .swal2-icon.swal2-error {
+    color: #ef4444 !important;
+    border-color: #ef4444 !important;
+}
+
+html[data-mode='dark'] .swal2-icon.swal2-warning {
+    color: #f59e0b !important;
+    border-color: #f59e0b !important;
+}
+
+html[data-mode='dark'] .swal2-icon.swal2-info {
+    color: #3b82f6 !important;
+    border-color: #3b82f6 !important;
+}
+
+html[data-mode='dark'] .swal2-footer {
+    border-top: 1px solid #333 !important;
+    color: #aaa !important;
+}
