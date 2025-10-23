@@ -4,14 +4,15 @@
     import { onMounted, ref, watch } from 'vue';
     import { trans } from 'laravel-vue-i18n';
     import FilterDropdown from '@/components/Tables/FilterDropdown.vue';
-    import EditIcon from '@/components/Svgs/EditIcon.vue';
     import DeleteIcon from '@/components/Svgs/DeleteIcon.vue';
     import { route } from 'ziggy-js';
     import UserTypeBadge from '@/components/User/TypeBadge.vue';
     import Pagination from '@/components/Tables/Pagination.vue';
-    import EyeIcon from '@/components/Svgs/EyeIcon.vue';
     import { useCrud } from '@/composables/useCrud.js';
     import { useFilters } from '@/composables/useFilters.js';
+    import UserCreateModal from '@/pages/Dashboard/Users/Modals/UserCreateModal.vue';
+    import UserEditModal from '@/pages/Dashboard/Users/Modals/UserEditModal.vue';
+    import EditIcon from '@/components/Svgs/EditIcon.vue';
 
     defineOptions({ name: 'UsersIndex' });
 
@@ -19,7 +20,6 @@
 
     const { filter } = useFilters(props.query, 'dashboard.users.index');
     const {
-        items,
         selected,
         selectAll,
         deleteSelected,
@@ -32,12 +32,22 @@
 
     const { setBreadcrumbs } = useBreadcrumbs();
 
+    const updatedItem = ref(null);
+
+    const openEditModal = (user) => {
+        updatedItem.value = user
+    }
+    const closeEditModal = () => {
+        updatedItem.value = null
+    }
+
     onMounted(() => {
         setBreadcrumbs([
             { label: trans('sidebar.analytics'), href: '/' },
             { label: trans('users.plural') },
         ]);
     });
+
 </script>
 
 <template>
@@ -54,26 +64,7 @@
                     <small class="text-muted d-block mt-2">{{ $t('users.tracking_note') }}</small>
                 </h5>
 
-                <a href="#" class="btn btn-primary">
-                    <svg
-                        width="20"
-                        height="20"
-                        class="me-1"
-                        viewBox="0 0 20 20"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path
-                            d="M9.99935 4.16797V15.8346M4.16602 10.0013H15.8327"
-                            stroke="currentColor"
-                            stroke-width="1.66667"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                        />
-                    </svg>
-
-                    {{ $t('users.actions.create') }}
-                </a>
+                <UserCreateModal></UserCreateModal>
             </div>
         </div>
         <div class="table-responsive">
@@ -185,7 +176,7 @@
                                 <input
                                     class="form-check-input"
                                     type="checkbox"
-                                    @change="selectAll($event.target.checked)"
+                                    @change="selectAll($event.target.checked, [auth.user.id])"
                                     id="selectAll"
                                 />
                             </div>
@@ -193,14 +184,13 @@
                         <th>{{ $t('users.attributes.name') }}</th>
                         <th>{{ $t('users.attributes.phone') }}</th>
                         <th>{{ $t('users.attributes.type') }}</th>
-                        <th>{{ $t('users.attributes.last_active') }}</th>
                         <th>{{ $t('users.attributes.created_at') }}</th>
                         <th>{{ $t('users.attributes.actions') }}</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr
-                        v-for="user in items.data"
+                        v-for="user in users.data"
                         :class="{ 'bg-label-primary': selected.includes(user.id) }"
                     >
                         <td>
@@ -212,6 +202,7 @@
                                     v-model="selected"
                                     type="checkbox"
                                     :value="user.id"
+                                    :disabled="auth.user.id === user.id"
                                 />
                             </div>
                         </td>
@@ -241,26 +232,27 @@
                         <td>
                             <UserTypeBadge :type="user.type"></UserTypeBadge>
                         </td>
-                        <td>3 min ago</td>
-                        <td>Oct 10, 2024 ,10AM</td>
+                        <td>{{ user.created_at }}</td>
                         <td>
                             <div class="d-flex gap-3">
-                                <Link
-                                    :href="route('dashboard.users.show', user)"
-                                    class="text-muted"
-                                >
-                                    <EyeIcon width="20" height="20"></EyeIcon>
-                                </Link>
-                                <Link
-                                    :href="route('dashboard.users.edit', user)"
+<!--                                <Link-->
+<!--                                    :href="route('dashboard.users.show', user)"-->
+<!--                                    class="text-muted"-->
+<!--                                >-->
+<!--                                    <EyeIcon width="20" height="20"></EyeIcon>-->
+<!--                                </Link>-->
+                                <a
+                                    href="#"
+                                    @click.prevent="openEditModal(user)"
                                     class="text-muted"
                                 >
                                     <EditIcon width="20" height="20"></EditIcon>
-                                </Link>
+                                </a>
                                 <a
                                     href="#"
                                     class="text-danger"
                                     @click.prevent="deleteItem(user.id)"
+                                    v-if="auth.user.id !== user.id"
                                 >
                                     <DeleteIcon width="20" height="20"></DeleteIcon>
                                 </a>
@@ -273,129 +265,7 @@
         <div class="card-footer">
             <Pagination v-if="users" :data="users" />
         </div>
-        <!-- Offcanvas to add new user -->
-        <div
-            class="offcanvas offcanvas-end"
-            tabindex="-1"
-            id="offcanvasAddUser"
-            aria-labelledby="offcanvasAddUserLabel"
-        >
-            <div class="offcanvas-header">
-                <h5 id="offcanvasAddUserLabel" class="offcanvas-title">Add User</h5>
-                <button
-                    type="button"
-                    class="btn-close text-reset"
-                    data-bs-dismiss="offcanvas"
-                    aria-label="Close"
-                ></button>
-            </div>
-            <div class="offcanvas-body mx-0 flex-grow-0">
-                <form class="add-new-user pt-0" id="addNewUserForm" onsubmit="return false">
-                    <div class="mb-3">
-                        <label class="form-label" for="add-user-fullname">Full Name</label>
-                        <input
-                            type="text"
-                            class="form-control"
-                            id="add-user-fullname"
-                            placeholder="John Doe"
-                            name="userFullname"
-                            aria-label="John Doe"
-                        />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="add-user-email">Email</label>
-                        <input
-                            type="text"
-                            id="add-user-email"
-                            class="form-control"
-                            placeholder="john.doe@example.com"
-                            aria-label="john.doe@example.com"
-                            name="userEmail"
-                        />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="add-user-contact">Contact</label>
-                        <input
-                            type="text"
-                            id="add-user-contact"
-                            class="form-control phone-mask"
-                            placeholder="+1 (609) 988-44-11"
-                            aria-label="john.doe@example.com"
-                            name="userContact"
-                        />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="add-user-company">Company</label>
-                        <input
-                            type="text"
-                            id="add-user-company"
-                            class="form-control"
-                            placeholder="Web Developer"
-                            aria-label="jdoe1"
-                            name="companyName"
-                        />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="country">Country</label>
-                        <select id="country" class="select2 form-select">
-                            <option value="">Select</option>
-                            <option value="Australia">Australia</option>
-                            <option value="Bangladesh">Bangladesh</option>
-                            <option value="Belarus">Belarus</option>
-                            <option value="Brazil">Brazil</option>
-                            <option value="Canada">Canada</option>
-                            <option value="China">China</option>
-                            <option value="France">France</option>
-                            <option value="Germany">Germany</option>
-                            <option value="India">India</option>
-                            <option value="Indonesia">Indonesia</option>
-                            <option value="Israel">Israel</option>
-                            <option value="Italy">Italy</option>
-                            <option value="Japan">Japan</option>
-                            <option value="Korea">Korea, Republic of</option>
-                            <option value="Mexico">Mexico</option>
-                            <option value="Philippines">Philippines</option>
-                            <option value="Russia">Russian Federation</option>
-                            <option value="South Africa">South Africa</option>
-                            <option value="Thailand">Thailand</option>
-                            <option value="Turkey">Turkey</option>
-                            <option value="Ukraine">Ukraine</option>
-                            <option value="United Arab Emirates">United Arab Emirates</option>
-                            <option value="United Kingdom">United Kingdom</option>
-                            <option value="United States">United States</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="user-role">User Role</label>
-                        <select id="user-role" class="form-select">
-                            <option value="subscriber">Subscriber</option>
-                            <option value="editor">Editor</option>
-                            <option value="maintainer">Maintainer</option>
-                            <option value="author">Author</option>
-                            <option value="admin">Admin</option>
-                        </select>
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label" for="user-plan">Select Plan</label>
-                        <select id="user-plan" class="form-select">
-                            <option value="basic">Basic</option>
-                            <option value="enterprise">Enterprise</option>
-                            <option value="company">Company</option>
-                            <option value="team">Team</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">
-                        Submit
-                    </button>
-                    <button
-                        type="reset"
-                        class="btn btn-label-secondary"
-                        data-bs-dismiss="offcanvas"
-                    >
-                        Cancel
-                    </button>
-                </form>
-            </div>
-        </div>
+
+        <UserEditModal v-if="updatedItem" :item="updatedItem" @close-modal="closeEditModal"></UserEditModal>
     </div>
 </template>

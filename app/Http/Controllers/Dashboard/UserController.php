@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Dashboard\UserRequest;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -17,6 +18,25 @@ class UserController extends Controller
         $users = User::filter()->latest()->paginate()->appends(request()->query());
 
         return inertia('Dashboard/Users/Index', compact('users'));
+    }
+
+    public function store(UserRequest $request): RedirectResponse
+    {
+
+        User::create($request->allWithHashedPassword());
+
+        return to_route('dashboard.users.index')->with([
+            'message' => __('users.messages.created'),
+        ]);
+    }
+
+    public function update(UserRequest $request, User $user): RedirectResponse
+    {
+        $user->update($request->allWithHashedPassword());
+
+        return to_route('dashboard.users.index')->with([
+            'message' => __('users.messages.updated'),
+        ]);
     }
 
     public function destroy(User $user): RedirectResponse

@@ -6,7 +6,7 @@ import { useForm } from '@/plugins/useForm.js';
 
 export function useCrud({ items: initialItems = [], resourceUrl, resourceName }) {
     const page = usePage();
-    const items = initialItems;
+    let items = initialItems;
     const selected = ref([]);
     const form = useForm();
     const loading = ref(false);
@@ -111,9 +111,9 @@ export function useCrud({ items: initialItems = [], resourceUrl, resourceName })
         });
     };
 
-    const selectAll = (checked) => {
+    const selectAll = (checked, excepts = []) => {
         if (checked) {
-            selected.value = items.value.data.map((user) => user.id);
+            selected.value = items.value.data.filter(user => !excepts.includes(user.id)).map((user) => user.id);
         } else {
             selected.value = [];
         }

@@ -16,6 +16,7 @@
         "@vitejs/plugin-vue": "^6.0.1",
         "@vue/server-renderer": "^3.5.22",
         "axios": "^1.9.0",
+        "bootstrap": "^5.3.8",
         "boxicons": "^2.1.4",
         "datatables.net-bs5": "^2.3.4",
         "eslint": "^9.28.0",

@@ -10,4 +10,7 @@ return [
         'dark' => 'Dark',
         'system' => 'System',
     ],
+    'save' => 'Save',
+    'saving' => 'Saving',
+    'cancel' => 'Cancel',
 ];
