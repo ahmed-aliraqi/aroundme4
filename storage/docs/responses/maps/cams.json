@@ -1,0 +1,1611 @@
+{
+    "type": "FeatureCollection",
+    "name": "Khobar_Cams",
+    "crs": {
+        "type": "name",
+        "properties": {
+            "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+        }
+    },
+    "xy_coordinate_resolution": 1e-08,
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 80,
+                "X": 50.217354032300001,
+                "Y": 26.301687443900001
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.21735403,
+                    26.30168744
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 80,
+                "X": 50.217181221700002,
+                "Y": 26.301386296299999
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.21718122,
+                    26.3013863
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Speed Cameras",
+                "Speed": 80,
+                "X": 50.2168062808,
+                "Y": 26.3165429855
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.21680628,
+                    26.31654299
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Speed Cameras",
+                "Speed": 80,
+                "X": 50.216606768200002,
+                "Y": 26.316523173499998
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.21660677,
+                    26.31652317
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 80,
+                "X": 50.217413401199998,
+                "Y": 26.3014717376
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.2174134,
+                    26.30147174
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 80,
+                "X": 50.2174447075,
+                "Y": 26.301247124900001
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.21744471,
+                    26.30124712
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Speed Cameras",
+                "Speed": 90,
+                "X": 50.2137407102,
+                "Y": 26.330475637799999
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.21374071,
+                    26.33047564
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Speed Cameras",
+                "Speed": 90,
+                "X": 50.2136247539,
+                "Y": 26.330453892400001
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.21362475,
+                    26.33045389
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Seat Belt Cameras/ Poles",
+                "Speed": 70,
+                "X": 50.226307587000001,
+                "Y": 26.3093401396
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.22630759,
+                    26.30934014
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 80,
+                "X": 50.179895483400003,
+                "Y": 26.332778828799999
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.17989548,
+                    26.33277883
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 50,
+                "X": 50.178510822600003,
+                "Y": 26.332626807600001
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.17851082,
+                    26.33262681
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 80,
+                "X": 50.178321388299999,
+                "Y": 26.332334248900001
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.17832139,
+                    26.33233425
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 50,
+                "X": 50.179767054700001,
+                "Y": 26.3324484818
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.17976705,
+                    26.33244848
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 60,
+                "X": 50.204681948000001,
+                "Y": 26.263254761500001
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.20468195,
+                    26.26325476
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 60,
+                "X": 50.204846482900003,
+                "Y": 26.263435941899999
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.20484648,
+                    26.26343594
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 80,
+                "X": 50.2046547,
+                "Y": 26.263422407
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.2046547,
+                    26.26342241
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 80,
+                "X": 50.204871221700003,
+                "Y": 26.263242773999998
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.20487122,
+                    26.26324277
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 80,
+                "X": 50.189130028699999,
+                "Y": 26.2866900209
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.18913003,
+                    26.28669002
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 80,
+                "X": 50.1893932252,
+                "Y": 26.286545064599999
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.18939323,
+                    26.28654506
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 80,
+                "X": 50.189352773300001,
+                "Y": 26.286001681399998
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.18935277,
+                    26.28600168
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 80,
+                "X": 50.189615352600001,
+                "Y": 26.2858523172
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.18961535,
+                    26.28585232
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Speed Cameras",
+                "Speed": 110,
+                "X": 50.184002993900002,
+                "Y": 26.275110813800001
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.18400299,
+                    26.27511081
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Seat Belt Cameras/ Poles",
+                "Speed": 110,
+                "X": 50.193340896800002,
+                "Y": 26.2556944305
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.1933409,
+                    26.25569443
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 50,
+                "X": 50.197660151800001,
+                "Y": 26.249589267699999
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.19766015,
+                    26.24958927
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 60,
+                "X": 50.197560768000002,
+                "Y": 26.249495476
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.19756077,
+                    26.24949548
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 50,
+                "X": 50.196574010799999,
+                "Y": 26.248937959100001
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.19657401,
+                    26.24893796
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 60,
+                "X": 50.196690111800002,
+                "Y": 26.248931985500001
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.19669011,
+                    26.24893199
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 110,
+                "X": 50.1935926823,
+                "Y": 26.255754137
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.19359268,
+                    26.25575414
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 110,
+                "X": 50.193405600399998,
+                "Y": 26.255614789500001
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.1934056,
+                    26.25561479
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Seat Belt Cameras/ Poles",
+                "Speed": 110,
+                "X": 50.193536245200001,
+                "Y": 26.255831501399999
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.19353625,
+                    26.2558315
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 80,
+                "X": 50.202764885900002,
+                "Y": 26.2499930442
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.20276489,
+                    26.24999304
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 80,
+                "X": 50.203039846000003,
+                "Y": 26.249920566
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.20303985,
+                    26.24992057
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 80,
+                "X": 50.202828433800001,
+                "Y": 26.250037610100001
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.20282843,
+                    26.25003761
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 80,
+                "X": 50.200027457600001,
+                "Y": 26.336772545199999
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.20002746,
+                    26.33677255
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 80,
+                "X": 50.1997332567,
+                "Y": 26.3364323389
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.19973326,
+                    26.33643234
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 80,
+                "X": 50.199810387,
+                "Y": 26.336646485
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.19981039,
+                    26.33664649
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 80,
+                "X": 50.199964208899999,
+                "Y": 26.336544245500001
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.19996421,
+                    26.33654425
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Mobile Camera",
+                "Speed": 80,
+                "X": 50.2091149074,
+                "Y": 26.3187075867
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.20911491,
+                    26.31870759
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 80,
+                "X": 50.223980766700002,
+                "Y": 26.3095662938
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.22398077,
+                    26.30956629
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 80,
+                "X": 50.223770077300003,
+                "Y": 26.3091070543
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.22377008,
+                    26.30910705
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 70,
+                "X": 50.223704649399998,
+                "Y": 26.309388948199999
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.22370465,
+                    26.30938895
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 70,
+                "X": 50.224108935499999,
+                "Y": 26.3092446932
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.22410894,
+                    26.30924469
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Speed Cameras",
+                "Speed": 80,
+                "X": 50.194040450300001,
+                "Y": 26.335527355899998
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.19404045,
+                    26.33552736
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Speed Cameras",
+                "Speed": 80,
+                "X": 50.194076084899997,
+                "Y": 26.335400911800001
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.19407608,
+                    26.33540091
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 80,
+                "X": 50.201860977000003,
+                "Y": 26.303899340200001
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.20186098,
+                    26.30389934
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 80,
+                "X": 50.201554825099997,
+                "Y": 26.303821348300001
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.20155483,
+                    26.30382135
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 60,
+                "X": 50.201748332999998,
+                "Y": 26.303738332999998
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.20174833,
+                    26.30373833
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 60,
+                "X": 50.201657757200003,
+                "Y": 26.3039983002
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.20165776,
+                    26.3039983
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 80,
+                "X": 50.2013541285,
+                "Y": 26.3038544345
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.20135413,
+                    26.30385443
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 60,
+                "X": 50.201725437,
+                "Y": 26.303604083700002
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.20172544,
+                    26.30360408
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 80,
+                "X": 50.2020048742,
+                "Y": 26.303875610599999
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.20200487,
+                    26.30387561
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 60,
+                "X": 50.201684633,
+                "Y": 26.304137167
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.20168463,
+                    26.30413717
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Seat Belt Cameras/ Poles",
+                "Speed": 90,
+                "X": 50.2087409194,
+                "Y": 26.185429566500002
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.20874092,
+                    26.18542957
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Seat Belt Cameras/ Poles",
+                "Speed": 90,
+                "X": 50.2088134981,
+                "Y": 26.185368398600001
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.2088135,
+                    26.1853684
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Speed Cameras",
+                "Speed": 110,
+                "X": 50.206060668799999,
+                "Y": 26.325097518
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.20606067,
+                    26.32509752
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Speed Cameras",
+                "Speed": 110,
+                "X": 50.160522618100003,
+                "Y": 26.386301604500002
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.16052262,
+                    26.3863016
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Speed Cameras",
+                "Speed": 100,
+                "X": 50.121392383600003,
+                "Y": 26.1993532764
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.12139238,
+                    26.19935328
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 100,
+                "X": 50.121922921399999,
+                "Y": 26.188653385799999
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.12192292,
+                    26.18865339
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 100,
+                "X": 50.121774378300003,
+                "Y": 26.188651369
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.12177438,
+                    26.18865137
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 50,
+                "X": 50.121848351600001,
+                "Y": 26.188459835100002
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.12184835,
+                    26.18845984
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Seat Belt Cameras/ Poles",
+                "Speed": 80,
+                "X": 50.210978927799999,
+                "Y": 26.2749599994
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.21097893,
+                    26.27496
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Seat Belt Cameras/ Poles",
+                "Speed": 50,
+                "X": 50.214262939800001,
+                "Y": 26.330648770300002
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.21426294,
+                    26.33064877
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Seat Belt Cameras/ Poles",
+                "Speed": 50,
+                "X": 50.214278428900002,
+                "Y": 26.330573682000001
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.21427843,
+                    26.33057368
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Seat Belt Cameras/ Poles",
+                "Speed": 80,
+                "X": 50.197186789699998,
+                "Y": 26.2840430814
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.19718679,
+                    26.28404308
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Seat Belt Cameras/ Poles",
+                "Speed": 80,
+                "X": 50.197081308500003,
+                "Y": 26.283948003300001
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.19708131,
+                    26.283948
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Seat Belt Cameras/ Poles",
+                "Speed": 100,
+                "X": 50.214915771100003,
+                "Y": 26.244455708099999
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.21491577,
+                    26.24445571
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Speed Cameras",
+                "Speed": 80,
+                "X": 50.218715232599997,
+                "Y": 26.261626943
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.21871523,
+                    26.26162694
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Speed Cameras",
+                "Speed": 80,
+                "X": 50.2188547075,
+                "Y": 26.261576917599999
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.21885471,
+                    26.26157692
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Seat Belt Cameras/ Poles",
+                "Speed": 80,
+                "X": 50.2264336016,
+                "Y": 26.329640807000001
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.2264336,
+                    26.32964081
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Seat Belt Cameras/ Poles",
+                "Speed": 80,
+                "X": 50.226295732200001,
+                "Y": 26.329599460200001
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.22629573,
+                    26.32959946
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Seat Belt Cameras/ Poles",
+                "Speed": 80,
+                "X": 50.219484393800002,
+                "Y": 26.257000687200001
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.21948439,
+                    26.25700069
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Seat Belt Cameras/ Poles",
+                "Speed": 80,
+                "X": 50.219366803,
+                "Y": 26.2569807269
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.2193668,
+                    26.25698073
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 100,
+                "X": 50.111921650799999,
+                "Y": 26.159359548099999
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.11192165,
+                    26.15935955
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 100,
+                "X": 50.1119029316,
+                "Y": 26.1590095713
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.11190293,
+                    26.15900957
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 100,
+                "X": 50.1123528902,
+                "Y": 26.159210783599999
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.11235289,
+                    26.15921078
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 100,
+                "X": 50.111548665100003,
+                "Y": 26.1591326263
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.11154867,
+                    26.15913263
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Seat Belt Cameras/ Poles",
+                "Speed": 70,
+                "X": 50.195249956600001,
+                "Y": 26.312749508300001
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.19524996,
+                    26.31274951
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Seat Belt Cameras/ Poles",
+                "Speed": 70,
+                "X": 50.195158897600002,
+                "Y": 26.312298440900001
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.1951589,
+                    26.31229844
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Speed Cameras",
+                "Speed": 60,
+                "X": 50.172372552200002,
+                "Y": 26.302778427900002
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.17237255,
+                    26.30277843
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Speed Cameras",
+                "Speed": 100,
+                "X": 50.172905698199997,
+                "Y": 26.303851990599998
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.1729057,
+                    26.30385199
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Seat Belt Cameras/ Poles",
+                "Speed": 80,
+                "X": 50.213489431699998,
+                "Y": 26.279982602899999
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.21348943,
+                    26.2799826
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Seat Belt Cameras/ Poles",
+                "Speed": 80,
+                "X": 50.213358688,
+                "Y": 26.279774816300002
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.21335869,
+                    26.27977482
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 80,
+                "X": 50.191526421699997,
+                "Y": 26.281066703600001
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.19152642,
+                    26.2810667
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 80,
+                "X": 50.191750032900003,
+                "Y": 26.280845044700001
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.19175003,
+                    26.28084504
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 50,
+                "X": 50.1915406277,
+                "Y": 26.280854889800001
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.19154063,
+                    26.28085489
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 50,
+                "X": 50.1917432013,
+                "Y": 26.281055932400001
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.1917432,
+                    26.28105593
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 80,
+                "X": 50.193584922100001,
+                "Y": 26.276223642200002
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.19358492,
+                    26.27622364
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 80,
+                "X": 50.193597633700001,
+                "Y": 26.276020641799999
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.19359763,
+                    26.27602064
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 80,
+                "X": 50.193821741599997,
+                "Y": 26.276008655999998
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.19382174,
+                    26.27600866
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 80,
+                "X": 50.1938503991,
+                "Y": 26.276239182000001
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.1938504,
+                    26.27623918
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 80,
+                "X": 50.195634290400001,
+                "Y": 26.271433652100001
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.19563429,
+                    26.27143365
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 80,
+                "X": 50.1956493291,
+                "Y": 26.271199235299999
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.19564933,
+                    26.27119924
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 80,
+                "X": 50.195908197500003,
+                "Y": 26.2711332712
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.1959082,
+                    26.27113327
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "Id": 0,
+                "Type": "Signal Cameras",
+                "Speed": 80,
+                "X": 50.195915864699998,
+                "Y": 26.2714228004
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.19591586,
+                    26.2714228
+                ]
+            }
+        }
+    ]
+}

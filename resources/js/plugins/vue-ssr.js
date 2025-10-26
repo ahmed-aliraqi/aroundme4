@@ -9,6 +9,7 @@ import createServer from '@inertiajs/vue3/server';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, h } from 'vue';
 import SweetAlert from '@/plugins/sweetalert.js';
+import MapsPlugin from '@/plugins/maps.js';
 
 
 createServer((page) =>
@@ -40,6 +41,7 @@ createServer((page) =>
                 })
                 .use(Vuex)
                 .use(Auth)
+                .use(MapsPlugin)
                 .use(SweetAlert)
                 .provide('$locale', Locale)
                 .provide('$axios', Axios)

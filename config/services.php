@@ -35,4 +35,13 @@ return [
         ],
     ],
 
+    'maps' => [
+        'key' => env('MAPS_KEY'),
+        'reverse_geocoding_external_api' => env(
+            'MAPS_REVERSE_GEOCODING_EXTERNAL_API',
+            'https://api2.thtc.ae/api/mt/map/?lang=ar&cnt=ksa&ser=1&tkey=API_KEY&q=traffic'
+        ),
+        'style' => env('MAPS_STYLE', 'https://ksamaps.com/api/style?lang=ar&key='.env('MAPS_KEY')),
+        'geo_search' => env('MAPS_GEO_SEARCH', 'https://ksamaps.com/api/geosearch?key='.env('MAPS_KEY')),
+    ],
 ];

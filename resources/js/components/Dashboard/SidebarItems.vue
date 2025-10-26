@@ -2,9 +2,7 @@
     import SidebarHead from '@/components/Dashboard/SidebarHead.vue';
     import SidebarLink from '@/components/Dashboard/SidebarLink.vue';
     import UserGroupIcon from '@/components/Svgs/UserGroupIcon.vue';
-    import PoisIcon from '@/components/Svgs/PoisIcon.vue';
-    import PoiRequestsIcon from '@/components/Svgs/PoiRequestsIcon.vue';
-    import BusinessRequestsIcon from '@/components/Svgs/BusinessRequestsIcon.vue';
+    import CalendarIcon from '@/components/Svgs/CalendarIcon.vue';
     import { route } from 'ziggy-js';
     import { usePage } from '@inertiajs/vue3';
 
@@ -26,34 +24,16 @@
             </template>
         </SidebarLink>
         <SidebarHead>{{ $t('sidebar.services') }}</SidebarHead>
+        <SidebarLink
+            :label="$t('events.plural')"
+            :href="route('dashboard.events.index')"
+            :active="['Dashboard/Events/Index'].includes(page.component)"
+        >
+            <template #svg>
+                <CalendarIcon width="20" height="20" class="me-2"></CalendarIcon>
+            </template>
+        </SidebarLink>
 
-        <SidebarLink
-            :label="$t('sidebar.pois')"
-            :href="route('dashboard.pois.index')"
-            :active="['Dashboard/Pois/Index'].includes(page.component)"
-        >
-            <template #svg>
-                <PoisIcon width="20" height="20" class="me-2"></PoisIcon>
-            </template>
-        </SidebarLink>
-        <SidebarLink
-            :label="$t('sidebar.poi_requests')"
-            :href="route('dashboard.poi_requests.index')"
-            :active="['Dashboard/PoiRequests/Index'].includes(page.component)"
-        >
-            <template #svg>
-                <PoiRequestsIcon width="20" height="20" class="me-2"></PoiRequestsIcon>
-            </template>
-        </SidebarLink>
-        <SidebarLink
-            :label="$t('sidebar.business_requests')"
-            :href="route('dashboard.business_requests.index')"
-            :active="['Dashboard/BusinessRequests/Index'].includes(page.component)"
-        >
-            <template #svg>
-                <BusinessRequestsIcon width="20" height="20" class="me-2"></BusinessRequestsIcon>
-            </template>
-        </SidebarLink>
     </ul>
 </template>
 

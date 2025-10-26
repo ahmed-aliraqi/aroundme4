@@ -5,12 +5,9 @@
     import { onMounted, ref, watch } from 'vue';
     import BsInput from '@/components/Form/BsInput.vue';
     import BsInputPhone from '@/components/Form/BsInputPhone.vue';
-    import UserStarIcon from '@/components/Svgs/UserStarIcon.vue';
-    import UserSettingsIcon from '@/components/Svgs/UserSettingsIcon.vue';
-    import UserIcon from '@/components/Svgs/UserIcon.vue';
     import { router, usePage } from '@inertiajs/vue3';
 
-    defineOptions({ name: 'UserEditModal' });
+    defineOptions({ name: 'EventEditModal' });
 
     const emit = defineEmits(['closeModal'])
 
@@ -47,7 +44,7 @@
             return;
         }
 
-        form.put(route('dashboard.users.update', props.item), {
+        form.put(route('dashboard.events.update', props.item), {
             onFinish: () => {
                 closeModal()
                 form.reset();
@@ -87,7 +84,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" :id="`item-update-label${item.id}`">
-                        {{ $t('users.actions.edit') }}
+                        {{ $t('events.actions.edit') }}
                     </h5>
                     <button
                         type="button"
@@ -98,89 +95,28 @@
                 <div class="modal-body">
                     <form action="" @submit.prevent="submit" :id="`update-form${item.id}`">
                         <BsInput
-                            resource="users"
+                            resource="events"
                             type="text"
                             name="name"
                             v-model="form.name"
                             :error="form.errors.name"
                         ></BsInput>
                         <BsInput
-                            resource="users"
+                            resource="events"
                             type="text"
                             name="email"
                             v-model="form.email"
                             :error="form.errors.email"
                         ></BsInput>
                         <BsInputPhone
-                            resource="users"
+                            resource="events"
                             name="phone"
                             v-model="form.phone"
                             :error="form.errors.phone"
                         ></BsInputPhone>
-                        <div class="row" v-if="page.props.auth.user?.id !== item.id">
-                            <div class="col-4">
-                                <div class="form-check custom-option custom-option-icon" :class="{checked: form.type === 'ADMIN'}">
-                                    <label
-                                        class="form-check-label custom-option-content"
-                                    >
-                                        <span class="custom-option-body">
-                                            <UserStarIcon width="28" height="28"></UserStarIcon>
-                                            <span class="custom-option-title">
-                                                {{ $t('users.types.ADMIN') }}
-                                            </span>
-                                        </span>
-                                        <input
-                                            v-model="form.type"
-                                            class="form-check-input"
-                                            type="radio"
-                                            value="ADMIN"
-                                        />
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="form-check custom-option custom-option-icon" :class="{checked: form.type === 'USER'}">
-                                    <label class="form-check-label custom-option-content">
-                                        <span class="custom-option-body">
-                                            <UserSettingsIcon
-                                                width="28"
-                                                height="28"
-                                            ></UserSettingsIcon>
-                                            <span class="custom-option-title">
-                                                {{ $t('users.types.USER') }}
-                                            </span>
-                                        </span>
-                                        <input
-                                            v-model="form.type"
-                                            class="form-check-input"
-                                            type="radio"
-                                            value="USER"
-                                        />
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="form-check custom-option custom-option-icon" :class="{checked: form.type === 'APP_USER'}">
-                                    <label class="form-check-label custom-option-content">
-                                        <span class="custom-option-body">
-                                            <UserIcon width="28" height="28"></UserIcon>
-                                            <span class="custom-option-title">
-                                                {{ $t('users.types.APP_USER') }}
-                                            </span>
-                                        </span>
-                                        <input
-                                            v-model="form.type"
-                                            class="form-check-input"
-                                            type="radio"
-                                            value="APP_USER"
-                                        />
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
 
                         <BsInput
-                            resource="users"
+                            resource="events"
                             type="password"
                             name="password"
                             v-model="form.password"
@@ -188,7 +124,7 @@
                         ></BsInput>
 
                         <BsInput
-                            resource="users"
+                            resource="events"
                             type="password"
                             name="password_confirmation"
                             v-model="form.password_confirmation"

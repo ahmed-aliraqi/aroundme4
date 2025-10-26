@@ -2,10 +2,12 @@ import { ref, onBeforeMount, onMounted } from 'vue';
 
 export type ThemeMode = 'light' | 'dark' | 'system';
 
-export function useTheme() {
-    const theme = ref<ThemeMode>('light');
+const theme = ref<ThemeMode>('light');
 
-    const pageLoaded = ref<boolean>(false);
+const pageLoaded = ref<boolean>(false);
+const resolvedMode = ref<string>('');
+
+export function useTheme() {
     function resolveMode(mode: ThemeMode): Exclude<ThemeMode, 'system'> {
         if (mode === 'system') {
             return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
@@ -50,6 +52,8 @@ export function useTheme() {
         html.classList.add(resolved + '-style');
 
         pageLoaded.value = true;
+
+        resolvedMode.value = resolved;
     }
 
     onMounted(() => {
@@ -58,5 +62,5 @@ export function useTheme() {
         applyTheme(saved);
     });
 
-    return { theme, applyTheme, resolveMode, pageLoaded};
+    return { theme, applyTheme, resolvedMode, resolveMode, pageLoaded};
 }

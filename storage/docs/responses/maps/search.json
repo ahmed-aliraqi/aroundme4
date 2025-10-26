@@ -1,0 +1,122 @@
+[
+    {
+        "name": "Jeddah South Traffic Department",
+        "full_address": "Madaien Al Fahad, Jeddah",
+        "lat": "21.456904",
+        "long": "39.243959",
+        "pages": "3",
+        "type": "3",
+        "dis_meters": "0",
+        "country": "KSA"
+    },
+    {
+        "name": "Jeddah Traffic Department",
+        "full_address": "Al Salamah, Jeddah",
+        "lat": "21.583898",
+        "long": "39.149544",
+        "pages": "3",
+        "type": "3",
+        "dis_meters": "0",
+        "country": "KSA"
+    },
+    {
+        "name": "Al Diriyah Governorate Traffic Department",
+        "full_address": "Al Faisaliyah, Al Diriyah",
+        "lat": "24.738983",
+        "long": "46.579397",
+        "pages": "3",
+        "type": "3",
+        "dis_meters": "0",
+        "country": "KSA"
+    },
+    {
+        "name": "Jeddah East Traffic Department",
+        "full_address": "Al Safa, Jeddah",
+        "lat": "21.573492",
+        "long": "39.225007",
+        "pages": "3",
+        "type": "3",
+        "dis_meters": "0",
+        "country": "KSA"
+    },
+    {
+        "name": "Traffic Department - License Section Middle Jeddah",
+        "full_address": "Al Bawadi, Jeddah",
+        "lat": "21.593009",
+        "long": "39.161732",
+        "pages": "3",
+        "type": "3",
+        "dis_meters": "0",
+        "country": "KSA"
+    },
+    {
+        "name": "Accident Traffic Department",
+        "full_address": "Al Jamiah, Makkah Al Mukarramah",
+        "lat": "21.396318",
+        "long": "39.866088",
+        "pages": "3",
+        "type": "3",
+        "dis_meters": "0",
+        "country": "KSA"
+    },
+    {
+        "name": "Airport Traffic Police",
+        "full_address": "King Khaled Airport Neighborhood, Riyadh",
+        "lat": "24.941273",
+        "long": "46.712838",
+        "pages": "3",
+        "type": "3",
+        "dis_meters": "0",
+        "country": "KSA"
+    },
+    {
+        "name": "Al Ahmadi Traffic Safety Equipment",
+        "full_address": "Al Nazla Al Sharqiya, Jeddah",
+        "lat": "21.480376",
+        "long": "39.215222",
+        "pages": "3",
+        "type": "3",
+        "dis_meters": "0",
+        "country": "KSA"
+    },
+    {
+        "name": "Al Badaya Traffic Police Department",
+        "full_address": "Al Nakhil, Al Badai",
+        "lat": "25.982723",
+        "long": "43.738117",
+        "pages": "3",
+        "type": "3",
+        "dis_meters": "0",
+        "country": "KSA"
+    },
+    {
+        "name": "Al Ber Traffic unit",
+        "full_address": "Bir Ibn Harmas",
+        "lat": "28.857154",
+        "long": "36.255642",
+        "pages": "3",
+        "type": "3",
+        "dis_meters": "0",
+        "country": "KSA"
+    },
+    {
+        "name": "Al Bukayriyah Traffic Police",
+        "full_address": "Al Muhammadiyah Subdivision, Al Bukairiyah",
+        "lat": "26.129029",
+        "long": "43.6455",
+        "pages": "3",
+        "type": "3",
+        "dis_meters": "0",
+        "country": "KSA"
+    },
+    {
+        "name": "Al Delam Traffic Police",
+        "full_address": "Al Dulum",
+        "lat": "23.993167",
+        "long": "47.166087",
+        "pages": "3",
+        "type": "3",
+        "dis_meters": "0",
+        "country": "KSA"
+    }
+]
